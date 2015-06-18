@@ -1,9 +1,0 @@
-C:\Projects\Miscellaneous\C Sharp Library\Unit Tests\bin\Release\Unit Tests.dll
-C:\Projects\Miscellaneous\C Sharp Library\Unit Tests\bin\Release\Unit Tests.pdb
-C:\Projects\Miscellaneous\C Sharp Library\Unit Tests\bin\Release\DPM.dll
-C:\Projects\Miscellaneous\C Sharp Library\Unit Tests\bin\Release\CbtHook.dll
-C:\Projects\Miscellaneous\C Sharp Library\Unit Tests\bin\Release\WindowsHook.dll
-C:\Projects\Miscellaneous\C Sharp Library\Unit Tests\bin\Release\XInclude.dll
-C:\Projects\Miscellaneous\C Sharp Library\Unit Tests\obj\Release\Unit Tests.csprojResolveAssemblyReference.cache
-C:\Projects\Miscellaneous\C Sharp Library\Unit Tests\obj\Release\Unit Tests.dll
-C:\Projects\Miscellaneous\C Sharp Library\Unit Tests\obj\Release\Unit Tests.pdb
