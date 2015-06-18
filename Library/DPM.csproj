@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{078EA7C0-7EE8-4D51-9421-8EEDC779ACBB}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>DPM</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DigitalProduction</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\DPMCSharpLibrary.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\DPMCSharpLibrary.xml</DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CbtHook">
+      <HintPath>..\References\CbtHook.dll</HintPath>
+    </Reference>
+    <Reference Include="Plossum CommandLine">
+      <HintPath>..\References\Plossum CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Thor.Units">
+      <HintPath>..\References\Thor.Units.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsHook">
+      <HintPath>..\References\WindowsHook.dll</HintPath>
+    </Reference>
+    <Reference Include="XInclude">
+      <HintPath>..\References\XInclude.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Algorithms\Algorithms.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\AliasAttribute.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Forms\AbstractControlDescriptionProvider.cs" />
+    <Compile Include="IO\DriveType.cs" />
+    <Compile Include="IO\ValidFileNameResult.cs" />
+    <Compile Include="Numerics\Precision.cs" />
+    <Compile Include="Numerics\PrecisionSettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\RevertibleList.cs" />
+    <Compile Include="ComponentModel\IRevertible.cs" />
+    <Compile Include="DataBase\DataBaseAccess.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Drawing\DPMGraphics.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Drawing\Text.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutForm1.Designer.cs">
+      <DependentUpon>AboutForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ExtendedDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\DPMProgressableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FileSelect.cs" />
+    <Compile Include="Forms\MessageBoxManager.cs" />
+    <Compile Include="Forms\MessageBoxYesNoToAll.cs" />
+    <Compile Include="Forms\MessageBoxYesNoToAllForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MessageBoxYesNoToAllForm.Designer.cs">
+      <DependentUpon>MessageBoxYesNoToAllForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProgressDialog.Designer.cs">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RecentFilesList.cs" />
+    <Compile Include="Forms\NumericTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\NumericTextBox.Designer.cs">
+      <DependentUpon>NumericTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gaming\PlayerBase.cs" />
+    <Compile Include="Gaming\Shoe.cs" />
+    <Compile Include="Generic\MappingMatrix.cs" />
+    <Compile Include="Math.cs" />
+    <Compile Include="Reflection\Attributes.cs" />
+    <Compile Include="Reflection\Enumerations.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\DPMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FolderSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MessageBoxDNS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\StatusBarWithProgress.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\WindowFollower.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\WindowStateManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Gaming\Card.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Gaming\CardsDLLAccess.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IO\Path.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Generic\ObjectFactory.cs" />
+    <Compile Include="Reflection\Assembly.cs" />
+    <Compile Include="Registry\RegistryEntry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Registry\WinRegistryAccess.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XML\Attribute.cs" />
+    <Compile Include="XML\AttributeEnumerator.cs" />
+    <Compile Include="XML\AttributeList.cs" />
+    <Compile Include="XML\Serialization\SerializableSortedList.cs" />
+    <Compile Include="XML\IXMLPushReader.cs" />
+    <Compile Include="XML\Serialization\SerializableDictionary.cs" />
+    <Compile Include="XML\Serialization\SerializableKeyValuePair.cs" />
+    <Compile Include="XML\Serialization\Serialization.cs" />
+    <Compile Include="XML\Serialization\SerializationSettings.cs" />
+    <Compile Include="XML\Serialization\XmlTextWriterFull.cs" />
+    <Compile Include="XML\XMLHandler.cs" />
+    <Compile Include="XML\XMLHandlerList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XML\XMLTextProcessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="Notes and To Do.txt" />
+    <None Include="Revision History.doc" />
+    <EmbeddedResource Include="Forms\AboutForm1.resx" />
+    <EmbeddedResource Include="Forms\DPMForm.resx">
+      <DependentUpon>DPMForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FolderSelect.resx">
+      <DependentUpon>FolderSelect.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MessageBoxYesNoToAllForm.resx">
+      <DependentUpon>MessageBoxYesNoToAllForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProgressDialog.resx">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StatusBarWithProgress.resx">
+      <DependentUpon>StatusBarWithProgress.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="License.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties UseXPTheme="FALSE" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

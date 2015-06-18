@@ -1,0 +1,9 @@
+Add try-catch blocks to convertions in GetValue functions in WinRegistryAccess class.
+
+Can RegistryEntry be improved to provide the same functionality as GetValue in WinRegistryAccess?
+
+Remove the DPM in front of the class names.
+
+Is DPMException necessary / does it provide some functionality a standard exception does not?
+
+Create a class for getting attributes, assembly titles, et cetera by using reflection.
