@@ -52,7 +52,7 @@ namespace DigitalProduction.Generic
 		/// <param name="activekeys">List of active keys, in the order that they are contained in the data.</param>
 		public MappingMatrix(List<KeyType> activekeys)
 		{
-			_numberofkeys		= Reflection.EnumUtils.NumberOfDefinedItems<KeyType>();
+			_numberofkeys		= Reflection.Enumerations.NumberOfDefinedItems<KeyType>();
 			_activekeys			= new List<KeyType>(activekeys);
 			_numberofactivekeys	= _activekeys.Count;
 			_map				= new int[_numberofkeys];

@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace DigitalProduction.Forms
 {
@@ -204,6 +205,12 @@ namespace DigitalProduction.Forms
 			dialog.RestoreDirectory = false;
 			dialog.Filter			= filter;
 			dialog.FilterIndex		= 1;
+			dialog.AddExtension		= true;
+
+			//// Set the default extension as the first extension in the filter string.
+			//Regex regex = new Regex(@"(?<Name>[^|]*)\|(?<Extension>[^|]*)\|?");
+			//MatchCollection matches = regex.Matches(filter);
+			//dialog.DefaultExt		= matches[0].Groups["Extension"].Value;
 
 			// Start in the same directory that the previous file was in (if the file and directory exist).
 			if (initialdirectory != "" && System.IO.Directory.Exists(initialdirectory))

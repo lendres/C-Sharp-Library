@@ -245,7 +245,6 @@
       <SubType>Code</SubType>
     </Compile>
     <None Include="Notes and To Do.txt" />
-    <None Include="Revision History.doc" />
     <EmbeddedResource Include="Forms\AboutForm1.resx" />
     <EmbeddedResource Include="Forms\DPMForm.resx">
       <DependentUpon>DPMForm.cs</DependentUpon>

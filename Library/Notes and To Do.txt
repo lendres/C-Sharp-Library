@@ -1,4 +1,4 @@
-Add try-catch blocks to convertions in GetValue functions in WinRegistryAccess class.
+Add try-catch blocks to conversions in GetValue functions in WinRegistryAccess class.
 
 Can RegistryEntry be improved to provide the same functionality as GetValue in WinRegistryAccess?
 

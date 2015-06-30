@@ -133,7 +133,7 @@ namespace DigitalProduction.Reflection
 			return description;
 		}
 
-				/// <summary>
+		/// <summary>
 		/// Gets a list of names provided by the Alias attribute.
 		/// </summary>
 		/// <param name="instance">Instance of the object to retrieve the aliases from.</param>
