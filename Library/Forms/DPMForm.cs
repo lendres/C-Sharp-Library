@@ -21,7 +21,7 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public class DPMForm : System.Windows.Forms.Form
 	{
-		#region Members / Variables / Delegates.
+		#region Members
 
 		/// <summary>
 		/// Template for install functions.
@@ -39,7 +39,7 @@ namespace DigitalProduction.Forms
 		private readonly bool						_ischildform;
 
 		private readonly WindowStateManager			_windowstatemanager;
-		private readonly WinRegistryAccess			_winregaccess;
+		private readonly FormWinRegistryAccess		_winregaccess;
 
 		#endregion
 
@@ -60,7 +60,7 @@ namespace DigitalProduction.Forms
 			_appname		= applicationname;
 			_ischildform	= false;
 
-			_winregaccess		= new WinRegistryAccess(this);
+			_winregaccess		= new FormWinRegistryAccess(this);
 			_windowstatemanager	= new WindowStateManager(_winregaccess);
 		}
 
@@ -77,7 +77,7 @@ namespace DigitalProduction.Forms
 			_appname		= applicationname;
 			_ischildform	= false;
 
-			_winregaccess		= new WinRegistryAccess(this);
+			_winregaccess		= new FormWinRegistryAccess(this);
 			_windowstatemanager	= new WindowStateManager(_winregaccess);
 		}
 
@@ -92,7 +92,7 @@ namespace DigitalProduction.Forms
 			_appname		= dialogname;
 			_ischildform	= true;
 
-			_winregaccess		= new WinRegistryAccess(this, owner._winregaccess);
+			_winregaccess		= new FormWinRegistryAccess(this, owner._winregaccess);
 			_windowstatemanager	= new WindowStateManager(_winregaccess);
 		}
 

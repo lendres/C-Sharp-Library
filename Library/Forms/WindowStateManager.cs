@@ -11,9 +11,9 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public class WindowStateManager
 	{
-		#region Members / Variables.
+		#region Members
 
-		private WinRegistryAccess		_registryaccess;	// Access to the registry for the app I am monitoring.
+		private FormWinRegistryAccess	_registryaccess;	// Access to the registry for the app I am monitoring.
 
 		// Windows defines not maximized and not minimized as "normal".  It is these settings we need
 		// to remember.
@@ -28,7 +28,7 @@ namespace DigitalProduction.Forms
 		/// Constructor.
 		/// </summary>
 		/// <param name="regaccess">Registry access for this application.</param>
-		public WindowStateManager(WinRegistryAccess regaccess)
+		public WindowStateManager(FormWinRegistryAccess regaccess)
 		{
 			// Store the registry writer for this application.
 			_registryaccess = regaccess;

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 namespace DigitalProduction.Forms
 {
 	/// <summary>
-	/// Summary not provided for the class FileSelect.
+	/// Helper functions for selecting a file using a dialog box.
 	/// </summary>
 	public static class FileSelect
 	{
@@ -96,7 +96,7 @@ namespace DigitalProduction.Forms
 			dialog.CheckFileExists	= true;
 			dialog.ValidateNames	= true;
 			dialog.Multiselect		= false;
-			dialog.RestoreDirectory = false;
+			dialog.RestoreDirectory = true;
 			dialog.Filter			= filter;
 			dialog.FilterIndex		= 1;
 

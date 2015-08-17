@@ -85,7 +85,9 @@ namespace DigitalProduction.IO
 						return initdir;
 					}
 				}
-				catch {}
+				catch
+				{
+				}
 			}
 
 			return "";
@@ -216,7 +218,7 @@ namespace DigitalProduction.IO
 				foreach (DirectoryInfo subdir in dirs)
 				{
 					// Create the subdirectory.
-                    string temppath = System.IO.Path.Combine(destdirname, subdir.Name);
+					string temppath = System.IO.Path.Combine(destdirname, subdir.Name);
 
 					// Copy the subdirectories.
 					DirectoryCopy(subdir.FullName, temppath, copysubdirs, overwrite, excludedfiles);
@@ -254,7 +256,7 @@ namespace DigitalProduction.IO
 			long returnvalue			= new long();
 
 			returnvalue = GetVolumeInformation(drive, volumename, 256, serialnumber, maxcomponetlength, systemflags, systemname, 256);
-            
+			
 			if (returnvalue != 0)
 			{
 				return volumename.ToString();
@@ -288,7 +290,7 @@ namespace DigitalProduction.IO
 		public static ValidFileNameResult IsValidFileName(string file, ValidFileNameOptions options)
 		{
 			file = file.Trim();
-            string filename = System.IO.Path.GetFileName(file);
+			string filename = System.IO.Path.GetFileName(file);
 
 			// A file name was not provided.
 			if (filename.Length == 0)
@@ -317,7 +319,7 @@ namespace DigitalProduction.IO
 			// If the path is required to exist, we will check that now.
 			if (options.RequirePathToExist)
 			{
-                string path = System.IO.Path.GetDirectoryName(file);
+				string path = System.IO.Path.GetDirectoryName(file);
 				if (!Directory.Exists(path))
 				{
 					return ValidFileNameResult.PathDoesNotExist;
@@ -337,7 +339,7 @@ namespace DigitalProduction.IO
 				"COM8",		"COM9",	"LPT1",	"LPT2",	"LPT3",	"LPT4",	"LPT5",	"LPT6",	"LPT7",	"LPT8",	"LPT9"
 			};
 
-            string filenamenoextension = System.IO.Path.GetFileNameWithoutExtension(filename);
+			string filenamenoextension = System.IO.Path.GetFileNameWithoutExtension(filename);
 			foreach (string name in devicenames)
 			{
 				// If the file name is shorter or longer than the device name, it is ok.

@@ -44,7 +44,7 @@ namespace DigitalProduction.Forms
 		private ToolStripMenuItem				mnuParent;
 
 		// Registry access to allow automatic saving of settings.
-		private WinRegistryAccess				_registryaccess									= null;
+		private FormWinRegistryAccess			_registryaccess									= null;
 
 		private bool							_removenotfoundfiles							= true;
 
@@ -94,7 +94,7 @@ namespace DigitalProduction.Forms
 		/// <param name="fileclickcallback">The call back function (delegate) to receive the path displayed on the control.</param>
 		/// <param name="filenotfoundcallback">The call back function (delegate) to receive the path displayed on the control when the corresponding file does not exist.</param>
 		/// <param name="registryaccess">Registry access of parent form.</param>
-		public RecentFilesList(ToolStripMenuItem menuitem, RecentFileClickedDelegate fileclickcallback, RecentFileNotFoundDelegate filenotfoundcallback, WinRegistryAccess registryaccess)
+		public RecentFilesList(ToolStripMenuItem menuitem, RecentFileClickedDelegate fileclickcallback, RecentFileNotFoundDelegate filenotfoundcallback, FormWinRegistryAccess registryaccess)
 		{
 			this.mnuParent			= menuitem;
 			_fileclickeddelegate	= fileclickcallback;
@@ -140,7 +140,7 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Access to the registry for storing data between program instances.
 		/// </summary>
-		public WinRegistryAccess RegistryAccess
+		public FormWinRegistryAccess RegistryAccess
 		{
 			get
 			{

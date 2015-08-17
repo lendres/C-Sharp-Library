@@ -132,6 +132,7 @@
     <Compile Include="ComponentModel\AliasAttribute.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Forms\AbstractControlDescriptionProvider.cs" />
+    <Compile Include="Forms\DirectorySelect.cs" />
     <Compile Include="IO\DriveType.cs" />
     <Compile Include="IO\ValidFileNameResult.cs" />
     <Compile Include="Numerics\Precision.cs" />
@@ -221,10 +222,11 @@
     </Compile>
     <Compile Include="Generic\ObjectFactory.cs" />
     <Compile Include="Reflection\Assembly.cs" />
+    <Compile Include="Registry\WinRegistryAccess.cs" />
     <Compile Include="Registry\RegistryEntry.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Registry\WinRegistryAccess.cs">
+    <Compile Include="Registry\FormWinRegistryAccess.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="XML\Attribute.cs" />
