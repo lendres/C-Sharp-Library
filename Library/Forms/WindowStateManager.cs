@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 using System.Drawing;
 using Microsoft.Win32;
-using DigitalProduction.WinRegistry;
+using DigitalProduction.Registry;
 
 namespace DigitalProduction.Forms
 {
@@ -34,7 +34,7 @@ namespace DigitalProduction.Forms
 			_registryaccess = regaccess;
 
 			// Link my installation function on to the applications chain.
-			_registryaccess.Owner.Install += new DPMForm.InstallDelegate(Install);
+			_registryaccess.Install += this.DoInstallaltion;
 
 			// Latch on to the owner's events so that we can grab the data we need and store and restore
 			// the data when necessary.
@@ -59,7 +59,7 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		// Note that install cannot be static because the application key is dependent on the specific
 		// application that is using an instance of this class.
-		private void Install()
+		private void DoInstallaltion()
 		{
 			// Write our data to the registry so that when there is an attempt to read it
 			// it will be available.
@@ -82,7 +82,7 @@ namespace DigitalProduction.Forms
 		/// the "normal" values are.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguements.</param>
+		/// <param name="e">Event arguments.</param>
 		private void OnResize(object sender, System.EventArgs e)
 		{
 			if(_registryaccess.Owner.WindowState == FormWindowState.Normal)
@@ -113,7 +113,7 @@ namespace DigitalProduction.Forms
 		/// Handles saving all required information to the registry on the closing of the window.
 		/// </summary>
 		/// <param name="sender">Object that sent the message.</param>
-		/// <param name="e">Cancel event arguements.</param>
+		/// <param name="e">Cancel event arguments.</param>
 		private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			// Save the Window State.

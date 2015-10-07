@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.Drawing;
 
 using Microsoft.Win32;
-using DigitalProduction.WinRegistry;
+using DigitalProduction.Registry;
 
 namespace DigitalProduction.Forms
 {
@@ -164,7 +164,7 @@ namespace DigitalProduction.Forms
 			else
 			{
 				// Get the registry value through the specified key and value.
-				RegistryKey regKey = Registry.CurrentUser.CreateSubKey(_registrykey);
+				RegistryKey regKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(_registrykey);
 				try
 				{
 					registryvalue = Convert.ToBoolean(regKey.GetValue(_registryvalue, false));
@@ -195,7 +195,7 @@ namespace DigitalProduction.Forms
 			else
 			{
 				// Get the registry value through the specified key and value.
-				RegistryKey regKey = Registry.CurrentUser.CreateSubKey(_registrykey);
+				RegistryKey regKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(_registrykey);
 				regKey.SetValue(_registryvalue, _boxischecked);
 			}
 

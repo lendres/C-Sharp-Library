@@ -4,7 +4,7 @@ using Microsoft.Win32;
 using System.Collections;
 using DigitalProduction.Forms;
 
-namespace DigitalProduction.WinRegistry
+namespace DigitalProduction.Registry
 {
 	/// <summary>
 	/// WinRegistryAccess Class. A generic registry access to read and write to a Windows registry.
@@ -24,33 +24,75 @@ namespace DigitalProduction.WinRegistry
 	/// </summary>
 	public class WinRegistryAccess
 	{
-		#region Members / Variables / Delagates.
+		#region Events
 
-		/// <summary>Used to create a list of entries such that they can all be easily read or written at one time if needed.</summary>
-		protected ArrayList						_registryEntries			= new ArrayList();
-
-		/// <summary>Company name.</summary>
-		private readonly string					_companyName;
-
-		/// <summary>Software/application name.</summary>
-		private readonly string					_softwareName;
+		/// <summary>
+		/// Install event.
+		/// </summary>
+		public event InstallEventHandler				Install;
 
 		#endregion
 
-		#region Construction
+		#region Members
+
+		/// <summary>Used to create a list of entries such that they can all be easily read or written at one time if needed.</summary>
+		protected ArrayList								_registryEntries			= new ArrayList();
+
+		/// <summary>Company name.</summary>
+		protected string								_companyName;
+
+		/// <summary>Software/application name.</summary>
+		protected string								_softwareName;
+
+		#endregion
+
+		#region Construction and Installation
+
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="companyName">Company name used to access the company registry key.</param>
+		/// <param name="softwareName">Software name used to access the software registry key.</param>
+		public WinRegistryAccess(string companyName, string softwareName)
+		{
+			Initialize(companyName, softwareName);
+		}
+
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		public WinRegistryAccess(WinRegistryAccess winRegistryAcess)
+		{
+			Initialize(winRegistryAcess._companyName, winRegistryAcess._softwareName);
+		}
 
 		/// <summary>
 		/// Constructor when the dialog box that is the owner is the top level dialog box.
 		/// </summary>
 		/// <param name="companyName">Company name used to access the company registry key.</param>
 		/// <param name="softwareName">Software name used to access the software registry key.</param>
-		public WinRegistryAccess(string companyName, string softwareName)
+		/// <param name="installHandler">Installation handler to add to the Install event.</param>
+		public WinRegistryAccess(string companyName, string softwareName, InstallEventHandler installHandler)
+		{
+			Initialize(companyName, softwareName);
+
+			this.Install += installHandler;
+		}
+
+		/// <summary>
+		/// Common construction code.
+		/// </summary>
+		/// <param name="companyName">Company name used to access the company registry key.</param>
+		/// <param name="softwareName">Software name used to access the software registry key.</param>
+		private void Initialize(string companyName, string softwareName)
 		{
 			_companyName		= companyName;
 			_softwareName		= softwareName;
 
 			CreateRegistryEntries();
 			ReadRegistryEntries();
+
+			this.Install += this.OnInstall;
 		}
 
 		/// <summary>
@@ -59,7 +101,7 @@ namespace DigitalProduction.WinRegistry
 		/// </summary>
 		// Note that install cannot be static because the application key is dependent on the specific
 		// application that is using an instance of this class.
-		private void Install()
+		private void OnInstall()
 		{
 			RegistryKey appkey = AppKey();
 
@@ -72,7 +114,7 @@ namespace DigitalProduction.WinRegistry
 
 		#endregion
 
-		#region Virtual functions, derived classes should override these.
+		#region Virtual Functions - Derived Classes Should Override These.
 
 		/// <summary>
 		/// Default creation of registry entries.  Derived classes should override this to
@@ -84,7 +126,7 @@ namespace DigitalProduction.WinRegistry
 
 		#endregion
 
-		#region Registry entries functions.
+		#region Registry Entry Functions
 
 		/// <summary>
 		/// Write all the registry entries stored in the registry entries array list.
@@ -197,7 +239,7 @@ namespace DigitalProduction.WinRegistry
 
 		#endregion
 
-		#region General properties.
+		#region General Properties
 
 		/// <value>
 		/// Checks the registry key to see if the installed key has been set to true.  This
@@ -213,7 +255,7 @@ namespace DigitalProduction.WinRegistry
 
 		#endregion
 
-		#region Company and application name access.
+		#region Company and Application Name Access
 
 		/// <summary>
 		/// Get the registry key associated with the company name.
@@ -229,7 +271,7 @@ namespace DigitalProduction.WinRegistry
 				// to be written too) with CreateSubKey.  I.e. cannot do 
 				// Registry.CurrentUser.OpenSubKey("Software").CreateSubKey("Digital Production Management") because "Software" will
 				// be opened read only.
-				RegistryKey userSoftwareKey = Registry.CurrentUser.CreateSubKey("Software");
+				RegistryKey userSoftwareKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software");
 
 				// Open the company key.
 				companykey = userSoftwareKey.CreateSubKey(_companyName);
@@ -272,7 +314,7 @@ namespace DigitalProduction.WinRegistry
 
 		#endregion
 
-		#region General access to values.
+		#region General Access to Values
 
 		/// <summary>
 		/// Get a registry value.
@@ -387,6 +429,35 @@ namespace DigitalProduction.WinRegistry
 			if (key != null)
 			{
 				key.SetValue(valuename, setvalue);
+			}
+		}
+
+		#endregion
+
+		#region Event Raising
+
+		/// <summary>
+		/// Trigger the installation event.  Primarily used to simplify debugging.
+		/// </summary>
+		public void RaiseInstallEvent()
+		{
+			if (Install != null)
+			{
+				RegistryKey appkey = AppKey();
+
+				// Only write keys I am directly in charge of.
+				if (appkey == null)
+				{
+					Install();
+				}
+				else
+				{
+					bool installed = GetValue(appkey, "Installed", false);
+					if (!installed)
+					{
+						Install();
+					}
+				}
 			}
 		}
 

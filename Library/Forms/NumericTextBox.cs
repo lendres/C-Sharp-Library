@@ -284,7 +284,7 @@ namespace DigitalProduction.Forms
 		{
 			EnforceAllDecimalPlaces();
 
- 			base.OnValidating(e);
+			base.OnValidating(e);
 		}
 
 		#endregion

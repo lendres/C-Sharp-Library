@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
-using DigitalProduction.WinRegistry;
+using DigitalProduction.Registry;
 
 namespace DigitalProduction.Forms
 {

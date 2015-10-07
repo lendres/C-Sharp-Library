@@ -4,49 +4,15 @@ using Microsoft.Win32;
 using System.Collections;
 using DigitalProduction.Forms;
 
-namespace DigitalProduction.WinRegistry
+namespace DigitalProduction.Registry
 {
-	#region Form position.
-
 	/// <summary>
-	/// Enumeration for the position of the form.
-	/// </summary>
-	public enum FormPosition
-	{
-		/// <summary>Position of left side of form.</summary>
-		Left,
-
-		/// <summary>Position of the top of the form.</summary>
-		Top,
-
-		/// <summary>Width of the form.</summary>
-		Width,
-
-		/// <summary>Height of the form.</summary>
-		Height
-	};
-
-	#endregion
-
-	/// <summary>
-	/// WinRegistryAccess Class. A generic registry access to read and write to a Windows registry.
-	/// It does common tasks for all application, such as get the CompanyKey and the ApplicationKey.
-	/// A specific application should derive it's own registry writer from this to save any other
-	/// specific data.
-	/// 
-	/// Note that the functions in this class cannot be static because most of them depend on the specific
-	/// _owner of this instance.  Since this class is to be general enough to be used for all DPM applications
-	/// the type of the owner is not know before hand.  Moreover, several instances of this class could
-	/// exist at one time, each working for a different type of application.
-	/// 
-	/// This class supports multiple levels of access to the registry.  That is, this class can be used
-	/// to access a set of registry keys and values for a form that is owned by another form.  If this
-	/// WinRegistryAccess has a parent it requests the AppKey from it's parent.  If that WinRegistryAccess
-	/// has a parent it does the same, and so on.
+	/// FormRegistryAccess Class. A class that handles additional registry access functions associated with application level
+	/// forms.  For example, this class handles storing and retrieving of the window state of a form.
 	/// </summary>
 	public class FormWinRegistryAccess : WinRegistryAccess
 	{
-		#region Members / Variables / Delagates.
+		#region Members
 
 		/// <summary>
 		/// Used to create a list of entries such that they can all be easily read or written at
@@ -59,43 +25,31 @@ namespace DigitalProduction.WinRegistry
 		/// </summary>
 		private readonly DPMForm					_owner;
 
-		/// <summary>
-		/// This can be used if the form using this registry access is a child of another form.
-		/// This enables drilling down many levels in the registry when dialogs have children dialogs.
-		/// </summary>
-		private readonly FormWinRegistryAccess		_owneraccess;
-
-		private readonly bool						_ischild;
-
 		#endregion
 
-		#region Construction / Destruction / Install.
+		#region Construction / Destruction / Install
 
 		/// <summary>
 		/// Constructor when the dialog box that is the owner is the top level dialog box.
 		/// </summary>
 		/// <param name="owner">DPMForm that is using this to access to the registry.</param>
-		public FormWinRegistryAccess(DPMForm owner)
-			: base(owner.DPMCompanyName, owner.AppName)
+		public FormWinRegistryAccess(DPMForm owner) :
+			base(owner.DPMCompanyName, owner.AppName)
 		{
 			_owner			= owner;
-			_owner.Install	+= new DPMForm.InstallDelegate(Install);
-			_ischild		= false;
+			this.Install	+= this.OnInstall;
 		}
 
 		/// <summary>
-		/// Constructor to be used when the dialog box that is using this to access the registry
-		/// is owned by another DPMForm.
+		/// Constructor when the dialog box that is the owner is the top level dialog box.
 		/// </summary>
 		/// <param name="owner">DPMForm that is using this to access to the registry.</param>
-		/// <param name="ownerregaccess">WinRegistryAccess used by the DPMForm that is the owner of the form using this WinRegistyrAccess.</param>
-		public FormWinRegistryAccess(DPMForm owner, FormWinRegistryAccess ownerregaccess)
-			: base(owner.DPMCompanyName, owner.AppName)
+		/// <param name="installHandler">Installation handler to add to the Install event.</param>
+		public FormWinRegistryAccess(DPMForm owner, InstallEventHandler installHandler) :
+			base(owner.DPMCompanyName, owner.AppName, installHandler)
 		{
 			_owner			= owner;
-			_owner.Install	+= new DPMForm.InstallDelegate(Install);
-			_owneraccess	= ownerregaccess;
-			_ischild		= true;
+			this.Install	+= this.OnInstall;
 		}
 
 		/// <summary>
@@ -104,20 +58,20 @@ namespace DigitalProduction.WinRegistry
 		/// </summary>
 		// Note that install cannot be static because the application key is dependent on the specific
 		// application that is using an instance of this class.
-		private void Install()
+		private void OnInstall()
 		{
 			RegistryKey appkey = AppKey();
 
 			// Only write keys I am directly in charge of.
 			if (appkey != null)
 			{
-				appkey.DeleteSubKeyTree("Recent Files", false);
+				//appkey.DeleteSubKeyTree("Recent Files", false);
 			}
 		}
 
 		#endregion
 
-		#region General properties.
+		#region Properties
 
 		/// <summary>
 		/// Get the owner of this registry access.
@@ -130,20 +84,11 @@ namespace DigitalProduction.WinRegistry
 			}
 		}
 
-		/// <summary>
-		/// Get the registry access of the owner if available.
-		/// </summary>
-		public WinRegistryAccess OwnerRegAccess
-		{
-			get
-			{
-				return _owneraccess;
-			}
-		}
-
 		#endregion
 
-		#region Window state access.
+		#region Methods
+
+		#region Window state access
 
 		/// <summary>
 		/// Return the key that holds window state information.
@@ -254,7 +199,7 @@ namespace DigitalProduction.WinRegistry
 
 		#endregion
 
-		#region Recently used files.
+		#region Recently Used Files
 
 		/// <summary>
 		/// Return the key that holds recently used files.
@@ -287,7 +232,7 @@ namespace DigitalProduction.WinRegistry
 
 		/// <value>
 		/// Gets or sets the size of the recently used menus from the registry.  This is the number of menu
-		/// items dispalyed, not the number of menu items allowed.
+		/// items displayed, not the number of menu items allowed.
 		/// </value>
 		public uint NumberOfRecentlyUsedFiles
 		{
@@ -362,6 +307,8 @@ namespace DigitalProduction.WinRegistry
 				}
 			}
 		}
+
+		#endregion
 
 		#endregion
 

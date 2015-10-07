@@ -4,7 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-using DigitalProduction.WinRegistry;
+using DigitalProduction.Registry;
 
 namespace DigitalProduction.Forms
 {
@@ -22,16 +22,6 @@ namespace DigitalProduction.Forms
 	public class DPMForm : System.Windows.Forms.Form
 	{
 		#region Members
-
-		/// <summary>
-		/// Template for install functions.
-		/// </summary>
-		public delegate void						InstallDelegate();
-
-		/// <summary>
-		/// Install event.
-		/// </summary>
-		public event InstallDelegate				Install;
 
 		private static string						_companyname		= "Digital Production Management";
 		private readonly DPMForm					_owner;
@@ -56,9 +46,9 @@ namespace DigitalProduction.Forms
 		/// <param name="applicationname">Name of the application (used as registry name also).</param>
 		public DPMForm(string applicationname)
 		{
-			_owner			= null;
-			_appname		= applicationname;
-			_ischildform	= false;
+			_owner				= null;
+			_appname			= applicationname;
+			_ischildform		= false;
 
 			_winregaccess		= new FormWinRegistryAccess(this);
 			_windowstatemanager	= new WindowStateManager(_winregaccess);
@@ -72,10 +62,10 @@ namespace DigitalProduction.Forms
 		/// <param name="applicationname">Name of the application (used as registry name also).</param>
 		public DPMForm(string companyname, string applicationname)
 		{
-			_companyname	= companyname;
-			_owner			= null;
-			_appname		= applicationname;
-			_ischildform	= false;
+			_companyname		= companyname;
+			_owner				= null;
+			_appname			= applicationname;
+			_ischildform		= false;
 
 			_winregaccess		= new FormWinRegistryAccess(this);
 			_windowstatemanager	= new WindowStateManager(_winregaccess);
@@ -88,11 +78,12 @@ namespace DigitalProduction.Forms
 		/// <param name="dialogname">Name of this form (used as registry name also).</param>
 		public DPMForm(DPMForm owner, string dialogname)
 		{
-			_owner			= owner;
-			_appname		= dialogname;
-			_ischildform	= true;
+			_companyname		= owner.CompanyName;
+			_owner				= owner;
+			_appname			= owner.AppName;
+			_ischildform		= true;
 
-			_winregaccess		= new FormWinRegistryAccess(this, owner._winregaccess);
+			_winregaccess		= new DialogWinRegistryAccess(this, dialogname);
 			_windowstatemanager	= new WindowStateManager(_winregaccess);
 		}
 
@@ -102,17 +93,6 @@ namespace DigitalProduction.Forms
 		protected override void Dispose(bool disposing)
 		{
 			base.Dispose(disposing);
-		}
-
-		/// <summary>
-		/// Trigger the installation event.  Primarily used to simplify debugging.
-		/// </summary>
-		public void RunInstall()
-		{
-			if (Install != null)
-			{
-				Install();
-            }
 		}
 
 		#endregion

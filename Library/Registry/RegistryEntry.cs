@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Win32;
 
-namespace DigitalProduction
+namespace DigitalProduction.Registry
 {
 	/// <summary>
 	/// Template for function to access the registry key.
