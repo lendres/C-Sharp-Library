@@ -9,12 +9,6 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public static class FileSelect
 	{
-		#region Enumerations.
-
-
-
-		#endregion
-
 		#region Browse for an XML file.
 
 		/// <summary>

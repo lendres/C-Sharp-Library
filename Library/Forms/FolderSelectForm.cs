@@ -39,7 +39,7 @@ namespace DigitalProduction.Forms
 	/// <summary> Class FolderSelect 
 	/// <para>An example on how to build a folder browser dialog window using C# and the .Net framework.</para>
 	/// </summary>
-	public class FolderSelect : System.Windows.Forms.Form
+	public class FolderSelectForm : System.Windows.Forms.Form
 	{
 		#region Members / Variables.
 
@@ -60,7 +60,7 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Construction.
 		/// </summary>
-		public FolderSelect()
+		public FolderSelectForm()
 		{
 			InitializeComponent();
 
@@ -231,7 +231,7 @@ namespace DigitalProduction.Forms
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(FolderSelect));
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(FolderSelectForm));
 			this.imageList = new System.Windows.Forms.ImageList(this.components);
 			this.tvwDirectories = new System.Windows.Forms.TreeView();
 			this.btnSelect = new System.Windows.Forms.Button();
@@ -450,7 +450,7 @@ namespace DigitalProduction.Forms
 		/// <summary> Method FullPath
 		/// <para>Retrieve the full path for the selected folder.</para>
 		/// <returns>The correctly formatted full path to the selected folder.</returns>
-		/// <seealso cref="FolderSelect.fixPath"/>
+		/// <seealso cref="FolderSelectForm.fixPath"/>
 		/// </summary>
 		public string FullPath
 		{

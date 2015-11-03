@@ -19,7 +19,8 @@ namespace DigitalProduction.Forms
 	/// 
 	/// If this form is the child of another the name of the form is held in _appname;
 	/// </summary>
-	public class DPMForm : System.Windows.Forms.Form
+	public class DPMForm :
+		System.Windows.Forms.Form
 	{
 		#region Members
 
