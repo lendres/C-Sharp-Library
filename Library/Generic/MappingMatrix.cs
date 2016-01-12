@@ -33,9 +33,9 @@ namespace DigitalProduction.Generic
 		//
 		// Key						Entries
 		//					1		2		3		4		5
-		// KeyType.First	3.1		4.2		5.5		6.1		7.1
-		// KeyType.Second	98.6	86.3	76.5	92.4	82.3
-		// KeyType.Third	15351	16523	18352	14366	13546
+		// TKey.First		3.1		4.2		5.5		6.1		7.1
+		// TKey.Second		98.6	86.3	76.5	92.4	82.3
+		// TKey.Third		15351	16523	18352	14366	13546
 		private List<List<TData>>			_data					= new List<List<TData>>();
 
 		#endregion
@@ -104,7 +104,7 @@ namespace DigitalProduction.Generic
 		#region Properties.
 
 		/// <summary>
-		/// Total number of keys available in the enumeration used for KeyType.
+		/// Total number of keys available in the enumeration used for TKey.
 		/// </summary>
 		[XmlAttribute("numberofkeys")]
 		public int NumberOfKeys
@@ -186,13 +186,13 @@ namespace DigitalProduction.Generic
 		/// <summary>
 		/// Get the number of entries (length) for the data.
 		/// </summary>
-		public int LengthOfData
-		{
-			get
-			{
-				return _data[0].Count;
-			}
-		}
+		//public int LengthOfData
+		//{
+		//	get
+		//	{
+		//		return _data[0].Count;
+		//	}
+		//}
 
 		/// <summary>
 		/// Brackets operator.
@@ -228,7 +228,7 @@ namespace DigitalProduction.Generic
 		}
 
 		/// <summary>
-		/// Length of the data (number of elements for each KeyType).
+		/// Length of the data (number of elements for each TKey).
 		/// </summary>
 		[XmlIgnore()]
 		public int NumberOfEntries
@@ -241,12 +241,12 @@ namespace DigitalProduction.Generic
 
 		#endregion
 
-		#region Other methods.
+		#region Other Methods
 
 		/// <summary>
-		/// Specifies if the KeyType is active (has data associated with it).
+		/// Specifies if the TKey is active (has data associated with it).
 		/// </summary>
-		/// <param name="key">KeyType to check.</param>
+		/// <param name="key">TKey to check.</param>
 		/// <returns>True is data exists for the key time, false otherwise.</returns>
 		public bool IsActiveKey(TKey key)
 		{
@@ -262,13 +262,13 @@ namespace DigitalProduction.Generic
 
 		#endregion
 
-		#region Data access.
+		#region Data Access
 
 		/// <summary>
 		/// Adds a set of data entries to the back of the data.
 		/// </summary>
 		/// <param name="entries">Set of data, one entry per each active key type, in the same order as the active key types.</param>
-		public void Push(List<TData> entries)
+		public void Add(List<TData> entries)
 		{
 			Debug.Assert(entries.Count == _numberOfActiveKeys, "The entries supplied to MappingMatrix.Push are not sized correctly.");
 
@@ -304,8 +304,8 @@ namespace DigitalProduction.Generic
 				return;
 			}
 
-			// We are going to create a new data structure and copy the relavent data from the old data to the new, ignoring
-			// those data points specified in indexestoremove.  We do this because calling "RemoveRange" multiple times in not
+			// We are going to create a new data structure and copy the relevant data from the old data to the new, ignoring
+			// those data points specified in indexesToRemove.  We do this because calling "RemoveRange" multiple times in not
 			// going to be very efficient.
 
 			// We are going to need the length of the existing data and number of data types in a few places, so get it once.
