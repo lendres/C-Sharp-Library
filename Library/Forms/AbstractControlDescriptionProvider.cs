@@ -16,14 +16,17 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	/// <typeparam name="TAbstract">Abstract class.</typeparam>
 	/// <typeparam name="TBase">Base class.</typeparam>
-	public class AbstractControlDescriptionProvider<TAbstract, TBase>  : TypeDescriptionProvider
+	public class AbstractControlDescriptionProvider<TAbstract, TBase> : TypeDescriptionProvider
     {
 		#region Construction
 		
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public AbstractControlDescriptionProvider() : base(TypeDescriptor.GetProvider(typeof(TAbstract))) {}
+		public AbstractControlDescriptionProvider() :
+			base(TypeDescriptor.GetProvider(typeof(TAbstract)))
+		{
+		}
 
 		#endregion
 		

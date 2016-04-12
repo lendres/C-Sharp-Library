@@ -11,15 +11,15 @@ namespace DigitalProduction.Extensions
 	/// </summary>
 	public static class ListExtensions
 	{
-		/// <summary>
-		/// Get the mean (average) of a list.
-		/// </summary>
-		/// <param name="values">List to calculate the mean (average) from.</param>
-		/// <returns>Mean (average) of data.</returns>
-		public static double Mean(this List<double> values)
-		{
-			return values.Count == 0 ? 0 : values.Mean(0, values.Count);
-		}
+		///// <summary>
+		///// Get the mean (average) of a list.
+		///// </summary>
+		///// <param name="values">List to calculate the mean (average) from.</param>
+		///// <returns>Mean (average) of data.</returns>
+		//public static double Average(this List<double> values)
+		//{
+		//	return values.Count == 0 ? 0 : values.Average(0, values.Count);
+		//}
 
 		/// <summary>
 		/// Get the mean (average) of a subset of list entries.
@@ -28,7 +28,7 @@ namespace DigitalProduction.Extensions
 		/// <param name="start">Index to start from.</param>
 		/// <param name="count">Number of entries to take the mean (average) of.</param>
 		/// <returns>Mean (average) of data.</returns>
-		public static double Mean(this List<double> values, int start, int count)
+		public static double Average(this List<double> values, int start, int count)
 		{
 			double s = 0;
 			for (int i = start; i < start+count; i++)
@@ -42,9 +42,9 @@ namespace DigitalProduction.Extensions
 		/// Removes the mean (subtracts) from a subset of a list of doubles.
 		/// </summary>
 		/// <param name="values">Values for calculation (this list).</param>
-		public static List<double> RemoveMean(this List<double> values)
+		public static List<double> RemoveAverage(this List<double> values)
 		{
-			return values.RemoveMean(0, values.Count);
+			return values.RemoveAverage(0, values.Count);
 		}
 
 		/// <summary>
@@ -53,14 +53,14 @@ namespace DigitalProduction.Extensions
 		/// <param name="values">Values for calculation (this list).</param>
 		/// <param name="start">Starting index.</param>
 		/// <param name="end">Ending index (not included in calculation).</param>
-		public static List<double> RemoveMean(this List<double> values, int start, int end)
+		public static List<double> RemoveAverage(this List<double> values, int start, int end)
 		{
-			double mean = values.Mean(start, end);
+			double average = values.Average(start, end);
 			List<double> newValues = new List<double>(end - start + 1);
 
 			for (int i = start; i < end; i++)
 			{
-				newValues.Add(values[i] - mean);
+				newValues.Add(values[i] - average);
 			}
 			return newValues;
 		}
@@ -71,7 +71,7 @@ namespace DigitalProduction.Extensions
 		/// <param name="values">Values for calculation (this list).</param>
 		public static double Variance(this List<double> values)
 		{
-			return values.Variance(values.Mean(), 0, values.Count);
+			return values.Variance(values.Average(), 0, values.Count);
 		}
 		
 		/// <summary>
@@ -126,7 +126,7 @@ namespace DigitalProduction.Extensions
 		/// <param name="end">Ending index (not included in calculation).</param>
 		public static double StandardDeviation(this List<double> values, int start, int end)
 		{
-			double mean = values.Mean(start, end);
+			double mean = values.Average(start, end);
 			double variance = values.Variance(mean, start, end);
 			return System.Math.Sqrt(variance);
 		}

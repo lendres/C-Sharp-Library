@@ -137,8 +137,15 @@
     <Compile Include="Forms\AbstractControlDescriptionProvider.cs" />
     <Compile Include="Forms\Delegates.cs" />
     <Compile Include="Forms\DirectorySelect.cs" />
+    <Compile Include="Generic\MappingList.cs" />
     <Compile Include="IO\DriveType.cs" />
     <Compile Include="IO\ValidFileNameResult.cs" />
+    <Compile Include="MultipleFileSelectControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MultipleFileSelectControl.Designer.cs">
+      <DependentUpon>MultipleFileSelectControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Numerics\Precision.cs" />
     <Compile Include="Numerics\PrecisionSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -253,6 +260,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="XML\XsltTools.cs" />
+    <EmbeddedResource Include="MultipleFileSelectControl.resx">
+      <DependentUpon>MultipleFileSelectControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Notes and To Do.txt" />
     <EmbeddedResource Include="Forms\AboutForm1.resx" />
     <EmbeddedResource Include="Forms\DPMForm.resx">

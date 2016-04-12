@@ -14,7 +14,7 @@ namespace DigitalProduction.Generic
 	/// </summary>
 	/// <typeparam name="TKey">Enumeration type used as a key to access data.</typeparam>
 	/// <typeparam name="TData">Type of data to store in the matrix.</typeparam>
-	public class MappingMatrix<TKey, TData>
+	public class MappingList<TKey, TData>
 	{
 		#region Members
 
@@ -36,7 +36,7 @@ namespace DigitalProduction.Generic
 		// TKey.First		3.1		4.2		5.5		6.1		7.1
 		// TKey.Second		98.6	86.3	76.5	92.4	82.3
 		// TKey.Third		15351	16523	18352	14366	13546
-		private List<List<TData>>			_data					= new List<List<TData>>();
+		private List<TData>						_data					= new List<TData>();
 
 		#endregion
 
@@ -45,7 +45,7 @@ namespace DigitalProduction.Generic
 		/// <summary>
 		/// Parameterless constructor for serialization.
 		/// </summary>
-		protected MappingMatrix()
+		protected MappingList()
 		{
 		}
 
@@ -53,7 +53,7 @@ namespace DigitalProduction.Generic
 		/// Constructor.
 		/// </summary>
 		/// <param name="activeKeys">List of active keys, in the order that they are contained in the data.</param>
-		public MappingMatrix(List<TKey> activeKeys)
+		public MappingList(List<TKey> activeKeys)
 		{
 			_numberOfKeys		= Reflection.Enumerations.NumberOfDefinedItems<TKey>();
 			_activeKeys			= new List<TKey>(activeKeys);
@@ -73,7 +73,7 @@ namespace DigitalProduction.Generic
 			{
 				// Set a map from the enumeration into the data container.
 				_map[System.Convert.ToInt32(_activeKeys[i])] = i;
-				_data.Add(new List<TData>());
+				_data.Add(default(TData));
 			}
 		}
 
@@ -81,7 +81,7 @@ namespace DigitalProduction.Generic
 		/// Copy constructor.
 		/// </summary>
 		/// <param name="original"></param>
-		public MappingMatrix(MappingMatrix<TKey, TData> original)
+		public MappingList(MappingList<TKey, TData> original)
 		{
 			_numberOfKeys		= original._numberOfKeys;
 			_activeKeys			= new List<TKey>(original._activeKeys);
@@ -93,9 +93,9 @@ namespace DigitalProduction.Generic
 			original._map.CopyTo(_map, 0);
 
 			// Copy data.
-			foreach (List<TData> list in original._data)
+			for (int i = 0; i < _numberOfActiveKeys; i++)
 			{
-				_data.Add(new List<TData>(list));
+				_data.Add(original._data[i]);
 			}
 		}
 
@@ -174,8 +174,8 @@ namespace DigitalProduction.Generic
 		/// <summary>
 		/// Raw data.
 		/// </summary>
-		[XmlArray("data"), XmlArrayItem("dataset")]
-		public List<List<TData>> Data
+		[XmlArray("data"), XmlArrayItem("item")]
+		public List<TData> Data
 		{
 			get
 			{
@@ -189,7 +189,7 @@ namespace DigitalProduction.Generic
 		/// <param name="key">Which set of data to get.</param>
 		/// <returns>The set of data associated with the key in a List.</returns>
 		[XmlIgnore()]
-		public List<TData> this[TKey key]
+		public TData this[TKey key]
 		{
 			get
 			{
@@ -223,7 +223,7 @@ namespace DigitalProduction.Generic
 		/// <param name="index">Index of data to get.</param>
 		/// <returns>The set of data associated with the key in a List.</returns>
 		[XmlIgnore()]
-		public List<TData> this[int index]
+		public TData this[int index]
 		{
 			get
 			{
@@ -254,7 +254,7 @@ namespace DigitalProduction.Generic
 		{
 			get
 			{
-				return _data[0].Count;
+				return _data.Count;
 			}
 		}
 
@@ -287,106 +287,17 @@ namespace DigitalProduction.Generic
 		/// Adds a set of data entries to the back of the data.
 		/// </summary>
 		/// <param name="entries">Set of data, one entry per each active key type, in the same order as the active key types.</param>
-		public void Add(List<TData> entries)
+		public void Set(List<TData> entries)
 		{
 			if (entries.Count != _numberOfActiveKeys)
 			{
-				throw new Exception("The entries supplied to MappingMatrix.Push are not sized correctly.");
+				throw new Exception("The entries supplied to MappingList are not sized correctly.");
 			}
 
 			for (int i = 0; i < _numberOfActiveKeys; i++)
 			{
-				_data[i].Add(entries[i]);
+				_data[i] = entries[i];
 			}
-		}
-
-		/// <summary>
-		/// Removes a range of elements.
-		/// </summary>
-		/// <param name="index">The zero-based starting index of the range of elements to remove.</param>
-		/// <param name="count">The number of elements to remove.</param>
-		public void RemoveRange(int index, int count)
-		{
-			for (int i = 0; i < _numberOfActiveKeys; i++)
-			{
-				_data[i].RemoveRange(index, count);
-			}
-		}
-
-		/// <summary>
-		/// Removes sections of the data.  Much more efficient that RemoveRange for removing multiple ranges.
-		/// </summary>
-		/// <param name="indexesToRemove">Which sections to be removed.</param>
-		public void RemoveRanges(List<int[]> indexesToRemove)
-		{
-			// Make sure some indices were supplied before we start trying to access them.  If nothing was supplied,
-			// we can just return.
-			if (indexesToRemove.Count == 0)
-			{
-				return;
-			}
-
-			// We are going to create a new data structure and copy the relevant data from the old data to the new, ignoring
-			// those data points specified in indexesToRemove.  We do this because calling "RemoveRange" multiple times in not
-			// going to be very efficient.
-
-			// We are going to need the length of the existing data and number of data types in a few places, so get it once.
-			int lengthOfData		= this.NumberOfEntries;
-
-			// Create a new data structure for our data.  Because all the data is now loaded, we can provide the List constructor
-			// with size information, which should help keep things a little more efficient.
-			List<List<TData>> newdata = new List<List<TData>>(_numberOfActiveKeys);
-			for (int i = 0; i < _numberOfActiveKeys; i++)
-			{
-				newdata.Add(new List<TData>());
-			}
-
-			int removingSet = 0;
-			int boundry		= indexesToRemove[0][0];
-
-			// Loop over all the data and look for boundaries.
-			for (int i = 0; i < lengthOfData; i++)
-			{
-				if (i < boundry)
-				{
-					// Before we get to the next start of a range to be removed, we copy the existing data and update the times.
-
-					// Add data.
-					for (int j = 0; j < _numberOfActiveKeys; j++)
-					{
-						newdata[j].Add(_data[j][i]);
-					}
-				}
-				else
-				{
-					// Now we have reached a range that is to be removed from the existing data.
-
-					// Ending index for this section.
-					int endOfRemovalSection = indexesToRemove[removingSet][1];
-
-					// We can fast forward the indexer to after the removed section.
-					i = endOfRemovalSection + 1;
-
-					// Go to next set of indexes to remove.
-					removingSet++;
-
-					// Check to see if we are at the end of the indexesToRemove.
-					if (removingSet == indexesToRemove.Count)
-					{
-						// We just finished removing the last set of indexes, now we can set the boundary to the end of the original data
-						// and just finish the copying.
-						boundry = lengthOfData;
-					}
-					else
-					{
-						// There is another set of indexes to remove, so set the boundary to the start of the next set.
-						boundry = indexesToRemove[removingSet][0];
-					}
-				}
-			}
-
-			// Save the new values and allow the old to be deleted.
-			_data	= newdata;
 		}
 
 		#endregion

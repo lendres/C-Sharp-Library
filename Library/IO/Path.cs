@@ -13,7 +13,7 @@ namespace DigitalProduction.IO
 	public static class Path
 	{
 
-		#region Structures.
+		#region Structures
 
 		/// <summary>
 		/// Options for controlling what determines if a file name is valid or not.
@@ -26,7 +26,7 @@ namespace DigitalProduction.IO
 
 		#endregion
 
-		#region DLL Imports.
+		#region DLL Imports
 
 		[DllImport("kernel32.dll")]
 		private static extern int GetDriveType(string drive);
@@ -62,9 +62,9 @@ namespace DigitalProduction.IO
 
 		#endregion
 
-		#region Static functions.
+		#region Static functions
 
-		#region Directories.
+		#region Directories
 
 		/// <summary>
 		/// Get directory from the path.  Checks that the directory exists also.
@@ -229,7 +229,7 @@ namespace DigitalProduction.IO
 
 		#endregion
 
-		#region Drives.
+		#region Drives
 
 		/// <summary>
 		/// Returns the type of drive represented by the string.
@@ -269,7 +269,7 @@ namespace DigitalProduction.IO
 
 		#endregion
 
-		#region Valid file name.
+		#region Valid File Name
 
 		/// <summary>
 		/// Checks to insure that a file name passes the criteria to be valid.

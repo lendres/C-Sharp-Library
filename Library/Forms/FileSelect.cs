@@ -9,7 +9,7 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public static class FileSelect
 	{
-		#region Browse for an XML file.
+		#region Browse for an XML File
 
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of an XML file.  Starting directory is the current
@@ -21,7 +21,7 @@ namespace DigitalProduction.Forms
 		{
 			return BrowseForAnXMLFile(owner, "Open", "");
 		}
-				
+
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of an XML file.  Starting directory is the current
 		/// working directory.
@@ -48,7 +48,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Browse for a file.
+		#region Browse for a File
 
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of a file.  Starting directory is the current
@@ -116,7 +116,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Browse for a new XML file location.
+		#region Browse for a New XML File Location
 
 		/// <summary>
 		/// Use a SaveFileDialog box to get a location for a new XML file.  Starting directory is the current
@@ -155,7 +155,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Browse for a new file location.
+		#region Browse for a New File Location
 
 		/// <summary>
 		/// Use a SaveFileDialog box to get a location for a new file.  Starting directory is the current
