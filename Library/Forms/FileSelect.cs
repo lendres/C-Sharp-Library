@@ -114,6 +114,58 @@ namespace DigitalProduction.Forms
 			}
 		}
 
+		/// <summary>
+		/// Use an OpenFileDialog box to select several files.  Starting directory is the current directory.
+		/// working directory.
+		/// </summary>
+		/// <param name="owner">Owner window.</param>
+		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Files of type"  box in the dialog box.</param>
+		/// <param name="title">Title of the OpenFileDialog box.</param>
+		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
+		public static string[] BrowseForMultipleFiles(IWin32Window owner, string filter, string title)
+		{
+			return BrowseForMultipleFiles(owner, filter, title, "");
+		}
+
+		/// <summary>
+		/// Use an OpenFileDialog box to select several files.
+		/// </summary>
+		/// <param name="owner">Owner window.</param>
+		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Files of type"  box in the dialog box.</param>
+		/// <param name="title">Title of the OpenFileDialog box.</param>
+		/// <param name="initialdirectory">Directory to start in.</param>
+		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
+		public static string[] BrowseForMultipleFiles(IWin32Window owner, string filter, string title, string initialdirectory)
+		{
+			OpenFileDialog dialog	= new OpenFileDialog();
+			dialog.Title			= title;
+			dialog.CheckFileExists	= true;
+			dialog.ValidateNames	= true;
+			dialog.Multiselect		= false;
+			dialog.RestoreDirectory = true;
+			dialog.Filter			= filter;
+			dialog.FilterIndex		= 1;
+
+			// Start in the same directory that the previous file was in (if the file and directory exist).
+			if (initialdirectory != "" && System.IO.Directory.Exists(initialdirectory))
+			{
+				dialog.InitialDirectory = initialdirectory;
+			}
+
+			// Get the file.
+			DialogResult result = dialog.ShowDialog(owner);
+
+			// If the dialog is canceled, then just get out of here.
+			if (result == DialogResult.Cancel)
+			{
+				return null;
+			}
+			else
+			{
+				return dialog.FileNames;
+			}
+		}
+
 		#endregion
 
 		#region Browse for a New XML File Location
