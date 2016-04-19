@@ -140,10 +140,10 @@
     <Compile Include="Generic\MappingList.cs" />
     <Compile Include="IO\DriveType.cs" />
     <Compile Include="IO\ValidFileNameResult.cs" />
-    <Compile Include="MultipleFileSelectControl.cs">
+    <Compile Include="Forms\MultipleFileSelectControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MultipleFileSelectControl.Designer.cs">
+    <Compile Include="Forms\MultipleFileSelectControl.Designer.cs">
       <DependentUpon>MultipleFileSelectControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Numerics\Precision.cs" />
@@ -260,7 +260,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="XML\XsltTools.cs" />
-    <EmbeddedResource Include="MultipleFileSelectControl.resx">
+    <EmbeddedResource Include="Forms\MultipleFileSelectControl.resx">
       <DependentUpon>MultipleFileSelectControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Notes and To Do.txt" />
