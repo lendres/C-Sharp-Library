@@ -141,7 +141,7 @@ namespace DigitalProduction.Forms
 			dialog.Title			= title;
 			dialog.CheckFileExists	= true;
 			dialog.ValidateNames	= true;
-			dialog.Multiselect		= false;
+			dialog.Multiselect		= true;
 			dialog.RestoreDirectory = true;
 			dialog.Filter			= filter;
 			dialog.FilterIndex		= 1;

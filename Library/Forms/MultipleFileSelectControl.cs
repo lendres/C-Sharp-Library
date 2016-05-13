@@ -127,16 +127,9 @@ namespace DigitalProduction.Forms
 		{
 			get
 			{
-				ListBox.SelectedObjectCollection selectedItems = this.filesListBox.SelectedItems;
-
-				int size		= selectedItems.Count;
+				int size		= this.filesListBox.Items.Count;
 				string[] files	= new string[size];
-
-				for (int i = 0; i < size; i++)
-				{
-					files[i] = selectedItems[i].ToString();
-				}
-
+				this.filesListBox.Items.CopyTo(files, 0);
 				return files;
 			}
 		}
@@ -167,8 +160,16 @@ namespace DigitalProduction.Forms
 
 			if (files != null)
 			{
-				this.filesListBox.Items.AddRange(files);
+				foreach (string file in files)
+				{
+					if (!this.filesListBox.Items.Contains(file))
+					{
+						this.filesListBox.Items.Add(file);
+					}
+				}
 			}
+
+			SetControls();
 		}
 
 		/// <summary>
@@ -183,6 +184,24 @@ namespace DigitalProduction.Forms
 			{
 				this.filesListBox.Items.RemoveAt(selectedIndices[i]);
 			}
+
+			SetControls();
+		}
+
+		private void clearAllButton_Click(object sender, EventArgs e)
+		{
+			this.filesListBox.Items.Clear();
+			SetControls();
+		}
+
+		/// <summary>
+		/// Selected items in ListBox changed.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="e">Event arguments.</param>
+		private void filesListBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			SetControls();
 		}
 
 		#endregion
@@ -191,11 +210,16 @@ namespace DigitalProduction.Forms
 
 		private void SetControls()
 		{
-			bool enabled					= this.filesListBox.Items.Count > 0;
+			bool enabled					= this.filesListBox.Items.Count > 0 && this.filesListBox.SelectedIndices.Count > 0;
 			this.removeFilesButton.Enabled	= enabled;
+
+			enabled							= this.filesListBox.Items.Count > 0;
+			this.clearAllButton.Enabled		= enabled;
 		}
 
 		#endregion
+
+
 
 	} // End class.
 } // End namespace.

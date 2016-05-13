@@ -64,6 +64,40 @@ namespace DigitalProduction.IO
 
 		#region Static functions
 
+		#region Files
+
+		/// <summary>
+		/// Replace the file extension on a path with a new extension.
+		/// </summary>
+		/// <param name="path">Path (file name with extension, with or with out directory)</param>
+		/// <param name="newExtension">New file extension.</param>
+		public static string ChangeFileExtension(string path, string newExtension)
+		{
+			string newPath	= System.IO.Path.GetDirectoryName(path);
+			newPath			= System.IO.Path.Combine(newPath, System.IO.Path.GetFileNameWithoutExtension(path));
+			if (newExtension[0] != '.')
+			{
+				newPath			+= ".";
+			}
+			newPath			+= newExtension;
+			return newPath;
+		}
+
+		/// <summary>
+		/// Insert a subdirectory name between the directory part and the file part of the path.
+		/// </summary>
+		/// <param name="path">Path (directory and file name).</param>
+		/// <param name="subdirectory">Name of the subdirectory to insert.</param>
+		public static string InsertSubdirectory(string path, string subdirectory)
+		{
+			string newPath	= System.IO.Path.GetDirectoryName(path);
+			newPath			= System.IO.Path.Combine(newPath, subdirectory);
+			newPath			= System.IO.Path.Combine(newPath, System.IO.Path.GetFileName(path));
+			return newPath;
+		}
+
+		#endregion
+
 		#region Directories
 
 		/// <summary>
