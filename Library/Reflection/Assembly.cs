@@ -69,7 +69,7 @@ namespace DigitalProduction.Reflection
 		/// </summary>
 		public static string Path()
 		{
-			return Path(System.Reflection.Assembly.GetCallingAssembly());
+			return System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
 		}
 
 		/// <summary>

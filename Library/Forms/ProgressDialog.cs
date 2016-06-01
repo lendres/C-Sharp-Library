@@ -11,7 +11,7 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public partial class ProgressDialog : System.Windows.Forms.Form
 	{
-		#region Delegates.
+		#region Delegates
 
 		/// <summary>
 		/// Update the progress bar via a call back function from another thread.
@@ -32,7 +32,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Members / Variables.
+		#region Members
 
 		private DateTime								_starttime;
 		private DateTime								_endtime;
@@ -41,7 +41,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Construction / Destruction / Disposing.
+		#region Construction / Destruction / Disposing
 
 		/// <summary>
 		/// Default constructor.
@@ -112,7 +112,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <summary>
 		/// Get the time elapsed between the start time and end time (or, if timing has not ended, the time between
@@ -177,7 +177,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Functions.
+		#region Functions
 
 		/// <summary>
 		/// Shows the form with the specified owner to the use.  Also resets the progress bar and starts the timer.
@@ -256,7 +256,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Call backs.
+		#region Call Backs
 
 		/// <summary>
 		/// Update the progress bar via a function.

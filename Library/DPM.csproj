@@ -242,6 +242,8 @@
     <Compile Include="Registry\FormWinRegistryAccess.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Threading\Delegates.cs" />
+    <Compile Include="Threading\ProgressDialogThreadingHelper.cs" />
     <Compile Include="XML\Attribute.cs" />
     <Compile Include="XML\AttributeEnumerator.cs" />
     <Compile Include="XML\AttributeList.cs" />
