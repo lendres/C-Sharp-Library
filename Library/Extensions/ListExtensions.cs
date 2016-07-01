@@ -64,7 +64,32 @@ namespace DigitalProduction.Extensions
 			}
 			return newValues;
 		}
-		
+
+		/// <summary>
+		/// Removes the mean (subtracts) from a subset of a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		public static void RemoveAverageInPlace(this List<double> values)
+		{
+			values.RemoveAverageInPlace(0, values.Count);
+		}
+
+		/// <summary>
+		/// Removes the mean (subtracts) from a subset of a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="end">Ending index (not included in calculation).</param>
+		public static void RemoveAverageInPlace(this List<double> values, int start, int end)
+		{
+			double average = values.Average(start, end);
+
+			for (int i = start; i < end; i++)
+			{
+				values[i] = values[i] - average;
+			}
+		}
+
 		/// <summary>
 		/// Calculates the variance of a subset of a list of doubles.
 		/// </summary>
@@ -73,7 +98,7 @@ namespace DigitalProduction.Extensions
 		{
 			return values.Variance(values.Average(), 0, values.Count);
 		}
-		
+
 		/// <summary>
 		/// Calculates the variance of a subset of a list of doubles.
 		/// </summary>
@@ -83,7 +108,7 @@ namespace DigitalProduction.Extensions
 		{
 			return values.Variance(mean, 0, values.Count);
 		}
-		
+
 		/// <summary>
 		/// Calculates the variance of a subset of a list of doubles.
 		/// </summary>
@@ -98,17 +123,17 @@ namespace DigitalProduction.Extensions
 			{
 				variance += System.Math.Pow((values[i] - mean), 2);
 			}
-			
+
 			int n = end - start;
 
 			if (start > 0)
 			{
 				n -= 1;
 			}
-			
+
 			return variance / (n);
 		}
-		
+
 		/// <summary>
 		/// Calculates the standard deviation of a subset of a list of doubles.
 		/// </summary>
@@ -117,7 +142,7 @@ namespace DigitalProduction.Extensions
 		{
 			return values.Count == 0 ? 0 : values.StandardDeviation(0, values.Count);
 		}
-		
+
 		/// <summary>
 		/// Calculates the standard deviation of a subset of a list of doubles.
 		/// </summary>
@@ -126,8 +151,8 @@ namespace DigitalProduction.Extensions
 		/// <param name="end">Ending index (not included in calculation).</param>
 		public static double StandardDeviation(this List<double> values, int start, int end)
 		{
-			double mean = values.Average(start, end);
-			double variance = values.Variance(mean, start, end);
+			double mean		= values.Average(start, end);
+			double variance	= values.Variance(mean, start, end);
 			return System.Math.Sqrt(variance);
 		}
 
@@ -192,6 +217,32 @@ namespace DigitalProduction.Extensions
 		}
 
 		/// <summary>
+		/// Multiplication of a scalar with a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		public static List<double> Multiply(this List<double> values, double scalar)
+		{
+			return values.Multiply(scalar, 0, values.Count);
+		}
+
+		/// <summary>
+		/// Multiplication of a scalar with a subset of a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="end">Ending index (not included in calculation).</param>
+		public static List<double> Multiply(this List<double> values, double scalar, int start, int end)
+		{
+			List<double> newValues = new List<double>(end - start + 1);
+
+			for (int i = start; i < end; i++)
+			{
+				newValues.Add(values[i] * scalar);
+			}
+			return newValues;
+		}
+
+		/// <summary>
 		/// Fast version of multiply by a scalar.  Does multiplication of values in list "in place," meaning
 		/// the values in the list are overwritten.
 		/// </summary>
@@ -199,7 +250,72 @@ namespace DigitalProduction.Extensions
 		/// <param name="scalar">Scalar to multiply by.</param>
 		public static void MultiplyInPlace(this List<double> values, double scalar)
 		{
-			for (int i = 0; i < values.Count; i++)
+			values.MultiplyInPlace(scalar, 0, values.Count);
+		}
+
+		/// <summary>
+		/// Fast version of multiply by a scalar.  Does multiplication of values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
+		/// <param name="scalar">Scalar to multiply by.</param>
+		public static void MultiplyInPlace(this List<double> values, double scalar, int start, int end)
+		{
+			for (int i = start; i < end; i++)
+			{
+				values[i] *= scalar;
+			}
+		}
+
+
+
+
+		/// <summary>
+		/// Multiplication of a scalar with a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		public static List<double> Normalize(this List<double> values, double scalar)
+		{
+			return values.Multiply(scalar, 0, values.Count);
+		}
+
+		/// <summary>
+		/// Multiplication of a scalar with a subset of a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="end">Ending index (not included in calculation).</param>
+		public static List<double> Normalize(this List<double> values, double scalar, int start, int end)
+		{
+			List<double> newValues = new List<double>(end - start + 1);
+
+			for (int i = start; i < end; i++)
+			{
+				newValues.Add(values[i] * scalar);
+			}
+			return newValues;
+		}
+
+		/// <summary>
+		/// Fast version of multiply by a scalar.  Does multiplication of values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
+		/// <param name="scalar">Scalar to multiply by.</param>
+		public static void NormalizeInPlace(this List<double> values, double scalar)
+		{
+			values.MultiplyInPlace(scalar, 0, values.Count);
+		}
+
+		/// <summary>
+		/// Fast version of multiply by a scalar.  Does multiplication of values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
+		/// <param name="scalar">Scalar to multiply by.</param>
+		public static void NormalizeInPlace(this List<double> values, double scalar, int start, int end)
+		{
+			for (int i = start; i < end; i++)
 			{
 				values[i] *= scalar;
 			}

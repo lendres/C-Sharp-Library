@@ -20,8 +20,11 @@ namespace DigitalProduction.Threading
 
 		private ProgressDialog								_progressDialog;
 		private Form										_parentForm;
+
 		private DisplayMessageDelegate						_displayMessageDelegate;
 		private ProgressWorkerDelegate						_workerDelegate;
+		private ProgressCleanUpDelegate						_progressCleanUpDelegate;
+
 		private ProgressBarStyle							_progressBarStyle				= ProgressBarStyle.Marquee;
 
 		#endregion
@@ -29,13 +32,24 @@ namespace DigitalProduction.Threading
 		#region Construction
 
 		/// <summary>
-		/// Default constructor.
+		/// Constructor.
 		/// </summary>
 		public ProgressDialogThreadingHelper(Form parentForm, ProgressWorkerDelegate workerDelegate, DisplayMessageDelegate displayMessageDelegate)
 		{
 			_parentForm					= parentForm;
 			_workerDelegate				= workerDelegate;
 			_displayMessageDelegate		= displayMessageDelegate;
+		}
+
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		public ProgressDialogThreadingHelper(Form parentForm, ProgressWorkerDelegate workerDelegate, DisplayMessageDelegate displayMessageDelegate, ProgressCleanUpDelegate progressCleanUpDelegate)
+		{
+			_parentForm					= parentForm;
+			_workerDelegate				= workerDelegate;
+			_displayMessageDelegate		= displayMessageDelegate;
+			_progressCleanUpDelegate	= progressCleanUpDelegate;
 		}
 
 		#endregion
@@ -91,14 +105,21 @@ namespace DigitalProduction.Threading
 			_progressDialog.ResetProgress();
 			_progressDialog.StartTimer();
 
-			Thread processThread;
-			processThread = new Thread(new ThreadStart(this.WorkerThread));
+			Thread processThread = new Thread(new ThreadStart(this.WorkerThread));
 			processThread.IsBackground = true;
 			processThread.Start();
 
 			if (_progressDialog.ShowDialog(_parentForm) == DialogResult.Cancel)
 			{
 				processThread.Abort();
+				try
+				{
+					_progressCleanUpDelegate();
+				}
+				catch (Exception exception)
+				{
+					// Quiet exit.
+				}
 			}
 		}
 		/// <summary>

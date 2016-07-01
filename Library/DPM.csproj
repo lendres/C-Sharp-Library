@@ -146,6 +146,8 @@
     <Compile Include="Forms\MultipleFileSelectControl.Designer.cs">
       <DependentUpon>MultipleFileSelectControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mathmatics\Conversion.cs" />
+    <Compile Include="Mathmatics\Geometry.cs" />
     <Compile Include="Numerics\Precision.cs" />
     <Compile Include="Numerics\PrecisionSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -199,7 +201,6 @@
     <Compile Include="Gaming\PlayerBase.cs" />
     <Compile Include="Gaming\Shoe.cs" />
     <Compile Include="Generic\MappingMatrix.cs" />
-    <Compile Include="Math.cs" />
     <Compile Include="Reflection\Attributes.cs" />
     <Compile Include="Reflection\Enumerations.cs">
       <SubType>Code</SubType>

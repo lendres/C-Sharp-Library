@@ -36,7 +36,7 @@ namespace DigitalProduction.Generic
 		// TKey.First		3.1		4.2		5.5		6.1		7.1
 		// TKey.Second		98.6	86.3	76.5	92.4	82.3
 		// TKey.Third		15351	16523	18352	14366	13546
-		private List<List<TData>>			_data					= new List<List<TData>>();
+		private List<List<TData>>				_data					= new List<List<TData>>();
 
 		#endregion
 
@@ -54,6 +54,25 @@ namespace DigitalProduction.Generic
 		/// </summary>
 		/// <param name="activeKeys">List of active keys, in the order that they are contained in the data.</param>
 		public MappingMatrix(List<TKey> activeKeys)
+		{
+			InitializeFromActiveKeys(activeKeys, 30);
+		}
+
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="activeKeys">List of active keys, in the order that they are contained in the data.</param>
+		public MappingMatrix(List<TKey> activeKeys, int initialSize)
+		{
+			InitializeFromActiveKeys(activeKeys, initialSize);
+		}
+
+		/// <summary>
+		/// Initialization.
+		/// </summary>
+		/// <param name="activeKeys">List of active keys, in the order that they are contained in the data.</param>
+		/// <param name="initialSize">Initial size of data container.</param>
+		private void InitializeFromActiveKeys(List<TKey> activeKeys, int initialSize)
 		{
 			_numberOfKeys		= Reflection.Enumerations.NumberOfDefinedItems<TKey>();
 			_activeKeys			= new List<TKey>(activeKeys);
@@ -73,19 +92,18 @@ namespace DigitalProduction.Generic
 			{
 				// Set a map from the enumeration into the data container.
 				_map[System.Convert.ToInt32(_activeKeys[i])] = i;
-				_data.Add(new List<TData>());
+				_data.Add(new List<TData>(initialSize));
 			}
 		}
 
 		/// <summary>
 		/// Copy constructor.
 		/// </summary>
-		/// <param name="original"></param>
+		/// <param name="original">Copy source.</param>
 		public MappingMatrix(MappingMatrix<TKey, TData> original)
 		{
 			_numberOfKeys		= original._numberOfKeys;
 			_activeKeys			= new List<TKey>(original._activeKeys);
-			_activeKeys			= original._activeKeys;
 			_numberOfActiveKeys	= original._numberOfActiveKeys;
 			_map				= new int[_numberOfKeys];
 
@@ -96,6 +114,35 @@ namespace DigitalProduction.Generic
 			foreach (List<TData> list in original._data)
 			{
 				_data.Add(new List<TData>(list));
+			}
+		}
+
+		/// <summary>
+		/// Subset extractor constructor.
+		/// </summary>
+		/// <param name="original">Copy source.</param>
+		/// <param name="activeKeysToExtract">List of active keys, in the order that they are contained in the data, to be copied from the original.</param>
+		public MappingMatrix(MappingMatrix<TKey, TData> original, List<TKey> activeKeysToExtract)
+		{
+			_numberOfKeys		= original._numberOfKeys;
+			_activeKeys			= new List<TKey>(activeKeysToExtract);
+			_numberOfActiveKeys	= activeKeysToExtract.Count;
+			_map				= new int[_numberOfKeys];
+
+			// First we need to initialize the entry map to values which are not valid.  That way we can determine
+			// if the data is present or not.
+			for (int i = 0; i < _numberOfKeys; i++)
+			{
+				// Set to an invalid value.
+				_map[i] = -1;
+			}
+
+			// Now we can set the values in the entry map based on the provided active entries.
+			for (int i = 0; i < _numberOfActiveKeys; i++)
+			{
+				// Set a map from the enumeration into the data container.
+				_map[System.Convert.ToInt32(_activeKeys[i])] = i;
+				_data.Add(new List<TData>(original[_activeKeys[i]]));
 			}
 		}
 

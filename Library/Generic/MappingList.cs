@@ -80,12 +80,11 @@ namespace DigitalProduction.Generic
 		/// <summary>
 		/// Copy constructor.
 		/// </summary>
-		/// <param name="original"></param>
+		/// <param name="original">Copy source.</param>
 		public MappingList(MappingList<TKey, TData> original)
 		{
 			_numberOfKeys		= original._numberOfKeys;
 			_activeKeys			= new List<TKey>(original._activeKeys);
-			_activeKeys			= original._activeKeys;
 			_numberOfActiveKeys	= original._numberOfActiveKeys;
 			_map				= new int[_numberOfKeys];
 
@@ -96,6 +95,26 @@ namespace DigitalProduction.Generic
 			for (int i = 0; i < _numberOfActiveKeys; i++)
 			{
 				_data.Add(original._data[i]);
+			}
+		}
+
+		/// <summary>
+		/// Subset extractor constructor.
+		/// </summary>
+		/// <param name="original">Copy source.</param>
+		/// <param name="activeKeysToExtract">List of active keys, in the order that they are contained in the data, to be copied from the original.</param>
+		public MappingList(MappingList<TKey, TData> original, List<TKey> activeKeysToExtract)
+		{
+			_numberOfKeys		= original._numberOfKeys;
+			_activeKeys			= new List<TKey>(activeKeysToExtract);
+			_numberOfActiveKeys	= activeKeysToExtract.Count;
+			_map				= new int[_numberOfKeys];
+
+			// Copy data.
+			for (int i = 0; i < _numberOfActiveKeys; i++)
+			{
+				_map[System.Convert.ToInt32(_activeKeys[i])] = i;
+				_data.Add(original[_activeKeys[i]]);
 			}
 		}
 

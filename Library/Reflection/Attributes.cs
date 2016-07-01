@@ -215,7 +215,7 @@ namespace DigitalProduction.Reflection
 					attribute = (T)attr;
 				}
 			}
-        
+		
 			return attribute;
 		}
 
@@ -249,7 +249,7 @@ namespace DigitalProduction.Reflection
 					attribute.Add((T)attr);
 				}
 			}
-        
+		
 			return attribute;
 		}
 
