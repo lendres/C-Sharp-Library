@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using DigitalProduction.Mathmatics;
+
 namespace DigitalProduction.Extensions
 {
 	/// <summary>
@@ -30,12 +32,13 @@ namespace DigitalProduction.Extensions
 		/// <returns>Mean (average) of data.</returns>
 		public static double Average(this List<double> values, int start, int count)
 		{
-			double s = 0;
-			for (int i = start; i < start+count; i++)
+			double	average	= 0;
+			int		end		= start + count;
+			for (int i = start; i < end; i++)
 			{
-				s += values[i];
+				average += values[i];
 			}
-			return s / (count);
+			return average / count;
 		}
 
 		/// <summary>
@@ -52,11 +55,13 @@ namespace DigitalProduction.Extensions
 		/// </summary>
 		/// <param name="values">Values for calculation (this list).</param>
 		/// <param name="start">Starting index.</param>
-		/// <param name="end">Ending index (not included in calculation).</param>
-		public static List<double> RemoveAverage(this List<double> values, int start, int end)
+		/// <param name="count">Number of entries to remove the mean (average) of.</param>
+		public static List<double> RemoveAverage(this List<double> values, int start, int count)
 		{
-			double average = values.Average(start, end);
-			List<double> newValues = new List<double>(end - start + 1);
+			int		end		= start + count;
+			double	average	= values.Average(start, count);
+
+			List<double> newValues = new List<double>(count);
 
 			for (int i = start; i < end; i++)
 			{
@@ -80,9 +85,11 @@ namespace DigitalProduction.Extensions
 		/// <param name="values">Values for calculation (this list).</param>
 		/// <param name="start">Starting index.</param>
 		/// <param name="end">Ending index (not included in calculation).</param>
-		public static void RemoveAverageInPlace(this List<double> values, int start, int end)
+		/// <param name="count">Number of entries to remove the mean (average) of.</param>
+		public static void RemoveAverageInPlace(this List<double> values, int start, int count)
 		{
-			double average = values.Average(start, end);
+			int		end		= start + count;
+			double	average	= values.Average(start, count);
 
 			for (int i = start; i < end; i++)
 			{
@@ -115,10 +122,12 @@ namespace DigitalProduction.Extensions
 		/// <param name="values">Values for calculation (this list).</param>
 		/// <param name="mean">The mean (average) value of the entries.</param>
 		/// <param name="start">Starting index.</param>
-		/// <param name="end">Ending index (not included in calculation).</param>
-		public static double Variance(this List<double> values, double mean, int start, int end)
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static double Variance(this List<double> values, double mean, int start, int count)
 		{
-			double variance = 0;
+			int		end			= start + count;
+			double	variance	= 0;
+
 			for (int i = start; i < end; i++)
 			{
 				variance += System.Math.Pow((values[i] - mean), 2);
@@ -148,11 +157,11 @@ namespace DigitalProduction.Extensions
 		/// </summary>
 		/// <param name="values">Values for calculation (this list).</param>
 		/// <param name="start">Starting index.</param>
-		/// <param name="end">Ending index (not included in calculation).</param>
-		public static double StandardDeviation(this List<double> values, int start, int end)
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static double StandardDeviation(this List<double> values, int start, int count)
 		{
-			double mean		= values.Average(start, end);
-			double variance	= values.Variance(mean, start, end);
+			double mean		= values.Average(start, count);
+			double variance	= values.Variance(mean, start, count);
 			return System.Math.Sqrt(variance);
 		}
 
@@ -220,6 +229,7 @@ namespace DigitalProduction.Extensions
 		/// Multiplication of a scalar with a list of doubles.
 		/// </summary>
 		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="scalar">Value to multiply the list entries by.</param>
 		public static List<double> Multiply(this List<double> values, double scalar)
 		{
 			return values.Multiply(scalar, 0, values.Count);
@@ -229,11 +239,13 @@ namespace DigitalProduction.Extensions
 		/// Multiplication of a scalar with a subset of a list of doubles.
 		/// </summary>
 		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="scalar">Value to multiply the list entries by.</param>
 		/// <param name="start">Starting index.</param>
-		/// <param name="end">Ending index (not included in calculation).</param>
-		public static List<double> Multiply(this List<double> values, double scalar, int start, int end)
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static List<double> Multiply(this List<double> values, double scalar, int start, int count)
 		{
-			List<double> newValues = new List<double>(end - start + 1);
+			int				end				= start + count;
+			List<double>	newValues		= new List<double>(count);
 
 			for (int i = start; i < end; i++)
 			{
@@ -259,24 +271,25 @@ namespace DigitalProduction.Extensions
 		/// </summary>
 		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
 		/// <param name="scalar">Scalar to multiply by.</param>
-		public static void MultiplyInPlace(this List<double> values, double scalar, int start, int end)
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static void MultiplyInPlace(this List<double> values, double scalar, int start, int count)
 		{
+			int end = start + count;
+
 			for (int i = start; i < end; i++)
 			{
 				values[i] *= scalar;
 			}
 		}
 
-
-
-
 		/// <summary>
-		/// Multiplication of a scalar with a list of doubles.
+		/// Division by a scalar.
 		/// </summary>
 		/// <param name="values">Values for calculation (this list).</param>
-		public static List<double> Normalize(this List<double> values, double scalar)
+		/// <param name="scalar">Scalar to divide by.</param>
+		public static List<double> Divide(this List<double> values, double scalar)
 		{
-			return values.Multiply(scalar, 0, values.Count);
+			return values.Divide(scalar, 0, values.Count);
 		}
 
 		/// <summary>
@@ -284,14 +297,15 @@ namespace DigitalProduction.Extensions
 		/// </summary>
 		/// <param name="values">Values for calculation (this list).</param>
 		/// <param name="start">Starting index.</param>
-		/// <param name="end">Ending index (not included in calculation).</param>
-		public static List<double> Normalize(this List<double> values, double scalar, int start, int end)
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static List<double> Divide(this List<double> values, double scalar, int start, int count)
 		{
-			List<double> newValues = new List<double>(end - start + 1);
+			int				end			= start + count;
+			List<double>	newValues	= new List<double>(count);
 
 			for (int i = start; i < end; i++)
 			{
-				newValues.Add(values[i] * scalar);
+				newValues.Add(values[i] / scalar);
 			}
 			return newValues;
 		}
@@ -301,10 +315,10 @@ namespace DigitalProduction.Extensions
 		/// the values in the list are overwritten.
 		/// </summary>
 		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
-		/// <param name="scalar">Scalar to multiply by.</param>
-		public static void NormalizeInPlace(this List<double> values, double scalar)
+		/// <param name="scalar">Scalar to divide by.</param>
+		public static void DivideInPlace(this List<double> values, double scalar)
 		{
-			values.MultiplyInPlace(scalar, 0, values.Count);
+			values.DivideInPlace(scalar, 0, values.Count);
 		}
 
 		/// <summary>
@@ -312,13 +326,138 @@ namespace DigitalProduction.Extensions
 		/// the values in the list are overwritten.
 		/// </summary>
 		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
-		/// <param name="scalar">Scalar to multiply by.</param>
-		public static void NormalizeInPlace(this List<double> values, double scalar, int start, int end)
+		/// <param name="scalar">Scalar to divide by.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static void DivideInPlace(this List<double> values, double scalar, int start, int count)
 		{
+			int end = start + count;
+
 			for (int i = start; i < end; i++)
 			{
-				values[i] *= scalar;
+				values[i] /= scalar;
 			}
+		}
+
+		/// <summary>
+		/// Multiplication of a scalar with a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="normalizationType">Method used to normalize the values.</param>
+		public static List<double> Normalize(this List<double> values, NormalizationType normalizationType)
+		{
+			return values.Normalize(normalizationType, 0, values.Count);
+		}
+
+		/// <summary>
+		/// Multiplication of a scalar with a subset of a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="normalizationType">Method used to normalize the values.</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static List<double> Normalize(this List<double> values, NormalizationType normalizationType, int start, int count)
+		{
+			double max = values.Max();
+			return values.Divide(max, start, count);
+		}
+
+		/// <summary>
+		/// Fast version of multiply by a scalar.  Does multiplication of values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
+		/// <param name="normalizationType">Method used to normalize the values.</param>
+		public static void NormalizeInPlace(this List<double> values, NormalizationType normalizationType)
+		{
+			values.NormalizeInPlace(normalizationType, 0, values.Count);
+		}
+
+		/// <summary>
+		/// Fast version of multiply by a scalar.  Does multiplication of values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
+		/// <param name="normalizationType">Method used to normalize the values.</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static void NormalizeInPlace(this List<double> values, NormalizationType normalizationType, int start, int count)
+		{
+			double max = NormalizationValue(values, normalizationType);
+			values.MultiplyInPlace(max, start, count);
+		}
+
+		/// <summary>
+		/// Get the normalization value of a list based on the specified NormalizationType.
+		/// </summary>
+		/// <param name="values">Input list.</param>
+		/// <param name="normalizationType">NormalizationType.</param>
+		private static double NormalizationValue(List<double> values, NormalizationType normalizationType)
+		{
+			switch (normalizationType)
+			{
+				case NormalizationType.Euclidean:
+				{
+					return 1.0 / VectorLength(values);
+				}
+
+				case NormalizationType.MaxValueIsHalfPi:
+				{
+					return Math.PI / 2.0 / values.Max();
+				}
+
+				case NormalizationType.MaxAbsoluteValueIsOne:
+				{
+					return 1.0 / values.MaxAbsoluteValue();
+				}
+
+				case NormalizationType.MaxValueIsOne:
+				{
+					return 1.0 / values.Max();
+				}
+
+				default:
+				{
+					throw new Exception("NormalizationType not valid.");
+				}
+			}
+		}
+
+		/// <summary>
+		/// Vector length (Euclidian norm) of a list of doubles.
+		/// </summary>
+		/// <param name="values">Input list.</param>
+		public static double VectorLength(this List<double> values)
+		{
+			int		count	= values.Count;
+			double	sum		= 0;
+
+			for (int i = 0; i < count; i++)
+			{
+				sum += values[i] * values[i];
+			}
+
+			return Math.Sqrt(sum);
+		}
+
+		/// <summary>
+		/// Find the maximum of the absolute values.
+		/// </summary>
+		/// <param name="values">Input list.</param>
+		public static double MaxAbsoluteValue(this List<double> values)
+		{
+			int		count				= values.Count;
+			double	maxAbsoluteValue	= 0;
+
+			for (int i = 0; i < count; i++)
+			{
+				double absValue = Math.Abs(values[i]);
+				if (absValue > maxAbsoluteValue)
+				{
+					maxAbsoluteValue = absValue;
+				}
+			}
+
+			return maxAbsoluteValue;
 		}
 
 	} // End class.
