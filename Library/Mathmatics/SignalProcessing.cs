@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace DigitalProduction.Mathmatics
 {
@@ -46,22 +47,85 @@ namespace DigitalProduction.Mathmatics
 
 		#region Methods
 
-		//k=0;				% initialize k to 0
-		//i=1;				% initialize the counter to 1
-		//alpha=pi;			% set alpha to the desired Tolerance. In this case, pi
+		public static List<double> Derivative(List<DateTime> time, DateTimeIntervalType intervalType, List<double> function)
+		{
+			int count = time.Count;
 
-		//for i = 1:(size(u)-1)
-		//	yout(i,:)=u(i)+(2*pi*k); % add 2*pi*k to ui
-		//	if((abs(u(i+1)-u(i)))>(abs(alpha)))  %if diff is greater than alpha, increment or decrement k
+			if (function.Count != count)
+			{
+				throw new Exception("Error taking the derivative.  Time and function vectors/lists are not the same length.");
+			}
 
-		//		if u(i+1)<u(i)   % if the phase jump is negative, increment k
-		//			k=k+1;
-		//		else             % if the phase jump is positive, decrement k
-		//			k=k-1;
-		//		end
-		//	end
-		//end
-		//yout((i+1),:)=u(i+1)+(2*pi*k); % add 2*pi*k to the last element of the input
+			List<double> derivative = new List<double>(count);
+
+			for (int i = 1; i < count; i++)
+			{
+				TimeSpan timeSpan		= time[i] - time[i-1];
+				double timeInterval		= ConvertTimeSpanToInterval(timeSpan, intervalType);
+				derivative.Add((function[i]-function[i-1]) / timeInterval);
+			}
+
+			// Copy the last entry and add it so that the output List is the same size as the input List.
+			derivative.Add(derivative[count-2]);
+
+			return derivative;
+		}
+
+		/// <summary>
+		/// Convert a TimeSpan to a double representing the requested interval type.
+		/// </summary>
+		/// <param name="timeSpan">TimeSpan to convert.</param>
+		/// <param name="intervalType">Desired output units (what time length is TimeSpan expressed in?).  For example 14 days or 2 week.</param>
+		public static double ConvertTimeSpanToInterval(TimeSpan timeSpan, DateTimeIntervalType intervalType)
+		{
+			switch (intervalType)
+			{
+				case DateTimeIntervalType.Days:
+				{
+					return timeSpan.TotalDays;
+				}
+
+				case DateTimeIntervalType.Hours:
+				{
+					return timeSpan.TotalHours;
+				}
+
+				case DateTimeIntervalType.Milliseconds:
+				{
+					return timeSpan.TotalMilliseconds;
+				}
+
+				case DateTimeIntervalType.Minutes:
+				{
+					return timeSpan.TotalMinutes;
+				}
+
+				case DateTimeIntervalType.Months:
+				{
+					return timeSpan.TotalDays / 30;
+				}
+
+				case DateTimeIntervalType.Seconds:
+				{
+					return timeSpan.TotalSeconds;
+				}
+
+				case DateTimeIntervalType.Weeks:
+				{
+					return timeSpan.TotalDays / 7;
+				}
+
+				case DateTimeIntervalType.Years:
+				{
+					return timeSpan.TotalDays / 365;
+				}
+
+				default:
+				{
+					throw new Exception("The TimeSpan cannot be converted to that type of DateTimeIntervalType.");
+				}
+			}
+		}
 
 		/// <summary>
 		/// Unwrap the phase angle of an input array.

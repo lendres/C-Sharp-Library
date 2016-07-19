@@ -13,16 +13,6 @@ namespace DigitalProduction.Extensions
 	/// </summary>
 	public static class ListExtensions
 	{
-		///// <summary>
-		///// Get the mean (average) of a list.
-		///// </summary>
-		///// <param name="values">List to calculate the mean (average) from.</param>
-		///// <returns>Mean (average) of data.</returns>
-		//public static double Average(this List<double> values)
-		//{
-		//	return values.Count == 0 ? 0 : values.Average(0, values.Count);
-		//}
-
 		/// <summary>
 		/// Get the mean (average) of a subset of list entries.
 		/// </summary>
@@ -172,7 +162,7 @@ namespace DigitalProduction.Extensions
 		/// </summary>
 		/// <param name="values">Values to average.</param>
 		/// <param name="windowLength">Window size for the average.</param>
-		public static List<double> MovingAverage(List<double> values, int windowLength)
+		public static List<double> MovingAverage(this List<double> values, int windowLength)
 		{
 			double sum = 0;
 			List<double> averages = new List<double>(values.Count);
@@ -183,7 +173,7 @@ namespace DigitalProduction.Extensions
 				{
 					sum += values[i];
 					//averages[i] = (i == windowLength - 1) ? sum / (double)windowLength : 0;
-					averages.Add(sum / (double)windowLength);
+					averages.Add(sum / (double)(i+1));
 				}
 				else
 				{
@@ -200,7 +190,7 @@ namespace DigitalProduction.Extensions
 		/// <param name="values">Values to take average of.</param>
 		/// <param name="segmentIndices">Indices of the segments.</param>
 		/// <param name="forPlotting">If true, the additional values are added (values are added twice) so that a continuous line can be plotted.</param>
-		public static List<double> SegmentAverage(List<double> values, List<int> segmentIndices, bool forPlotting)
+		public static List<double> SegmentAverage(this List<double> values, List<int> segmentIndices, bool forPlotting)
 		{
 			int size				= segmentIndices.Count;
 			List<double> results	= new List<double>(2*size);
@@ -224,6 +214,130 @@ namespace DigitalProduction.Extensions
 
 			return results;
 		}
+
+		#region Add
+
+		/// <summary>
+		/// Addition of a scalar with a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="scalar">Value to add to the list entries.</param>
+		public static List<double> Add(this List<double> values, double scalar)
+		{
+			return values.Add(scalar, 0, values.Count);
+		}
+
+		/// <summary>
+		/// Addition of a scalar with a subset of a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="scalar">Value to add to the list entries.</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static List<double> Add(this List<double> values, double scalar, int start, int count)
+		{
+			int				end				= start + count;
+			List<double>	newValues		= new List<double>(count);
+
+			for (int i = start; i < end; i++)
+			{
+				newValues.Add(values[i] + scalar);
+			}
+			return newValues;
+		}
+
+		/// <summary>
+		/// Fast version of addition by a scalar.  Does addition of values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="values">List to add to the values of.  Values in list are overwritten.</param>
+		/// <param name="scalar">Scalar to add.</param>
+		public static void AddInPlace(this List<double> values, double scalar)
+		{
+			values.AddInPlace(scalar, 0, values.Count);
+		}
+
+		/// <summary>
+		/// Fast version of addition by a scalar.  Does addition of values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="values">List to add to the values of.  Values in list are overwritten.</param>
+		/// <param name="scalar">Scalar to add.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static void AddInPlace(this List<double> values, double scalar, int start, int count)
+		{
+			int end = start + count;
+
+			for (int i = start; i < end; i++)
+			{
+				values[i] += scalar;
+			}
+		}
+
+		#endregion
+
+		#region Substract
+
+		/// <summary>
+		/// Subtraction of a scalar with a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="scalar">Value to subtract from the list entries.</param>
+		public static List<double> Subtract(this List<double> values, double scalar)
+		{
+			return values.Subtract(scalar, 0, values.Count);
+		}
+
+		/// <summary>
+		/// Subtraction of a scalar with a subset of a list of doubles.
+		/// </summary>
+		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="scalar">Value to subtract from the list entries.</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static List<double> Subtract(this List<double> values, double scalar, int start, int count)
+		{
+			int				end				= start + count;
+			List<double>	newValues		= new List<double>(count);
+
+			for (int i = start; i < end; i++)
+			{
+				newValues.Add(values[i] - scalar);
+			}
+			return newValues;
+		}
+
+		/// <summary>
+		/// Fast version of subtraction by a scalar.  Does subtract from values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="values">List to subtract from the values.  Values in list are overwritten.</param>
+		/// <param name="scalar">Scalar to subtract.</param>
+		public static void SubtractInPlace(this List<double> values, double scalar)
+		{
+			values.SubtractInPlace(scalar, 0, values.Count);
+		}
+
+		/// <summary>
+		/// Fast version of subtract by a scalar.  Does subtract from values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="values">List to subtract from the values of.  Values in list are overwritten.</param>
+		/// <param name="scalar">Scalar to subtract.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static void SubtractInPlace(this List<double> values, double scalar, int start, int count)
+		{
+			int end = start + count;
+
+			for (int i = start; i < end; i++)
+			{
+				values[i] -= scalar;
+			}
+		}
+
+		#endregion
+
+		#region Multiply
 
 		/// <summary>
 		/// Multiplication of a scalar with a list of doubles.
@@ -282,6 +396,10 @@ namespace DigitalProduction.Extensions
 			}
 		}
 
+		#endregion
+
+		#region Divide
+
 		/// <summary>
 		/// Division by a scalar.
 		/// </summary>
@@ -337,6 +455,8 @@ namespace DigitalProduction.Extensions
 				values[i] /= scalar;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// Multiplication of a scalar with a list of doubles.
