@@ -14,7 +14,7 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	internal partial class MessageBoxYesNoToAllForm : Form
 	{
-		#region Members/Variables.
+		#region Members
 
 		private MessageBoxYesNoToAll.Result			_dialogresult				= MessageBoxYesNoToAll.Result.Cancel;
 		private int									_xspacing					= 81;
@@ -24,7 +24,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Construction.
+		#region Construction
 
 		/// <summary>
 		/// Constructor.
@@ -121,7 +121,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <summary>
 		/// Dialog result.
@@ -140,7 +140,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Event handlers.
+		#region Event Handlers
 
 		/// <summary>
 		/// Yes button pressed.
@@ -199,7 +199,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Control manipulation (spacing, visible, default).
+		#region Control Manipulation (spacing, visible, default)
 
 		/// <summary>
 		/// Creates the image on the control from the specified icon.

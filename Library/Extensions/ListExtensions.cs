@@ -13,6 +13,8 @@ namespace DigitalProduction.Extensions
 	/// </summary>
 	public static class ListExtensions
 	{
+		#region Statistics
+
 		/// <summary>
 		/// Get the mean (average) of a subset of list entries.
 		/// </summary>
@@ -215,6 +217,8 @@ namespace DigitalProduction.Extensions
 			return results;
 		}
 
+		#endregion
+
 		#region Add
 
 		/// <summary>
@@ -247,6 +251,40 @@ namespace DigitalProduction.Extensions
 		}
 
 		/// <summary>
+		/// Addition of two lists of doubles.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to add to the list entries.</param>
+		public static List<double> Add(this List<double> leftValues, List<double> rightValues)
+		{
+			return leftValues.Add(rightValues, 0, leftValues.Count);
+		}
+
+		/// <summary>
+		/// Addition of a subset of two list of doubles.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to add to the list entries.</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static List<double> Add(this List<double> leftValues, List<double> rightValues, int start, int count)
+		{
+			if (leftValues.Count != rightValues.Count)
+			{
+				throw new Exception("Left and right arrays must be the same length.");
+			}
+
+			int				end				= start + count;
+			List<double>	newValues		= new List<double>(count);
+
+			for (int i = start; i < end; i++)
+			{
+				newValues.Add(leftValues[i] + rightValues[i]);
+			}
+			return newValues;
+		}
+
+		/// <summary>
 		/// Fast version of addition by a scalar.  Does addition of values in list "in place," meaning
 		/// the values in the list are overwritten.
 		/// </summary>
@@ -271,6 +309,38 @@ namespace DigitalProduction.Extensions
 			for (int i = start; i < end; i++)
 			{
 				values[i] += scalar;
+			}
+		}
+
+		/// <summary>
+		/// Addition of two lists of doubles.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to add to the list entries.</param>
+		public static void AddInPlace(this List<double> leftValues, List<double> rightValues)
+		{
+			leftValues.AddInPlace(rightValues, 0, leftValues.Count);
+		}
+
+		/// <summary>
+		/// Addition of a subset of two list of doubles.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to add to the list entries.</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static void AddInPlace(this List<double> leftValues, List<double> rightValues, int start, int count)
+		{
+			if (leftValues.Count != rightValues.Count)
+			{
+				throw new Exception("Left and right arrays must be the same length.");
+			}
+
+			int				end				= start + count;
+
+			for (int i = start; i < end; i++)
+			{
+				leftValues[i] += rightValues[i];
 			}
 		}
 
@@ -308,6 +378,40 @@ namespace DigitalProduction.Extensions
 		}
 
 		/// <summary>
+		/// Addition of two lists of doubles.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to add to the list entries.</param>
+		public static List<double> Subtract(this List<double> leftValues, List<double> rightValues)
+		{
+			return leftValues.Subtract(rightValues, 0, leftValues.Count);
+		}
+
+		/// <summary>
+		/// Addition of a subset of two list of doubles.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to add to the list entries.</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static List<double> Subtract(this List<double> leftValues, List<double> rightValues, int start, int count)
+		{
+			if (leftValues.Count != rightValues.Count)
+			{
+				throw new Exception("Left and right arrays must be the same length.");
+			}
+
+			int				end				= start + count;
+			List<double>	newValues		= new List<double>(count);
+
+			for (int i = start; i < end; i++)
+			{
+				newValues.Add(leftValues[i] - rightValues[i]);
+			}
+			return newValues;
+		}
+
+		/// <summary>
 		/// Fast version of subtraction by a scalar.  Does subtract from values in list "in place," meaning
 		/// the values in the list are overwritten.
 		/// </summary>
@@ -332,6 +436,38 @@ namespace DigitalProduction.Extensions
 			for (int i = start; i < end; i++)
 			{
 				values[i] -= scalar;
+			}
+		}
+
+		/// <summary>
+		/// Addition of two lists of doubles.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to add to the list entries.</param>
+		public static void SubtractInPlace(this List<double> leftValues, List<double> rightValues)
+		{
+			leftValues.SubtractInPlace(rightValues, 0, leftValues.Count);
+		}
+
+		/// <summary>
+		/// Addition of a subset of two list of doubles.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to add to the list entries.</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static void SubtractInPlace(this List<double> leftValues, List<double> rightValues, int start, int count)
+		{
+			if (leftValues.Count != rightValues.Count)
+			{
+				throw new Exception("Left and right arrays must be the same length.");
+			}
+
+			int				end				= start + count;
+
+			for (int i = start; i < end; i++)
+			{
+				leftValues[i] -= rightValues[i];
 			}
 		}
 
@@ -369,6 +505,35 @@ namespace DigitalProduction.Extensions
 		}
 
 		/// <summary>
+		/// Entry wise multiplication of two lists of doubles.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to multiply the list entries by.</param>
+		public static List<double> Multiply(this List<double> leftValues, List<double> rightValues)
+		{
+			return leftValues.Multiply(rightValues, 0, leftValues.Count);
+		}
+
+		/// <summary>
+		/// Entry wise multiplication of two lists of doubles.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to multiply the list entries by.</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static List<double> Multiply(this List<double> leftValues, List<double> rightValues, int start, int count)
+		{
+			int				end				= start + count;
+			List<double>	newValues		= new List<double>(count);
+
+			for (int i = start; i < end; i++)
+			{
+				newValues.Add(leftValues[i] * rightValues[i]);
+			}
+			return newValues;
+		}
+
+		/// <summary>
 		/// Fast version of multiply by a scalar.  Does multiplication of values in list "in place," meaning
 		/// the values in the list are overwritten.
 		/// </summary>
@@ -393,6 +558,35 @@ namespace DigitalProduction.Extensions
 			for (int i = start; i < end; i++)
 			{
 				values[i] *= scalar;
+			}
+		}
+
+		/// <summary>
+		/// Entry wise multiplication of two lists of doubles.  Does multiplication of values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to multiply the list entries by.</param>
+		public static void MultiplyInPlace(this List<double> leftValues, List<double> rightValues)
+		{
+			leftValues.Multiply(rightValues, 0, leftValues.Count);
+		}
+
+		/// <summary>
+		/// Entry wise multiplication of two lists of doubles.  Does multiplication of values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation (this list).</param>
+		/// <param name="rightValues">Values to multiply the list entries by.</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static void MultiplyInPlace(this List<double> leftValues, List<double> rightValues, int start, int count)
+		{
+			int				end				= start + count;
+
+			for (int i = start; i < end; i++)
+			{
+				leftValues[i] *= rightValues[i];
 			}
 		}
 
@@ -457,6 +651,8 @@ namespace DigitalProduction.Extensions
 		}
 
 		#endregion
+
+		#region Normalization
 
 		/// <summary>
 		/// Multiplication of a scalar with a list of doubles.
@@ -542,6 +738,10 @@ namespace DigitalProduction.Extensions
 			}
 		}
 
+		#endregion
+
+		#region Other
+
 		/// <summary>
 		/// Vector length (Euclidian norm) of a list of doubles.
 		/// </summary>
@@ -579,6 +779,89 @@ namespace DigitalProduction.Extensions
 
 			return maxAbsoluteValue;
 		}
+
+		/// <summary>
+		/// Square root entry by entry.
+		/// </summary>
+		/// <param name="values">List to take the square root of.</param>
+		/// <param name="normalizationType">Method used to normalize the values.</param>
+		public static List<double> SquareRoot(this List<double> values)
+		{
+			int				count				= values.Count;
+			List<double>	newValues		= new List<double>(count);
+
+			for (int i = 0; i < count; i++)
+			{
+				newValues.Add(Math.Sqrt(values[i]));
+			}
+			return newValues;
+		}
+
+		/// <summary>
+		/// Fast version of multiply by a scalar.  Does multiplication of values in list "in place," meaning
+		/// the values in the list are overwritten.
+		/// </summary>
+		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
+		/// <param name="normalizationType">Method used to normalize the values.</param>
+		/// <param name="start">Starting index.</param>
+		/// <param name="count">Number of entries to use in the calculation.</param>
+		public static void SquareRootInPlace(this List<double> values)
+		{
+			int				count				= values.Count;
+
+			for (int i = 0; i < count; i++)
+			{
+				values[i] = Math.Sqrt(values[i]);
+			}
+		}
+
+		/// <summary>
+		/// Entry wise SRSS (the hypotenuse) of the lists.
+		/// </summary>
+		/// <param name="leftValues">Values for calculation.</param>
+		/// <param name="rightValues">Values for calculation.</param>
+		public static List<double> Hypotenuse(this List<double> leftValues, List<double> rightValues)
+		{
+			int				count			= leftValues.Count;
+			List<double>	newValues		= new List<double>(count);
+
+			if (count != rightValues.Count)
+			{
+				throw new Exception("Left and right lists are not the same length.");
+			}
+
+			for (int i = 0; i < count; i++)
+			{
+				newValues.Add(Math.Sqrt(leftValues[i]*leftValues[i] + rightValues[i]*rightValues[i]));
+			}
+			return newValues;
+		}
+
+		/// <summary>
+		/// Takes the derivative of a list of doubles.  Duplicates the last entry to create an output list
+		/// that is the same length of the input list.
+		/// 
+		/// Assumes constant time step size.
+		/// </summary>
+		/// <param name="values">List to take the derivative of.</param>
+		/// <param name="timestep">Time step size to take derivative over.</param>
+		public static List<double> Derivative(this List<double> values, double timestep)
+		{
+			int				count				= values.Count;
+			List<double>	derivatives			= new List<double>(count);
+
+			for (int i = 0; i < count-1; i++)
+			{
+				derivatives.Add((values[i+1] - values[i]) / timestep);
+			}
+
+			// Last entry.  Used to make sure length of lists agrees.
+			derivatives.Add(derivatives[count-2]);
+
+			return derivatives;
+		}
+
+		#endregion
 
 	} // End class.
 } // End namespace.

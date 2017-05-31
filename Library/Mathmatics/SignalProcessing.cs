@@ -47,6 +47,12 @@ namespace DigitalProduction.Mathmatics
 
 		#region Methods
 
+		/// <summary>
+		/// Numerical derivative.  Differentiates the input function with respect to time.
+		/// </summary>
+		/// <param name="time">List of DateTimes.</param>
+		/// <param name="intervalType"></param>
+		/// <param name="function">Function (values) to take the derivative of.</param>
 		public static List<double> Derivative(List<DateTime> time, DateTimeIntervalType intervalType, List<double> function)
 		{
 			int count = time.Count;
@@ -54,6 +60,10 @@ namespace DigitalProduction.Mathmatics
 			if (function.Count != count)
 			{
 				throw new Exception("Error taking the derivative.  Time and function vectors/lists are not the same length.");
+			}
+			if (count < 2)
+			{
+				throw new Exception("Error taking the derivative.  You must have at least two entries to take the derivative.");
 			}
 
 			List<double> derivative = new List<double>(count);
