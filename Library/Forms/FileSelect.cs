@@ -15,6 +15,43 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
+		#region Properties
+
+		/// <summary>
+		/// Standard string used for all files.
+		/// </summary>
+		public static string AllFilesFilterString
+		{
+			get
+			{
+				return "All files (*.*)|*.*";
+			}
+		}
+
+		/// <summary>
+		/// Standard string used for text files.
+		/// </summary>
+		public static string CSVFilesFilterString
+		{
+			get
+			{
+				return "CSV files (*.csv)|*.csv|Text files (*.txt)|*.txt|All files (*.*)|*.*";
+			}
+		}
+
+		/// <summary>
+		/// Standard string used for text files.
+		/// </summary>
+		public static string TextFilesFilterString
+		{
+			get
+			{
+				return "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+			}
+		}
+
+		#endregion
+
 		#region Browse for an XML File
 
 		/// <summary>
