@@ -63,7 +63,7 @@ namespace DigitalProduction.Forms
 		}
 
 		/// <summary>
-		/// Basic constructior.
+		/// Basic constructor.
 		/// </summary>
 		/// <param name="menuitem">Menu item the list is attached to.</param>
 		/// <param name="fileclickcallback">The call back function (delegate) to receive the path displayed on the control.</param>
@@ -75,7 +75,7 @@ namespace DigitalProduction.Forms
 		}
 
 		/// <summary>
-		/// Basic constructior.
+		/// Basic constructor.
 		/// </summary>
 		/// <param name="menuitem">Menu item the list is attached to.</param>
 		/// <param name="fileclickcallback">The call back function (delegate) to receive the path displayed on the control.</param>

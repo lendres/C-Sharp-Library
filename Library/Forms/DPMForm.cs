@@ -19,8 +19,7 @@ namespace DigitalProduction.Forms
 	/// 
 	/// If this form is the child of another the name of the form is held in _appname;
 	/// </summary>
-	public class DPMForm :
-		System.Windows.Forms.Form
+	public class DPMForm : System.Windows.Forms.Form
 	{
 		#region Members
 
@@ -34,12 +33,14 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Construction / Destruction / Disposing / Run install.
+		#region Construction
 
 		/// <summary>
 		/// Constructor required for form designer.  Do not use this constructor.
 		/// </summary>
-		protected DPMForm() {}
+		protected DPMForm()
+		{
+		}
 
 		/// <summary>
 		/// Constructor applications should use.
@@ -88,6 +89,10 @@ namespace DigitalProduction.Forms
 			_windowstatemanager	= new WindowStateManager(_winregaccess);
 		}
 
+		#endregion
+
+		#region Disposing
+
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
@@ -98,7 +103,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <summary>
 		/// Get the name of the company.
