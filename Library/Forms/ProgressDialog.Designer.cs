@@ -81,7 +81,7 @@ namespace DigitalProduction.Forms
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -93,6 +93,8 @@ namespace DigitalProduction.Forms
 			// 
 			// lblTimeElapsed
 			// 
+			this.lblTimeElapsed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblTimeElapsed.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.lblTimeElapsed.Location = new System.Drawing.Point(138, 40);
 			this.lblTimeElapsed.Name = "lblTimeElapsed";

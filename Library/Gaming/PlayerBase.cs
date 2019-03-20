@@ -8,7 +8,7 @@ namespace DigitalProduction.Gaming
 	/// </summary>
 	abstract public class PlayerBase<T> where T : struct
 	{
-		#region Members / Variables
+		#region Members
 
 		/// <summary>The player's score.</summary>
 		protected T				_score;
@@ -16,7 +16,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Construction / Destruction.
+		#region Construction
 
 		/// <summary>
 		/// Constructor.
@@ -50,7 +50,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <value>
 		/// Name of the player.  Read/write.
@@ -84,7 +84,8 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Functions.
+		#region Methods
+
 		#endregion
 
 	} // End class.

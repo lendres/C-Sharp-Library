@@ -22,7 +22,7 @@ namespace DigitalProduction.Generic
 
 		#endregion
 
-		#region Construction.
+		#region Construction
 
 		/// <summary>
 		/// Default constructor.
@@ -34,7 +34,7 @@ namespace DigitalProduction.Generic
 
 		#endregion
 
-		#region Functions.
+		#region Methods
 
 		/// <summary>
 		/// Register a class with the object factory.

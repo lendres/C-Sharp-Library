@@ -95,6 +95,7 @@ namespace DigitalProduction.Forms
 		/// <param name="owner">Owner window.</param>
 		/// <param name="title">Title of the OpenFileDialog box.</param>
 		/// <param name="initialDirectory">Directory to start in.</param>
+		/// <param name="keepCurrentDirectory">If true, the current directory is restored after the operation.</param>
 		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string BrowseForAnXMLFile(IWin32Window owner, string title, string initialDirectory, bool keepCurrentDirectory)
 		{

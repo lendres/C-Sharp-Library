@@ -62,6 +62,7 @@ namespace DigitalProduction.Generic
 		/// Constructor.
 		/// </summary>
 		/// <param name="activeKeys">List of active keys, in the order that they are contained in the data.</param>
+		/// <param name="initialSize">Initial size of the container.</param>
 		public MappingMatrix(List<TKey> activeKeys, int initialSize)
 		{
 			InitializeFromActiveKeys(activeKeys, initialSize);

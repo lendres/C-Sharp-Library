@@ -7,19 +7,21 @@ namespace DigitalProduction.XML
 	/// </summary>
 	public class Attribute
 	{
-		#region Members / Variables / Delegates.
+		#region Members
 
 		private string		_name;
 		private string		_value;
 
 		#endregion
 
-		#region Construction.
+		#region Construction
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public Attribute() {}
+		public Attribute()
+		{
+		}
 
 		/// <summary>
 		/// Constructor.
@@ -32,7 +34,7 @@ namespace DigitalProduction.XML
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <summary>
 		/// Name of the attribute.
@@ -59,6 +61,7 @@ namespace DigitalProduction.XML
 			{
 				return _value;
 			}
+
 			set
 			{
 				_value = value;

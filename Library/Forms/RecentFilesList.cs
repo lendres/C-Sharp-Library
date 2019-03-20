@@ -11,24 +11,28 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public partial class RecentFilesList
 	{
-		#region Members and delegates.
+		#region Delegates
 
 		/// <summary>
 		/// Call back delegate for when a recent file control was clicked and the path on the control exists.
 		/// </summary>
 		/// <param name="path">The path that is displayed on the clicked control.</param>
-		public delegate							void RecentFileClickedDelegate(string path);
+		public delegate void RecentFileClickedDelegate(string path);
 
 		/// <summary>
 		/// Call back delegate for when a recent file control was clicked and the path on the control does not exist.
 		/// </summary>
 		/// <param name="path">The path that is displayed on the clicked control.</param>
-		public delegate							void RecentFileNotFoundDelegate(string path);
+		public delegate void RecentFileNotFoundDelegate(string path);
 
 		// Hold the callback delegate.
 		private RecentFileClickedDelegate		_fileclickeddelegate;
 
 		private RecentFileNotFoundDelegate		_filenotfounddelegate;
+
+		#endregion
+
+		#region Members
 
 		// Maximum allowed size of list.
 		const uint								_maxsize										= 10;
@@ -50,10 +54,10 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Construction.
+		#region Construction
 
 		/// <summary>
-		/// Basic constructior.
+		/// Basic constructor.
 		/// </summary>
 		/// <param name="menuitem">Menu item the list is attached to.</param>
 		public RecentFilesList(ToolStripMenuItem menuitem)
@@ -219,7 +223,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Public functions.
+		#region Public Functions
 
 		/// <summary>
 		/// Add a new file (path) to the top of the recently used files list.
@@ -323,8 +327,11 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Private controls manipulation functions.
+		#region Private Controls Manipulation Functions
 
+		/// <summary>
+		/// Setup the control.
+		/// </summary>
 		private void Initialize()
 		{
 			// Initialize the paths.  Either from the registry, or create blank ones.
@@ -431,7 +438,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Event handlers.
+		#region Event Handlers
 
 		/// <summary>
 		/// Event handler for when a recent file is clicked.  The path associated with the clicked ToolStripMenuItem

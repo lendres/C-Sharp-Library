@@ -79,7 +79,7 @@ namespace DigitalProduction.Gaming
 	/// </summary>
 	public class Card
 	{
-		#region Members / Variables.
+		#region Members
 
 		private CardRank	_rank;		// Face value of the card.
 		private CardSuit	_suit;		// Suit of the card.
@@ -93,7 +93,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Construction / Destruction.
+		#region Construction
 
 		/// <summary>
 		/// Default constructor.
@@ -117,7 +117,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <value>
 		/// Get the rank of the card.
@@ -154,7 +154,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Static class properties.
+		#region Static Properties
 
 		/// <summary>
 		/// The values (points) associated with the cards.
@@ -179,7 +179,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Static class functions.
+		#region Static Methods
 
 		/// <summary>
 		/// Convert a string to a CardSuit.
@@ -292,7 +292,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Hash code.
+		#region Hash Code
 
 		/// <summary>
 		/// Hash code.

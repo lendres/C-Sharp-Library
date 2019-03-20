@@ -76,7 +76,6 @@ namespace DigitalProduction.Extensions
 		/// </summary>
 		/// <param name="values">Values for calculation (this list).</param>
 		/// <param name="start">Starting index.</param>
-		/// <param name="end">Ending index (not included in calculation).</param>
 		/// <param name="count">Number of entries to remove the mean (average) of.</param>
 		public static void RemoveAverageInPlace(this List<double> values, int start, int count)
 		{
@@ -301,6 +300,7 @@ namespace DigitalProduction.Extensions
 		/// </summary>
 		/// <param name="values">List to add to the values of.  Values in list are overwritten.</param>
 		/// <param name="scalar">Scalar to add.</param>
+		/// <param name="start">Starting index.</param>
 		/// <param name="count">Number of entries to use in the calculation.</param>
 		public static void AddInPlace(this List<double> values, double scalar, int start, int count)
 		{
@@ -428,6 +428,7 @@ namespace DigitalProduction.Extensions
 		/// </summary>
 		/// <param name="values">List to subtract from the values of.  Values in list are overwritten.</param>
 		/// <param name="scalar">Scalar to subtract.</param>
+		/// <param name="start">Starting index.</param>
 		/// <param name="count">Number of entries to use in the calculation.</param>
 		public static void SubtractInPlace(this List<double> values, double scalar, int start, int count)
 		{
@@ -550,6 +551,7 @@ namespace DigitalProduction.Extensions
 		/// </summary>
 		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
 		/// <param name="scalar">Scalar to multiply by.</param>
+		/// <param name="start">Starting index.</param>
 		/// <param name="count">Number of entries to use in the calculation.</param>
 		public static void MultiplyInPlace(this List<double> values, double scalar, int start, int count)
 		{
@@ -608,6 +610,7 @@ namespace DigitalProduction.Extensions
 		/// Multiplication of a scalar with a subset of a list of doubles.
 		/// </summary>
 		/// <param name="values">Values for calculation (this list).</param>
+		/// <param name="scalar">Scalar to divide by.</param>
 		/// <param name="start">Starting index.</param>
 		/// <param name="count">Number of entries to use in the calculation.</param>
 		public static List<double> Divide(this List<double> values, double scalar, int start, int count)
@@ -639,6 +642,7 @@ namespace DigitalProduction.Extensions
 		/// </summary>
 		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
 		/// <param name="scalar">Scalar to divide by.</param>
+		/// <param name="start">Starting index.</param>
 		/// <param name="count">Number of entries to use in the calculation.</param>
 		public static void DivideInPlace(this List<double> values, double scalar, int start, int count)
 		{
@@ -784,10 +788,9 @@ namespace DigitalProduction.Extensions
 		/// Square root entry by entry.
 		/// </summary>
 		/// <param name="values">List to take the square root of.</param>
-		/// <param name="normalizationType">Method used to normalize the values.</param>
 		public static List<double> SquareRoot(this List<double> values)
 		{
-			int				count				= values.Count;
+			int				count			= values.Count;
 			List<double>	newValues		= new List<double>(count);
 
 			for (int i = 0; i < count; i++)
@@ -802,12 +805,9 @@ namespace DigitalProduction.Extensions
 		/// the values in the list are overwritten.
 		/// </summary>
 		/// <param name="values">List to multiple the values of.  Values in list are overwritten.</param>
-		/// <param name="normalizationType">Method used to normalize the values.</param>
-		/// <param name="start">Starting index.</param>
-		/// <param name="count">Number of entries to use in the calculation.</param>
 		public static void SquareRootInPlace(this List<double> values)
 		{
-			int				count				= values.Count;
+			int	count = values.Count;
 
 			for (int i = 0; i < count; i++)
 			{

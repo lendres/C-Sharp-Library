@@ -39,9 +39,12 @@ namespace DigitalProduction.Forms
 		private bool									_timing;
 		private bool									_timingended;
 
+		private Size									_defaultSize;
+		private Size									_noCancelSize;
+
 		#endregion
 
-		#region Construction / Destruction / Disposing
+		#region Construction
 
 		/// <summary>
 		/// Default constructor.
@@ -64,6 +67,9 @@ namespace DigitalProduction.Forms
 		{
 			InitializeComponent();
 
+			_defaultSize	= new Size(this.Size.Width + 10, this.Height + 32);
+			_noCancelSize	= new Size(_defaultSize.Width, 140);
+
 			// Animation speed when we use the Marquee style.
 			// You must use:
 			// progressdialog.ProgressBar.Style = ProgressBarStyle.Marquee;
@@ -85,34 +91,34 @@ namespace DigitalProduction.Forms
 			ResetTimer();
 		}
 
-		/// <summary>
-		/// Updates the clock on the status bar.
-		/// </summary>
-		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void tmrClock_Tick(object sender, EventArgs e)
-		{
-			if (_timing | _timingended)
-			{
-				TimeSpan elapsedtime = this.ElapsedTime;
-				string time = String.Format("{0:0} secs", elapsedtime.Seconds);
-
-				if (elapsedtime.Minutes > 0)
-				{
-					time = String.Format("{0:0} mins  ", elapsedtime.Minutes) + time;
-				}
-
-				this.lblTimeElapsed.Text = time;
-			}
-			else
-			{
-				this.lblTimeElapsed.Text = "0 secs";
-			}
-		}
-
 		#endregion
 
 		#region Properties
+
+		/// <summary>
+		/// Specifies if the cancel button should be shown.
+		/// </summary>
+		public bool AllowCancel
+		{
+			get
+			{
+				return this.btnCancel.Visible;
+			}
+
+			set
+			{
+				this.btnCancel.Visible = value;
+
+				if (value)
+				{
+					this.Size = _defaultSize;
+				}
+				else
+				{
+					this.Size = _noCancelSize;
+				}
+			}
+		}
 
 		/// <summary>
 		/// Get the time elapsed between the start time and end time (or, if timing has not ended, the time between
@@ -177,7 +183,36 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Functions
+		#region Event Handlers
+
+		/// <summary>
+		/// Updates the clock on the status bar.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="e">Event arguments.</param>
+		private void tmrClock_Tick(object sender, EventArgs e)
+		{
+			if (_timing | _timingended)
+			{
+				TimeSpan elapsedtime = this.ElapsedTime;
+				string time = String.Format("{0:0} secs", elapsedtime.Seconds);
+
+				if (elapsedtime.Minutes > 0)
+				{
+					time = String.Format("{0:0} mins  ", elapsedtime.Minutes) + time;
+				}
+
+				this.lblTimeElapsed.Text = time;
+			}
+			else
+			{
+				this.lblTimeElapsed.Text = "0 secs";
+			}
+		}
+
+		#endregion
+
+		#region Methods
 
 		/// <summary>
 		/// Shows the form with the specified owner to the use.  Also resets the progress bar and starts the timer.

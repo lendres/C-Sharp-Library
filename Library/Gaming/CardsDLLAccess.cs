@@ -10,7 +10,7 @@ namespace DigitalProduction.Gaming
 	/// </summary>
 	public class CardsDLLAccess : IDisposable
 	{
-		#region Enumerations.
+		#region Enumerations
 
 		/// <summary>
 		/// Image to show on the backs of cards when they are face down.
@@ -35,7 +35,7 @@ namespace DigitalProduction.Gaming
 			/// <summary>Flower Windows XP; Vine 1 Pre-Windows XP.</summary>
 			Flower			= 58,
 
-			/// <summary>Islang Windows XP; Vine 2 Pre-Windows XP.</summary>
+			/// <summary>Island Windows XP; Vine 2 Pre-Windows XP.</summary>
 			Island			= 59,
 
 			/// <summary>Squares Windows XP; Fish 1 Pre-Windows XP.</summary>
@@ -83,7 +83,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Members / Variables.
+		#region Members
 
 		private BackStyle			_backstyle;
 		private int					_width;
@@ -92,7 +92,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region DLL Import fuctions.
+		#region DLL Import
 
 		/// <summary>
 		/// Initializes the cards.dll library.
@@ -153,7 +153,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Construction / Destruction.
+		#region Construction
 
 		/// <summary>
 		/// Default constructor.
@@ -184,7 +184,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <value>
 		/// Get or set the card back style.
@@ -247,7 +247,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Drawing functions.
+		#region Drawing Functions
 
 		/// <summary>
 		/// Draw a card face down (so back is showing).
@@ -342,7 +342,7 @@ namespace DigitalProduction.Gaming
 
 		#endregion
 
-		#region Card positions in DLL functions.
+		#region Card Positions in DLL Functions
 
 		/// <summary>
 		/// Returns the position in cards.dll that the card is at.
@@ -375,7 +375,7 @@ namespace DigitalProduction.Gaming
 			int suit = position % 4;
 			int rank = (position-suit) / 4;
 
-            return new Card((CardRank)rank, (CardSuit)suit);
+			return new Card((CardRank)rank, (CardSuit)suit);
 		}
 
 		#endregion

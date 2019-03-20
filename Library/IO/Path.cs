@@ -96,6 +96,42 @@ namespace DigitalProduction.IO
 			return newPath;
 		}
 
+		/// <summary>
+		/// Checks that a path is savable.  It has to be a valid file name, the directory must exist, and
+		/// it cannot already be an existing, write only file.
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public static bool PathIsWritable(string path)
+		{
+			// First thing to check is that we have a file name.
+			bool saveable = IsValidFileName(path) == ValidFileNameResult.Valid;
+
+			if (saveable)
+			{
+				// The next thing to check is that the directory exists.
+				if (!System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(path)))
+				{
+					saveable = false;
+				}
+				else
+				{
+					// If the file already exists, we must be able to overwrite it.
+					if (System.IO.File.Exists(path))
+					{
+						// Now check to make sure the file is not locked.
+						System.IO.FileAttributes fileAttributes = System.IO.File.GetAttributes(path);
+						if ((fileAttributes & System.IO.FileAttributes.ReadOnly) == System.IO.FileAttributes.ReadOnly)
+						{
+							saveable = false;
+						}
+					}
+				}
+			}
+
+			return saveable;
+		}
+
 		#endregion
 
 		#region Directories
@@ -260,6 +296,28 @@ namespace DigitalProduction.IO
 			}
 		}
 
+		/// <summary>
+		/// Creates a new directory in the user's temporary folder.  The subFolder is used to organize
+		/// several temporary directories.  The final result will be similar in form to:
+		/// C:\Users\user\AppData\Local\Temp\subFolder\temp.tmp\
+		/// </summary>
+		/// <returns></returns>
+		public static string GetTemporaryDirectory(string subFolder)
+		{
+			string tempDirectory = System.IO.Path.Combine(System.IO.Path.GetTempPath(), subFolder, System.IO.Path.GetRandomFileName());
+			Directory.CreateDirectory(tempDirectory);
+			return tempDirectory;
+		}
+
+		/// <summary>
+		/// Creates a new directory in the user's temporary folder.
+		/// </summary>
+		/// <returns></returns>
+		public static string GetTemporaryDirectory()
+		{
+			// The Path.Combine will eat the blank string.
+			return GetTemporaryDirectory("");
+		}
 
 		#endregion
 

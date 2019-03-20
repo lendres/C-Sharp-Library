@@ -7,42 +7,30 @@ namespace DigitalProduction.Gaming
 	/// </summary>
 	public class Shoe
 	{
-		#region Enumerations.
-
-
+		#region Members
 
 		#endregion
 
-		#region Members / Variables / Delegates.
-
-
-
-		#endregion
-
-		#region Construction.
+		#region Construction
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public Shoe() { }
+		public Shoe()
+		{
+		}
 
 		#endregion
 
-		#region Properties.
-
-
+		#region Properties
 
 		#endregion
 
-		#region Functions.
-
-
+		#region Methods
 
 		#endregion
 
-		#region XML.
-
-
+		#region XML
 
 		#endregion
 

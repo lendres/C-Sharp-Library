@@ -9,7 +9,7 @@ namespace DigitalProduction.XML
 	/// </summary>
 	public class AttributeEnumerator : IEnumerator, IEnumerator<Attribute>
 	{
-		#region Members / Variables / Delegates.
+		#region Members
 
 		private List<Attribute>	_attributes;
 
@@ -18,7 +18,7 @@ namespace DigitalProduction.XML
 
 		#endregion
 
-		#region Construction.
+		#region Construction
 
 		/// <summary>
 		/// Default constructor.
@@ -30,7 +30,7 @@ namespace DigitalProduction.XML
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <summary>
 		/// Get the current entry.
@@ -67,7 +67,7 @@ namespace DigitalProduction.XML
 
 		#endregion
 
-		#region Functions.
+		#region Methods
 
 		/// <summary>
 		/// Move to the next entry.

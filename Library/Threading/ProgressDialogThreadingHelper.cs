@@ -114,7 +114,10 @@ namespace DigitalProduction.Threading
 				processThread.Abort();
 				try
 				{
-					_progressCleanUpDelegate();
+					if (_progressCleanUpDelegate != null)
+					{
+						_progressCleanUpDelegate();
+					}
 				}
 				catch (Exception exception)
 				{
@@ -133,19 +136,19 @@ namespace DigitalProduction.Threading
 				System.Threading.Thread.Sleep(100);
 			}
 
-			try
-			{
+			//try
+			//{
 				_workerDelegate();
 
 				// Close the dialog and allow the other thread to continue.
 				_progressDialog.Invoke(new ProgressDialog.CallBack(_progressDialog.CloseOK));
-			}
-			catch (Exception exception)
-			{
-				// Close the dialog and allow the other thread to continue.
-				_progressDialog.Invoke(new ProgressDialog.CallBack(_progressDialog.Close));
-				DisplayMessage(exception.Message, "Error", MessageBoxIcon.Error);
-			}
+			//}
+			//catch (Exception exception)
+			//{
+			//	// Close the dialog and allow the other thread to continue.
+			//	//_progressDialog.Invoke(new ProgressDialog.CallBack(_progressDialog.Close));
+			//	DisplayMessage(exception.Message, "Error", MessageBoxIcon.Error);
+			//}
 		}
 
 		/// <summary>

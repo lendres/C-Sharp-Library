@@ -27,7 +27,7 @@ namespace DigitalProduction.Registry
 
 		#endregion
 
-		#region Construction / Destruction / Install
+		#region Construction
 
 		/// <summary>
 		/// Constructor when the dialog box that is the owner is the top level dialog box.
@@ -51,6 +51,10 @@ namespace DigitalProduction.Registry
 			_owner			= owner;
 			this.Install	+= this.OnInstall;
 		}
+
+		#endregion
+
+		#region Installation
 
 		/// <summary>
 		/// Install function used by the delegate to do installation work.  Primarily used for debugging a setup
@@ -86,9 +90,39 @@ namespace DigitalProduction.Registry
 
 		#endregion
 
-		#region Methods
+		#region Options
 
-		#region Window state access
+		/// <summary>
+		/// Return the key that holds the options.
+		/// </summary>
+		/// <returns>Returns the registry key if it could be accessed, null if an error occurs.</returns>
+		protected RegistryKey OptionsKey()
+		{
+			RegistryKey regkey;
+
+			try
+			{
+				RegistryKey appkey = AppKey();
+
+				if (appkey == null)
+				{
+					return null;
+				}
+
+				// Open the Window State key.
+				regkey = appkey.CreateSubKey("Options");
+			}
+			catch
+			{
+				return null;
+			}
+
+			return regkey;
+		}
+
+		#endregion
+
+		#region Window State Access
 
 		/// <summary>
 		/// Return the key that holds window state information.
@@ -238,26 +272,12 @@ namespace DigitalProduction.Registry
 		{
 			get
 			{
-				RegistryKey regkey = RecentFilesKey();
-
-				if (regkey == null)
-				{
-					return 5;
-				}
-				else
-				{
-					return Convert.ToUInt32(regkey.GetValue("Size", 5));
-				}
+				return (uint)GetValue(RecentFilesKey(), "Size", 4);
 			}
 
 			set
 			{
-				RegistryKey regkey = RecentFilesKey();
-
-				if (regkey != null)
-				{
-					regkey.SetValue("Size", value);
-				}
+				SetValue(RecentFilesKey(), "Size", value);
 			}
 		}
 
@@ -307,8 +327,6 @@ namespace DigitalProduction.Registry
 				}
 			}
 		}
-
-		#endregion
 
 		#endregion
 
