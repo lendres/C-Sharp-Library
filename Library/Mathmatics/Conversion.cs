@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace DigitalProduction.Mathmatics
 {
 	/// <summary>
-	/// 
+	/// Class for converting units.
 	/// </summary>
 	public static class Conversion
 	{
@@ -33,6 +33,8 @@ namespace DigitalProduction.Mathmatics
 		#endregion
 
 		#region Methods
+
+		#region Angles
 
 		/// <summary>
 		/// Convert degrees to radians.
@@ -150,6 +152,22 @@ namespace DigitalProduction.Mathmatics
 			}
 		}
 
+		#endregion
+
+		#region Angular Velocity
+
+		/// <summary>
+		/// Convert RPM to Hertz (where 1 revolution in 1 second is 1 Hertz).  Hertz would be
+		/// equivalent to 1 revolution per 1 second.
+		/// </summary>
+		/// <param name="rpm">Revolutions per minute.</param>
+		/// <returns>Revolutions per minute as Hertz (cycles per second).</returns>
+		public static double RpmToHertz(double rpm)
+		{
+			return rpm / 60.0;
+		}
+
+		#endregion
 
 		#endregion
 
