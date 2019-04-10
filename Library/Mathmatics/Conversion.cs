@@ -169,6 +169,54 @@ namespace DigitalProduction.Mathmatics
 
 		#endregion
 
+		#region Length
+
+		/// <summary>
+		/// Convert feet to inches.
+		/// </summary>
+		/// <param name="feet">Feet.</param>
+		/// <returns>Inches.</returns>
+		public static double FeetToInches(double feet)
+		{
+			return feet * 12.0;
+		}
+
+		/// <summary>
+		/// Convert inches to feet.
+		/// </summary>
+		/// <param name="inches">Inches.</param>
+		/// <returns>Feet.</returns>
+		public static double InchesToFeet(double inches)
+		{
+			return inches / 12.0;
+		}
+
+		#endregion
+
+		#region Vibration
+
+		/// <summary>
+		/// Convert frequency (Hertz) into period (seconds).
+		/// </summary>
+		/// <param name="frequency">Frequency in Hertz.</param>
+		/// <returns>Period in seconds.</returns>
+		public static double FrequencyToPeriod(double frequency)
+		{
+			return 1.0 / frequency;
+		}
+
+		/// <summary>
+		/// Convert frequency Hertz into period (seconds).
+		/// </summary>
+		/// <param name="period">Period in seconds.</param>
+		/// <returns>Frequency in Hertz.</returns>
+		public static double PeriodToFrequency(double period)
+		{
+			return 1.0 / period;
+		}
+
+		#endregion
+
 		#endregion
 
 	} // End class.
