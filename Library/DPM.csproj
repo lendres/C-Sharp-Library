@@ -150,6 +150,7 @@
     <Compile Include="Mathmatics\Conversion.cs" />
     <Compile Include="Mathmatics\Geometry.cs" />
     <Compile Include="Mathmatics\NormalizationType.cs" />
+    <Compile Include="Mathmatics\Precision.cs" />
     <Compile Include="Mathmatics\SignalProcessing.cs" />
     <Compile Include="Numerics\Precision.cs" />
     <Compile Include="Numerics\PrecisionSettings.cs" />

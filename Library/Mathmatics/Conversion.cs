@@ -41,7 +41,7 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="angle">Angle to convert.</param>
 		/// <returns>Angle in radians.</returns>
-		public static double DegreeToRadian(double angle)
+		public static double DegreesToRadians(double angle)
 		{
 			return angle * System.Math.PI / 180.0;
 		}
@@ -51,7 +51,7 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
 		/// <returns>Angle in radians.</returns>
-		public static List<double> DegreeToRadian(List<double> angles)
+		public static List<double> DegreesToRadians(List<double> angles)
 		{
 			int				count		= angles.Count;
 			List<double>	output		= new List<double>(count);
@@ -68,7 +68,7 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
 		/// <returns>Angle in radians.</returns>
-		public static void DegreeToRadianInPlace(List<double> angles)
+		public static void DegreesToRadiansInPlace(List<double> angles)
 		{
 			int				count		= angles.Count;
 
@@ -83,7 +83,7 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="angle">Angle to convert.</param>
 		/// <returns>Angle in degrees.</returns>
-		public static double RadianToDegree(double angle)
+		public static double RadiansToDegrees(double angle)
 		{
 			return angle * 180.0 / System.Math.PI;
 		}
@@ -93,7 +93,7 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
 		/// <returns>Angle in degrees.</returns>
-		public static List<double> RadianToDegree(List<double> angles)
+		public static List<double> RadiansToDegrees(List<double> angles)
 		{
 			int				count		= angles.Count;
 			List<double>	output		= new List<double>(count);
@@ -110,7 +110,7 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
 		/// <returns>Angle in degrees.</returns>
-		public static void RadianToDegreeInPlace(List<double> angles)
+		public static void RadiansToDegreesInPlace(List<double> angles)
 		{
 			int				count		= angles.Count;
 
@@ -125,7 +125,7 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
 		/// <returns>Angle in degrees.</returns>
-		public static List<double> RadianToRevolution(List<double> angles)
+		public static List<double> RadiansToRevolutions(List<double> angles)
 		{
 			int				count		= angles.Count;
 			List<double>	output		= new List<double>(count);
@@ -142,7 +142,7 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
 		/// <returns>Angle in degrees.</returns>
-		public static void RadianToRevolutionInPlace(List<double> angles)
+		public static void RadiansToRevolutionsInPlace(List<double> angles)
 		{
 			int				count		= angles.Count;
 
@@ -213,6 +213,30 @@ namespace DigitalProduction.Mathmatics
 		public static double PeriodToFrequency(double period)
 		{
 			return 1.0 / period;
+		}
+
+		#endregion
+
+		#region Rounding
+
+		/// <summary>
+		/// Round down the integer part (characteristic) of a number.
+		/// </summary>
+		/// <param name="value">Value to round.</param>
+		/// <param name="position">Integer position to round to.</param>
+		public static int FloorToIntegerPart(double value, int position)
+		{
+			return (int)System.Math.Floor(value / position) * position;
+		}
+
+		/// <summary>
+		/// Round up the integer part (characteristic) of a number.
+		/// </summary>
+		/// <param name="value">Value to round.</param>
+		/// <param name="position">Integer position to round to.</param>
+		public static int CeilingToIntegerPart(double value, int position)
+		{
+			return (int)System.Math.Ceiling(value / position) * position;
 		}
 
 		#endregion
