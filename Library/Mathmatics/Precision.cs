@@ -84,6 +84,7 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="val1">The first value.</param>
 		/// <param name="val2">The second value.</param>
+		/// <param name="epsilon">Precision required to consider the two value equal.</param>
 		/// <returns>True if val1 equals val2 within the allowed precision, false otherwise.</returns>
 		public static bool Equals(double val1, double val2, double epsilon)
 		{

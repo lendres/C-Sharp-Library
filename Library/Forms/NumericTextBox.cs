@@ -16,7 +16,7 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public partial class NumericTextBox : TextBox
 	{
-		#region DLL imports.
+		#region DLL Imports
 
 		[DllImport("user32.dll")]
 		static extern void MessageBeep(uint uType);
@@ -29,7 +29,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Members.
+		#region Members
 
 		// Options.
 		bool				_limitdecimalplaces				= true;
@@ -56,13 +56,14 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Construction.
+		#region Construction
 
 		/// <summary>
 		/// Construction.
 		/// </summary>
 		public NumericTextBox()
 		{
+			InitializeComponent();
 			_numberformatinfo	= System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
 			_decimalseparator	= _numberformatinfo.NumberDecimalSeparator.ToCharArray()[0];
 			_groupseparator		= _numberformatinfo.NumberGroupSeparator.ToCharArray()[0];
@@ -72,7 +73,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Event handling.
+		#region Event Handling
 
 		/// <summary>
 		/// Restricts the entry of characters to digits (including hexadecimal), the negative sign, the decimal point,
@@ -130,7 +131,7 @@ namespace DigitalProduction.Forms
 					EventArgs eventArguments = new EventArgs();
 					OnValidated(new EventArgs());
 				}
-				
+
 				validkey = true;
 				return false;
 			}
@@ -275,7 +276,7 @@ namespace DigitalProduction.Forms
 			// changed for decimal entry.
 			//InputModeEditor.SetInputMode(this, InputMode.Numeric);
 		}
-		
+
 		/// <summary>
 		/// When validating, pad any remaining decimal places with zeros.
 		/// </summary>
@@ -412,7 +413,7 @@ namespace DigitalProduction.Forms
 				_minimumvalue = value;
 			}
 		}
-		
+
 		/// <summary>
 		/// Restricts the user to entering values equal to or below the maximum value.
 		/// </summary>
@@ -507,7 +508,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Methods.
+		#region Methods
 
 		/// <summary>
 		/// Convert the value to a double and catch any errors.
@@ -544,7 +545,7 @@ namespace DigitalProduction.Forms
 
 			string input = InsertNewKeyIntoString(newkey, caretposition);
 
-			 // The "caretposition" is the position of the caret (cursor) before modifying
+			// The "caretposition" is the position of the caret (cursor) before modifying
 			// the text.  Since we inserted a character, we increment it by one.
 			caretposition++;
 

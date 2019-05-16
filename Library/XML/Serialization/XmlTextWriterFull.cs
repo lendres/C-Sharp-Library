@@ -14,18 +14,6 @@ namespace DigitalProduction.XML.Serialization
 	/// </summary>
 	public class XmlTextWriterFullEndElement : XmlTextWriter
 	{
-		#region Enumerations
-
-		#endregion
-
-		#region Delegates
-
-		#endregion
-
-		#region Events
-
-		#endregion
-
 		#region Members
 
 		#endregion
@@ -36,7 +24,8 @@ namespace DigitalProduction.XML.Serialization
 		/// Constructor.
 		/// </summary>
 		/// <param name="textWriter">TextWriter.</param>
-		public XmlTextWriterFullEndElement(TextWriter textWriter) : base(textWriter)
+		public XmlTextWriterFullEndElement(TextWriter textWriter) :
+			base(textWriter)
 		{
 		}
 
@@ -45,7 +34,8 @@ namespace DigitalProduction.XML.Serialization
 		/// </summary>
 		/// <param name="filename">File (path) to write to.</param>
 		/// <param name="settings">Settings to use for writing.</param>
-		public XmlTextWriterFullEndElement(string filename, XmlWriterSettings settings) : base(filename, settings.Encoding)
+		public XmlTextWriterFullEndElement(string filename, XmlWriterSettings settings) :
+			base(filename, settings.Encoding)
 		{
 			if (settings.Indent)
 			{

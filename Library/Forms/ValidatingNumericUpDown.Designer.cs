@@ -1,6 +1,6 @@
 ﻿namespace DigitalProduction.Forms
 {
-	partial class NumericTextBox
+	partial class ValidatingNumericUpDown
 	{
 		#region Members
 

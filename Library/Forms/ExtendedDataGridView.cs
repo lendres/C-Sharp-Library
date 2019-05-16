@@ -14,7 +14,7 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public class ExtendedDataGridView : DataGridView
 	{
-		#region Events.
+		#region Events
 
 		/// <summary>
 		/// Template for function which performs insertion of new row of data.
@@ -28,7 +28,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Members.
+		#region Members
 
 		private ContextMenuStrip				contextmnuCutCopyPaste;
 		private ToolStripMenuItem				mnuCut;
@@ -40,12 +40,12 @@ namespace DigitalProduction.Forms
 
 		private int								_row;
 		private int								_column;
-		private	bool							_pastetoselectedcells					= false;
-		private bool							_contextmenuenabled						= true;
+		private	bool							_pastetoselectedCells					= false;
+		private bool							_contextMenuEnabled						= true;
 
 		#endregion
 
-		#region Construction.
+		#region Construction
 
 		/// <summary>
 		/// Default constructor.
@@ -67,16 +67,9 @@ namespace DigitalProduction.Forms
 			// item is enabled.
 			this.ContextMenuStrip.Opening += ContextMenuStrip_Opening;
 			
-//this.ContextMenuStrip.Opened += ContextMenuStrip_Opened;
-	
 			// Handling data entry errors (bad formats, et cetera).
 			this.DataError += ExtendedDataGridView_DataError;
 		}
-
-//void ContextMenuStrip_Opened(object sender, EventArgs e)
-//{
-//	int i = 0;
-//}
 
 		/// <summary>
 		/// Initialize controls.
@@ -146,7 +139,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <summary>
 		/// Specifies if the context menu for copy/cut/paste is enabled.
@@ -155,7 +148,7 @@ namespace DigitalProduction.Forms
 		{
 			get
 			{
-				return _contextmenuenabled;
+				return _contextMenuEnabled;
 			}
 
 			set
@@ -168,13 +161,13 @@ namespace DigitalProduction.Forms
 				{
 					this.ContextMenuStrip = null;
 				}
-				_contextmenuenabled = value;
+				_contextMenuEnabled = value;
 			}
 		}
 
 		#endregion
 
-		#region DataGridView event handlers.
+		#region DataGridView Event Handlers
 
 		/// <summary>
 		/// Context menu opening.
@@ -320,10 +313,10 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Copy/paste methods.
+		#region Copy/Paste Methods
 
 		/// <summary>
-		/// Setup the contrext menu.
+		/// Setup the context menu.
 		/// </summary>
 		public void SetContextMenuState()
 		{
@@ -424,7 +417,7 @@ namespace DigitalProduction.Forms
 						NotifyCurrentCellDirty(true);
 
 						// Copy to selected cells if 'chkPasteToSelectedCells' is checked.
-						if ((_pastetoselectedcells && cell.Selected) || (!_pastetoselectedcells))
+						if ((_pastetoselectedCells && cell.Selected) || (!_pastetoselectedCells))
 						{
 							try
 							{
@@ -578,7 +571,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Image creation.
+		#region Image Creation
 
 		/// <summary>
 		/// Write the control to the disk as an image.
