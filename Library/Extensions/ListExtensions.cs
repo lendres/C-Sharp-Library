@@ -21,7 +21,6 @@ namespace DigitalProduction.Extensions
 		/// <param name="values">List to calculate the mean (average) from.</param>
 		/// <param name="start">Index to start from.</param>
 		/// <param name="count">Number of entries to take the mean (average) of.</param>
-		/// <returns>Mean (average) of data.</returns>
 		public static double Average(this List<double> values, int start, int count)
 		{
 			double	average	= 0;

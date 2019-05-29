@@ -167,7 +167,6 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		/// <param name="text">Text to try to convert.</param>
 		/// <param name="passed">Flag to indicate if the conversion was successful.</param>
-		/// <returns>The converted value as a double.  If the conversion fails, a FormatException is thrown.</returns>
 		private double ConvertValueToDouble(string text, out bool passed)
 		{
 			passed = true;

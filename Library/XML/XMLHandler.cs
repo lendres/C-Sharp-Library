@@ -7,7 +7,7 @@ namespace DigitalProduction.XML
 	/// </summary>
 	public class XMLHandler
 	{
-		#region Members / Variables / Delegates.
+		#region Members
 
 		private string					_elementname;
 		private XMLHandlerFunction		_callback;
@@ -15,12 +15,14 @@ namespace DigitalProduction.XML
 
 		#endregion
 
-		#region Construction.
+		#region Construction
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public XMLHandler() {}
+		public XMLHandler()
+		{
+		}
 
 		/// <summary>
 		/// Constructor.
@@ -35,7 +37,7 @@ namespace DigitalProduction.XML
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <summary>
 		/// Name of the element this, Handler handles.
@@ -87,13 +89,11 @@ namespace DigitalProduction.XML
 
 		#endregion
 
-		#region Functions.
-
-
+		#region Functions
 
 		#endregion
 
-		#region IComparable members.
+		#region IComparable Members
 
 		/// <summary>
 		/// Implements the CompareTo method of the IComparable interface.

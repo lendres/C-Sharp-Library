@@ -101,7 +101,6 @@ namespace DigitalProduction.IO
 		/// it cannot already be an existing, write only file.
 		/// </summary>
 		/// <param name="path"></param>
-		/// <returns></returns>
 		public static bool PathIsWritable(string path)
 		{
 			// First thing to check is that we have a file name.
@@ -173,7 +172,7 @@ namespace DigitalProduction.IO
 		{
 			return ChangeDirectoryDotDot(directory, 1);
 		}
-		
+
 		/// <summary>
 		/// Alters a directory name (given as a string) in a manner that is similar to what the DOS 
 		/// command "CD.." does to the current directory at the DOS prompt (gives the parent directory).
@@ -197,7 +196,7 @@ namespace DigitalProduction.IO
 			for (int i = 0; i < levels; i++)
 			{
 				// Remove all the text from the last back slash to the end.
-				directory = directory.Remove(directory.LastIndexOf(@"\")); 
+				directory = directory.Remove(directory.LastIndexOf(@"\"));
 			}
 
 			// Return the result.
@@ -212,8 +211,8 @@ namespace DigitalProduction.IO
 		public static void DirectoryCopy(string sourcedirname, string destdirname)
 		{
 			DirectoryCopy(sourcedirname, destdirname, false, false, new List<string>());
-		}		
-		
+		}
+
 		/// <summary>
 		/// Copies a directory from one location to another.
 		/// </summary>
@@ -301,7 +300,6 @@ namespace DigitalProduction.IO
 		/// several temporary directories.  The final result will be similar in form to:
 		/// C:\Users\user\AppData\Local\Temp\subFolder\temp.tmp\
 		/// </summary>
-		/// <returns></returns>
 		public static string GetTemporaryDirectory(string subFolder)
 		{
 			string tempDirectory = System.IO.Path.Combine(System.IO.Path.GetTempPath(), subFolder, System.IO.Path.GetRandomFileName());
@@ -312,7 +310,6 @@ namespace DigitalProduction.IO
 		/// <summary>
 		/// Creates a new directory in the user's temporary folder.
 		/// </summary>
-		/// <returns></returns>
 		public static string GetTemporaryDirectory()
 		{
 			// The Path.Combine will eat the blank string.
@@ -327,7 +324,6 @@ namespace DigitalProduction.IO
 		/// Returns the type of drive represented by the string.
 		/// </summary>
 		/// <param name="drive">String of the drive letter to get the type of drive of.</param>
-		/// <returns>DriveType of the drive letter.</returns>
 		public static DriveType DiskDriveType(string drive)
 		{
 			return (DriveType)GetDriveType(drive);
@@ -337,7 +333,6 @@ namespace DigitalProduction.IO
 		/// Returns the volume name of a disk drive.
 		/// </summary>
 		/// <param name="drive">String of the drive letter to get the volume label of.</param>
-		/// <returns>Volume label if found.</returns>
 		public static string DiskDriveName(string drive)
 		{
 			StringBuilder volumename	= new StringBuilder(256);
@@ -348,7 +343,7 @@ namespace DigitalProduction.IO
 			long returnvalue			= new long();
 
 			returnvalue = GetVolumeInformation(drive, volumename, 256, serialnumber, maxcomponetlength, systemflags, systemname, 256);
-			
+
 			if (returnvalue != 0)
 			{
 				return volumename.ToString();
@@ -402,7 +397,7 @@ namespace DigitalProduction.IO
 			//
 			// For reference the call is:
 			// char[] invalidpathchars2 = Path.GetInvalidPathChars();
-			char[] invalidpathchars = {'\"', '*', '/', ':', '<', '>', '?', '\\', '|'};
+			char[] invalidpathchars = { '\"', '*', '/', ':', '<', '>', '?', '\\', '|' };
 			if (filename.IndexOfAny(invalidpathchars) > 0)
 			{
 				return ValidFileNameResult.InvalidCharacters;
@@ -445,7 +440,7 @@ namespace DigitalProduction.IO
 					return ValidFileNameResult.DeviceName;
 				}
 			}
-			
+
 			return ValidFileNameResult.Valid;
 		}
 

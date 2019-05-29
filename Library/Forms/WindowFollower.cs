@@ -46,13 +46,12 @@ namespace DigitalProduction.Forms
 		/// <param name="cx">cx.</param>
 		/// <param name="cy">cy.</param>
 		/// <param name="uFlags">Flags.</param>
-		/// <returns></returns>
 		[DllImport("user32.dll")]
 		protected static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 
 		#endregion
 
-		#region Constrution / Destruction.
+		#region Constrution
 
 		/// <summary>
 		/// Constructor.
@@ -80,7 +79,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <value>
 		/// Close the slave when the master closes if true.
@@ -100,13 +99,13 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Resizing functions.
+		#region Resizing Functions
 
 		/// <summary>
 		/// Called when the master is resized.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguements.</param>
+		/// <param name="e">Event arguments.</param>
 		private void MasterResize(object sender, EventArgs e)
 		{
 			// Make sure both the master and slave are still open.
@@ -134,7 +133,7 @@ namespace DigitalProduction.Forms
 		/// Called when the slave is resized.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguements.</param>
+		/// <param name="e">Event arguments.</param>
 		private void SlaveResize(object sender, EventArgs e)
 		{
 			// Make sure both the master and slave are still open.
@@ -159,13 +158,13 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Closing functions.
+		#region Closing Functions
 
 		/// <summary>
 		/// Called when the master is closing.  Closes slave is the CloseSlaveWithMaster is true.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguements.</param>
+		/// <param name="e">Event arguments.</param>
 		private void MasterClosing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			if (_closeslave)
@@ -181,21 +180,21 @@ namespace DigitalProduction.Forms
 		/// Called when the slave is closing.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguements.</param>
+		/// <param name="e">Event arguments.</param>
 		private void SlaveClosing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-            _slave = null;
+			_slave = null;
 		}
 
 		#endregion
 
-		#region Windows activated functions.
+		#region Windows Activated Functions
 
 		/// <summary>
-		/// Called when the master is actived.  Sets the slave window as the second highest window.
+		/// Called when the master is activated.  Sets the slave window as the second highest window.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguements.</param>
+		/// <param name="e">Event arguments.</param>
 		private void MasterActivated(object sender, EventArgs e)
 		{
 			if (_slave != null && _master != null)
@@ -205,7 +204,7 @@ namespace DigitalProduction.Forms
 		}
 
 		/// <summary>
-		/// Called when the slave is actived.  Sets the master window as the second highest window.
+		/// Called when the slave is activated.  Sets the master window as the second highest window.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
 		/// <param name="e">Event arguements.</param>

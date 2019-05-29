@@ -95,11 +95,10 @@ namespace DigitalProduction.Gaming
 		#region DLL Import
 
 		/// <summary>
-		/// Initializes the cards.dll library.
+		/// Initializes the cards.dll library.  Returns true if successful, false if an error occurs.
 		/// </summary>
 		/// <param name="width">Width of cards in pixels.  Changing width doesn't seem to have an effect.</param>
 		/// <param name="height">Height of cards in pixels.  Changing height doesn't seem to have an effect.</param>
-		/// <returns>Returns true if successful, false if an error occurs.</returns>
 		[DllImport("cards.dll")]
 		private static extern bool cdtInit(ref int width, ref int height);
 
@@ -165,7 +164,7 @@ namespace DigitalProduction.Gaming
 			_color = 16777215;
 
 			// Initialize cards.dll.
-			if(!cdtInit(ref _width, ref _height))
+			if (!cdtInit(ref _width, ref _height))
 			{
 				throw new Exception("Cards.dll can not load.  Please make sure it is installed.");
 			}

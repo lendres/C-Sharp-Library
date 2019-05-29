@@ -19,7 +19,7 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Template for function which performs insertion of new row of data.
 		/// </summary>
-		public delegate							void InsertDelegate(int rowindex);
+		public delegate void InsertDelegate(int rowindex);
 
 		/// <summary>
 		/// Insert event.
@@ -66,7 +66,7 @@ namespace DigitalProduction.Forms
 			// We have to hood into the opening event so we can know if we are allowing the "Insert" menu item and whether or not the "Paste"
 			// item is enabled.
 			this.ContextMenuStrip.Opening += ContextMenuStrip_Opening;
-			
+
 			// Handling data entry errors (bad formats, et cetera).
 			this.DataError += ExtendedDataGridView_DataError;
 		}
@@ -129,7 +129,7 @@ namespace DigitalProduction.Forms
 			this.mnuInsert.Text		= "&Insert";
 			this.mnuInsert.Click	+= new System.EventHandler(this.mnuInsert_Click);
 
-			this.contextmnuCutCopyPaste.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.mnuCut, this.mnuCopy, this.mnuPaste, this.mnuDelete, this.mnuContextSeparator1, this.mnuInsert});
+			this.contextmnuCutCopyPaste.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.mnuCut, this.mnuCopy, this.mnuPaste, this.mnuDelete, this.mnuContextSeparator1, this.mnuInsert });
 			this.contextmnuCutCopyPaste.Name = "contextmnuCutCopyPaste";
 			this.contextmnuCutCopyPaste.Size = new System.Drawing.Size(82, 48);
 
@@ -499,7 +499,6 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Find the starting cell (lowest row and column) of the selected cells.
 		/// </summary>
-		/// <returns>The DataGridViewCell with the lowerst row and column number of the selected cells.</returns>
 		private DataGridViewCell GetStartCell()
 		{
 			// Get the smallest row,column index.
@@ -531,7 +530,6 @@ namespace DigitalProduction.Forms
 		/// Parses a clipboard string and returns the values in the string in a Dictionary.
 		/// </summary>
 		/// <param name="clipboardstring">Clipboard string to parse.</param>
-		/// <returns>Values in the clipboard string in a Dictionary.</returns>
 		private Dictionary<int, Dictionary<int, string>> ClipBoardValues(string clipboardstring)
 		{
 			Dictionary<int, Dictionary<int, string>> values = new Dictionary<int, Dictionary<int, string>>();

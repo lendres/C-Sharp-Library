@@ -8,19 +8,13 @@ namespace DigitalProduction.XML
 	/// </summary>
 	public class AttributeList : IEnumerable<Attribute>
 	{
-		#region Enumerations.
+		#region Members
 
 		private List<Attribute>		_attributes;
 
 		#endregion
 
-		#region Members / Variables / Delegates.
-
-
-
-		#endregion
-
-		#region Construction.
+		#region Construction
 
 		/// <summary>
 		/// Default constructor.
@@ -32,7 +26,7 @@ namespace DigitalProduction.XML
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <summary>
 		/// Number of Attributes.
@@ -47,7 +41,7 @@ namespace DigitalProduction.XML
 
 		#endregion
 
-		#region Functions.
+		#region Methods
 
 		/// <summary>
 		/// Add an Attribute.
@@ -80,16 +74,14 @@ namespace DigitalProduction.XML
 		/// <summary>
 		/// Get an enumerator.
 		/// </summary>
-		/// <returns>An enumerator.</returns>
 		public IEnumerator<Attribute> GetEnumerator()
 		{
- 			return new AttributeEnumerator(_attributes);
+			return new AttributeEnumerator(_attributes);
 		}
 
 		/// <summary>
 		/// Get an enumerator.
 		/// </summary>
-		/// <returns>An enumerator.</returns>
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
 			return new AttributeEnumerator(_attributes);
@@ -97,5 +89,5 @@ namespace DigitalProduction.XML
 
 		#endregion
 
-} // End class.
+	} // End class.
 } // End namespace.

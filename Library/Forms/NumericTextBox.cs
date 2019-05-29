@@ -96,10 +96,10 @@ namespace DigitalProduction.Forms
 		}
 
 		/// <summary>
-		/// Insert the new key if it is valid, otherwise ignore it.
+		/// Insert the new key if it is valid, otherwise ignore it.  Returns true if the key has been handled (inserted
+		/// or ignored) by this method, otherwise false is returned and the base control can handle it.
 		/// </summary>
 		/// <param name="keyinput">Key, as a string, to try to insert into the text.</param>
-		/// <returns>True if the key has been handled (inserted or ignored) by this method, otherwise false is returned and the base control can handle it.</returns>
 		private bool HandleNewKey(char keyinput)
 		{
 			bool validkey = false;
@@ -107,11 +107,11 @@ namespace DigitalProduction.Forms
 		}
 
 		/// <summary>
-		/// Insert the new key if it is valid, otherwise ignore it.
+		/// Insert the new key if it is valid, otherwise ignore it.  Returns true if the key has been handled (inserted
+		/// or ignored) by this method, otherwise false is returned and the base control can handle it.
 		/// </summary>
 		/// <param name="keyinput">Key, as a string, to try to insert into the text.</param>
 		/// <param name="validkey">Output that returns true if the key was valid for insertion, false otherwise.</param>
-		/// <returns>True if the key has been handled (inserted or ignored) by this method, otherwise false is returned and the base control can handle it.</returns>
 		private bool HandleNewKey(char keyinput, out bool validkey)
 		{
 			// Allows Backspace key to pass through and operate normally.
@@ -515,7 +515,6 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		/// <param name="text">Text to try to convert.</param>
 		/// <param name="passed">Flag to indicate if the conversion was successful.</param>
-		/// <returns>The converted value as a double.  If the conversion fails, a FormatException is thrown.</returns>
 		private double ConvertValueToDouble(string text, out bool passed)
 		{
 			passed = true;
@@ -670,7 +669,6 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		/// <param name="newkey">Character to insert.</param>
 		/// <param name="position">Position to insert the character at.</param>
-		/// <returns>A new string with the selected text removed and the new character inserted.</returns>
 		private string InsertNewKeyIntoString(char newkey, int position)
 		{
 			string input		= this.Text;

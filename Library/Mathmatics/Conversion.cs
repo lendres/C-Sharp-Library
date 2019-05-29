@@ -40,7 +40,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert degrees to radians.
 		/// </summary>
 		/// <param name="angle">Angle to convert.</param>
-		/// <returns>Angle in radians.</returns>
 		public static double DegreesToRadians(double angle)
 		{
 			return angle * System.Math.PI / 180.0;
@@ -50,7 +49,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert degrees to radians.
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
-		/// <returns>Angle in radians.</returns>
 		public static List<double> DegreesToRadians(List<double> angles)
 		{
 			int				count		= angles.Count;
@@ -67,7 +65,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert degrees to radians.
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
-		/// <returns>Angle in radians.</returns>
 		public static void DegreesToRadiansInPlace(List<double> angles)
 		{
 			int				count		= angles.Count;
@@ -82,7 +79,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert radians to degrees.
 		/// </summary>
 		/// <param name="angle">Angle to convert.</param>
-		/// <returns>Angle in degrees.</returns>
 		public static double RadiansToDegrees(double angle)
 		{
 			return angle * 180.0 / System.Math.PI;
@@ -109,7 +105,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert radians to degrees.
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
-		/// <returns>Angle in degrees.</returns>
 		public static void RadiansToDegreesInPlace(List<double> angles)
 		{
 			int				count		= angles.Count;
@@ -124,7 +119,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert radians to degrees.
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
-		/// <returns>Angle in degrees.</returns>
 		public static List<double> RadiansToRevolutions(List<double> angles)
 		{
 			int				count		= angles.Count;
@@ -141,7 +135,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert radians to degrees.
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
-		/// <returns>Angle in degrees.</returns>
 		public static void RadiansToRevolutionsInPlace(List<double> angles)
 		{
 			int				count		= angles.Count;
@@ -161,7 +154,6 @@ namespace DigitalProduction.Mathmatics
 		/// equivalent to 1 revolution per 1 second.
 		/// </summary>
 		/// <param name="rpm">Revolutions per minute.</param>
-		/// <returns>Revolutions per minute as Hertz (cycles per second).</returns>
 		public static double RpmToHertz(double rpm)
 		{
 			return rpm / 60.0;
@@ -175,7 +167,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert feet to inches.
 		/// </summary>
 		/// <param name="feet">Feet.</param>
-		/// <returns>Inches.</returns>
 		public static double FeetToInches(double feet)
 		{
 			return feet * 12.0;
@@ -185,7 +176,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert inches to feet.
 		/// </summary>
 		/// <param name="inches">Inches.</param>
-		/// <returns>Feet.</returns>
 		public static double InchesToFeet(double inches)
 		{
 			return inches / 12.0;
@@ -199,7 +189,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert frequency (Hertz) into period (seconds).
 		/// </summary>
 		/// <param name="frequency">Frequency in Hertz.</param>
-		/// <returns>Period in seconds.</returns>
 		public static double FrequencyToPeriod(double frequency)
 		{
 			return 1.0 / frequency;
@@ -209,7 +198,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert frequency Hertz into period (seconds).
 		/// </summary>
 		/// <param name="period">Period in seconds.</param>
-		/// <returns>Frequency in Hertz.</returns>
 		public static double PeriodToFrequency(double period)
 		{
 			return 1.0 / period;

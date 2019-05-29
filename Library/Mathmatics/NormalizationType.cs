@@ -13,7 +13,7 @@ namespace DigitalProduction.Mathmatics
 	/// </summary>
 	public enum NormalizationType
 	{
-		/// <summary></summary>
+		/// <summary>Euclidian.</summary>
 		[Description("Euclidean")]
 		Euclidean,
 

@@ -116,7 +116,7 @@ namespace DigitalProduction.Forms
 			this.ActiveControl		= (Control)this.pctboxIcon;
 			_firstbuttonlocation	= this.btnCancel.Location;
 			_yoffset				= this.Size.Height - this.btnCancel.Location.Y;
-			_buttons				= new Button[5] {this.btnYes, this.btnYesToAll, this.btnNo, this.btnNoToAll, this.btnCancel};
+			_buttons				= new Button[5] { this.btnYes, this.btnYesToAll, this.btnNo, this.btnNoToAll, this.btnCancel };
 		}
 
 		#endregion
@@ -243,10 +243,10 @@ namespace DigitalProduction.Forms
 		}
 
 		/// <summary>
-		/// Sets which buttons are shown on the control.
+		/// Sets which buttons are shown on the control.  Returns an array of bools indicating which buttons are set.
 		/// </summary>
 		/// <param name="buttons">Which buttons are shown.</param>
-		/// <returns>An array of bools indicating which buttons are t</returns>
+		/// <returns></returns>
 		private bool[] SetButtons(MessageBoxYesNoToAll.Buttons buttons)
 		{
 			bool[] visiblebuttons = ResetButtons();

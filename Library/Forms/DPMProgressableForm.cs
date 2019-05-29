@@ -9,7 +9,7 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public class DPMProgressableForm : DPMForm
 	{
-		#region Members and delegates.
+		#region Delegates
 
 		/// <summary>
 		/// Delegate for displaying a message.
@@ -18,20 +18,24 @@ namespace DigitalProduction.Forms
 		/// <param name="icon">Icon to display with the message.</param>
 		public delegate void DisplayMessageCallBack(string message, MessageBoxIcon icon);
 
-		private DisplayMessageCallBack						_displaymessagecallback;
+		#endregion
+
+		#region Members
+
+		private DisplayMessageCallBack						_displayMessageCallback;
 
 		/// <summary>
 		/// Progress callback function.
 		/// </summary>
-		protected ProgressDialog.UpdateProgressCallBack		_progresscallback;
+		protected ProgressDialog.UpdateProgressCallBack		_progressCallback;
 		
-		private Thread										_processthread;
-		private ProgressDialog								_progressdialog;
-		private int											_lastprogressvalue;
+		private Thread										_processThread;
+		private ProgressDialog								_progressDialog;
+		private int											_lastProgressValue;
 
 		#endregion
 
-		#region Construction.
+		#region Construction
 
 		/// <summary>
 		/// Constructor.
@@ -59,10 +63,10 @@ namespace DigitalProduction.Forms
 
 		private void Initialize()
 		{
-			_progressdialog = new ProgressDialog();
-			_progressdialog.Maximum = 100;
-			_progresscallback = new ProgressDialog.UpdateProgressCallBack(_progressdialog.UpdateProgress);
-			_displaymessagecallback = new DPMProgressableForm.DisplayMessageCallBack(InvokeMessage);
+			_progressDialog = new ProgressDialog();
+			_progressDialog.Maximum = 100;
+			_progressCallback = new ProgressDialog.UpdateProgressCallBack(_progressDialog.UpdateProgress);
+			_displayMessageCallback = new DPMProgressableForm.DisplayMessageCallBack(InvokeMessage);
 		}
 
 		#endregion
@@ -76,7 +80,7 @@ namespace DigitalProduction.Forms
 		{
 			if (this.InvokeRequired)
 			{
-				this.Invoke((Delegate)this._displaymessagecallback, (object)message, (object)icon);
+				this.Invoke((Delegate)this._displayMessageCallback, (object)message, (object)icon);
 			}
 			else
 			{
@@ -100,19 +104,19 @@ namespace DigitalProduction.Forms
 		/// <param name="progress">Progress to report.</param>
 		protected void ReportProgress(int progress)
 		{
-			if (progress <= this._lastprogressvalue)
+			if (progress <= this._lastProgressValue)
 			{
 				return;
 			}
 			
-			_lastprogressvalue = progress;
+			_lastProgressValue = progress;
 
-			if (_progressdialog == null)
+			if (_progressDialog == null)
 			{
 				return;
 			}
 			
-			_progressdialog.BeginInvoke((Delegate)_progresscallback, new object[1] {(object)progress});
+			_progressDialog.BeginInvoke((Delegate)_progressCallback, new object[1] {(object)progress});
 		}
 
 		/// <summary>
@@ -120,22 +124,22 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		protected void StartProcessThread()
 		{
-			_progressdialog.ResetProgress();
-			_progressdialog.StartTimer();
-			_processthread = new Thread(new ThreadStart(this.RunProcessingThread));
-			_processthread.IsBackground = true;
-			_processthread.Start();
-			if (_progressdialog.ShowDialog((IWin32Window)this) != DialogResult.Cancel)
+			_progressDialog.ResetProgress();
+			_progressDialog.StartTimer();
+			_processThread = new Thread(new ThreadStart(this.RunProcessingThread));
+			_processThread.IsBackground = true;
+			_processThread.Start();
+			if (_progressDialog.ShowDialog((IWin32Window)this) != DialogResult.Cancel)
 			{
 				return;
 			}
-			_processthread.Abort();
+			_processThread.Abort();
 			HandleCancel();
 		}
 
 		private void RunProcessingThread()
 		{
-			while (!_progressdialog.Visible)
+			while (!_progressDialog.Visible)
 			{
 				Thread.Sleep(100);
 			}
@@ -153,7 +157,7 @@ namespace DigitalProduction.Forms
 				DisplayMessage("Error processing the input file.\n\n" + ex.Message, MessageBoxIcon.Hand);
 				try
 				{
-					_progressdialog.CloseOK();
+					_progressDialog.CloseOK();
 					ExceptionCleanUp();
 					return;
 				}
@@ -162,7 +166,7 @@ namespace DigitalProduction.Forms
 					return;
 				}
 			}
-			_progressdialog.CloseOK();
+			_progressDialog.CloseOK();
 		}
 
 		/// <summary>
@@ -171,7 +175,7 @@ namespace DigitalProduction.Forms
 		protected virtual void HandleCancel() {}
 
 		/// <summary>
-		/// Run the pocessing.
+		/// Run the processing.
 		/// </summary>
 		protected virtual void DoProcessing() {}
 

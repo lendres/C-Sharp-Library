@@ -23,13 +23,13 @@ namespace DigitalProduction.Forms
 	{
 		#region Members
 
-		private static string						_companyname		= "Digital Production Management";
+		private static string						_companyName		= "Digital Production Management";
 		private readonly DPMForm					_owner;
-		private readonly string						_appname;
-		private readonly bool						_ischildform;
+		private readonly string						_appName;
+		private readonly bool						_isChildForm;
 
-		private readonly WindowStateManager			_windowstatemanager;
-		private readonly FormWinRegistryAccess		_winregaccess;
+		private readonly WindowStateManager			_windowStateManager;
+		private readonly FormWinRegistryAccess		_winRegistryAccess;
 
 		#endregion
 
@@ -45,48 +45,48 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Constructor applications should use.
 		/// </summary>
-		/// <param name="applicationname">Name of the application (used as registry name also).</param>
-		public DPMForm(string applicationname)
+		/// <param name="applicationName">Name of the application (used as registry name also).</param>
+		public DPMForm(string applicationName)
 		{
 			_owner				= null;
-			_appname			= applicationname;
-			_ischildform		= false;
+			_appName			= applicationName;
+			_isChildForm		= false;
 
-			_winregaccess		= new FormWinRegistryAccess(this);
-			_windowstatemanager	= new WindowStateManager(_winregaccess);
+			_winRegistryAccess	= new FormWinRegistryAccess(this);
+			_windowStateManager	= new WindowStateManager(_winRegistryAccess);
 		}
 
 		/// <summary>
 		/// Constructor top level applications should use if the application is for a different company
 		/// other than the default.
 		/// </summary>
-		/// <param name="companyname">Name of the company (used as registry top level name).</param>
-		/// <param name="applicationname">Name of the application (used as registry name also).</param>
-		public DPMForm(string companyname, string applicationname)
+		/// <param name="companyName">Name of the company (used as registry top level name).</param>
+		/// <param name="applicationName">Name of the application (used as registry name also).</param>
+		public DPMForm(string companyName, string applicationName)
 		{
-			_companyname		= companyname;
+			_companyName		= companyName;
 			_owner				= null;
-			_appname			= applicationname;
-			_ischildform		= false;
+			_appName			= applicationName;
+			_isChildForm		= false;
 
-			_winregaccess		= new FormWinRegistryAccess(this);
-			_windowstatemanager	= new WindowStateManager(_winregaccess);
+			_winRegistryAccess		= new FormWinRegistryAccess(this);
+			_windowStateManager	= new WindowStateManager(_winRegistryAccess);
 		}
 
 		/// <summary>
 		/// Constructor dialog boxes put up by a parent dialog box (such as the application) should use.
 		/// </summary>
 		/// <param name="owner">Form that owns this form.</param>
-		/// <param name="dialogname">Name of this form (used as registry name also).</param>
-		public DPMForm(DPMForm owner, string dialogname)
+		/// <param name="dialogName">Name of this form (used as registry name also).</param>
+		public DPMForm(DPMForm owner, string dialogName)
 		{
-			_companyname		= owner.CompanyName;
+			_companyName		= owner.CompanyName;
 			_owner				= owner;
-			_appname			= owner.AppName;
-			_ischildform		= true;
+			_appName			= owner.AppName;
+			_isChildForm		= true;
 
-			_winregaccess		= new DialogWinRegistryAccess(this, dialogname);
-			_windowstatemanager	= new WindowStateManager(_winregaccess);
+			_winRegistryAccess		= new DialogWinRegistryAccess(this, dialogName);
+			_windowStateManager	= new WindowStateManager(_winRegistryAccess);
 		}
 
 		#endregion
@@ -112,7 +112,7 @@ namespace DigitalProduction.Forms
 		{
 			get
 			{
-				return _companyname;
+				return _companyName;
 			}
 		}
 
@@ -123,7 +123,7 @@ namespace DigitalProduction.Forms
 		{
 			get
 			{
-				return _appname;
+				return _appName;
 			}
 		}
 
@@ -134,7 +134,7 @@ namespace DigitalProduction.Forms
 		{
 			get
 			{
-				return _ischildform;
+				return _isChildForm;
 			}
 		}
 

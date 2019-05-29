@@ -14,7 +14,7 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public class MessageBoxDNS
 	{
-		#region Members / Variables / Delagates.
+		#region Delegates
 
 		/// <summary>
 		/// Delegate template to use if you want this message box to access the registry key through a function.  The function
@@ -24,7 +24,12 @@ namespace DigitalProduction.Forms
 		/// <example>
 		/// new MessageBoxDNS.RegistryValueDelegate(MyRegFunction)
 		/// </example>
-		public delegate void			RegistryValueDelegate(ref bool registryvalue, bool setvalue);
+		/// 
+		public delegate void RegistryValueDelegate(ref bool registryvalue, bool setvalue);
+
+		#endregion
+
+		#region Members
 
 		/// <summary>
 		/// Function template to store the registry value.
@@ -73,7 +78,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Construction / Destruction.
+		#region Construction
 
 		/// <summary>
 		/// Constructor.  Use this constructor to access a registry key by providing the key and value as strings.
@@ -116,10 +121,10 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <summary>
-		/// The string shown in the check box at the bottom of the message box.  A default is normally used to simplify usuage and
+		/// The string shown in the check box at the bottom of the message box.  A default is normally used to simplify usage and
 		/// promote continuity for all message boxes shown.  Read/write.
 		/// </summary>
 		public static string DNSCheckBoxText
@@ -137,9 +142,9 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Show functions.
+		#region Show Functions
 
-	    //IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options
+		//IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options
 
 		/// <summary>
 		/// Show the message box with the specified settings.
@@ -150,7 +155,6 @@ namespace DigitalProduction.Forms
 		/// <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
 		/// <param name="icon">One of the MessageBoxIcon values that specifies which icon to display in the message box.</param>
 		/// <param name="defaultButton">One of the MessageBoxDefaultButton values the specifies the default button for the message box.</param>
-		/// <returns>One of the DialogResult values.</returns>
 		public DialogResult Show(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
 		{
 			bool registryvalue = false;
@@ -169,7 +173,7 @@ namespace DigitalProduction.Forms
 				{
 					registryvalue = Convert.ToBoolean(regKey.GetValue(_registryvalue, false));
 				}
-				catch 
+				catch
 				{
 					// Ignore exception and proceed using default (false).
 				}
@@ -190,7 +194,7 @@ namespace DigitalProduction.Forms
 			// Set the registry value and return the result.
 			if (_registryaccessfunction != null)
 			{
-				_registryaccessfunction(ref _boxischecked, true);				
+				_registryaccessfunction(ref _boxischecked, true);
 			}
 			else
 			{
@@ -210,7 +214,6 @@ namespace DigitalProduction.Forms
 		/// <param name="caption">The text to display in the title bar of the message box.</param>
 		/// <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
 		/// <param name="icon">One of the MessageBoxIcon values that specifies which icon to display in the message box.</param>
-		/// <returns>One of the DialogResult values.</returns>
 		public DialogResult Show(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
 		{
 			return Show(owner, text, caption, buttons, icon, MessageBoxDefaultButton.Button1);
@@ -223,30 +226,27 @@ namespace DigitalProduction.Forms
 		/// <param name="text">The text to display in the message box. </param>
 		/// <param name="caption">The text to display in the title bar of the message box.</param>
 		/// <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
-		/// <returns>One of the DialogResult values.</returns>
 		public DialogResult Show(IWin32Window owner, string text, string caption, MessageBoxButtons buttons)
 		{
 			return Show(owner, text, caption, buttons, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
 		}
-		
+
 		/// <summary>
 		/// Show the message box with the specified settings.
 		/// </summary>
 		/// <param name="owner">The IWin32Window the message box will display in front of.</param>
 		/// <param name="text">The text to display in the message box. </param>
 		/// <param name="caption">The text to display in the title bar of the message box.</param>
-		/// <returns>One of the DialogResult values.</returns>
 		public DialogResult Show(IWin32Window owner, string text, string caption)
 		{
 			return Show(owner, text, caption, MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
 		}
-		
+
 		/// <summary>
 		/// Show the message box with the specified settings.
 		/// </summary>
 		/// <param name="owner">The IWin32Window the message box will display in front of.</param>
 		/// <param name="text">The text to display in the message box. </param>
-		/// <returns>One of the DialogResult values.</returns>
 		public DialogResult Show(IWin32Window owner, string text)
 		{
 			return Show(owner, text, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
@@ -254,7 +254,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Private functions.
+		#region Private Functions
 
 		/// <summary>
 		/// Window created.
@@ -269,7 +269,7 @@ namespace DigitalProduction.Forms
 				_hwnd = e.Handle;
 			}
 		}
-	
+
 		/// <summary>
 		/// Window destroyed.
 		/// </summary>
@@ -283,7 +283,7 @@ namespace DigitalProduction.Forms
 				_hwnd = IntPtr.Zero;
 
 				// Check to see if the check box is checked.
-				if(BST_CHECKED == (int)SendMessage(_checkbox, BM_GETCHECK, IntPtr.Zero, IntPtr.Zero))
+				if (BST_CHECKED == (int)SendMessage(_checkbox, BM_GETCHECK, IntPtr.Zero, IntPtr.Zero))
 				{
 					_boxischecked = true;
 				}
@@ -320,17 +320,17 @@ namespace DigitalProduction.Forms
 			// or the message box itself.
 			IntPtr hFont;
 			IntPtr hwndText = GetDlgItem(_hwnd, 0xFFFF);
-			if(hwndText != IntPtr.Zero)
+			if (hwndText != IntPtr.Zero)
 			{
-				hFont = SendMessage(hwndText, WM_GETFONT, IntPtr.Zero, IntPtr.Zero);			
+				hFont = SendMessage(hwndText, WM_GETFONT, IntPtr.Zero, IntPtr.Zero);
 			}
 			else
 			{
-				hFont = SendMessage(_hwnd, WM_GETFONT, IntPtr.Zero, IntPtr.Zero);			
+				hFont = SendMessage(_hwnd, WM_GETFONT, IntPtr.Zero, IntPtr.Zero);
 			}
 
 			Font fCur = Font.FromHfont(hFont);
-	
+
 			// Get the x coordinate for the check box.  Align it with the icon if possible,
 			// or one character height in.
 			int x = 0;
@@ -361,12 +361,12 @@ namespace DigitalProduction.Forms
 			MoveWindow(_hwnd, rc.left, rc.top, rc.right-rc.left, rc.bottom-rc.top + (int)fCur.GetHeight()*2, true);
 
 			// Create the check box.
-			_checkbox = CreateWindowEx(0, "button", _DoNotShowAgainMessage, BS_AUTOCHECKBOX|WS_CHILD|WS_VISIBLE|WS_TABSTOP, 
-				x, y , rc.right-rc.left-x, (int)fCur.GetHeight(),
+			_checkbox = CreateWindowEx(0, "button", _DoNotShowAgainMessage, BS_AUTOCHECKBOX|WS_CHILD|WS_VISIBLE|WS_TABSTOP,
+				x, y, rc.right-rc.left-x, (int)fCur.GetHeight(),
 				_hwnd, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
 
 			// Set the font of the check box.
-			SendMessage(_checkbox, WM_SETFONT, hFont, new IntPtr(1));			
+			SendMessage(_checkbox, WM_SETFONT, hFont, new IntPtr(1));
 		}
 
 		/// <summary>
@@ -375,7 +375,6 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		/// <param name="buttons">One of the MessageBoxButtons values that specifies which buttons to display in the message box.</param>
 		/// <param name="defaultButton"></param>
-		/// <returns>One of the MessageBoxDefaultButton values the specifies the default button for the message box.</returns>
 		private DialogResult DefaultDialogResult(MessageBoxButtons buttons, MessageBoxDefaultButton defaultButton)
 		{
 			DialogResult result = DialogResult.OK;
@@ -386,90 +385,90 @@ namespace DigitalProduction.Forms
 				switch (defaultButton)
 				{
 					case MessageBoxDefaultButton.Button1:
-						result = DialogResult.Abort;
-						break;
+					result = DialogResult.Abort;
+					break;
 
 					case MessageBoxDefaultButton.Button2:
-						result = DialogResult.Retry;
-						break;
+					result = DialogResult.Retry;
+					break;
 
 					case MessageBoxDefaultButton.Button3:
-						result = DialogResult.Ignore;
-						break;
-				}
+					result = DialogResult.Ignore;
 					break;
+				}
+				break;
 
 				case MessageBoxButtons.OK:
-					result = DialogResult.OK;
-					break;
+				result = DialogResult.OK;
+				break;
 
 				case MessageBoxButtons.OKCancel:
 				switch (defaultButton)
 				{
 					case MessageBoxDefaultButton.Button1:
-						result = DialogResult.OK;
-						break;
+					result = DialogResult.OK;
+					break;
 
 					case MessageBoxDefaultButton.Button2:
-						result = DialogResult.Cancel;
-						break;
+					result = DialogResult.Cancel;
+					break;
 
 					case MessageBoxDefaultButton.Button3:
-						result = DialogResult.OK;
-						break;
-				}
+					result = DialogResult.OK;
 					break;
+				}
+				break;
 
 				case MessageBoxButtons.RetryCancel:
 				switch (defaultButton)
 				{
 					case MessageBoxDefaultButton.Button1:
-						result = DialogResult.Retry;
-						break;
+					result = DialogResult.Retry;
+					break;
 
 					case MessageBoxDefaultButton.Button2:
-						result = DialogResult.Cancel;
-						break;
+					result = DialogResult.Cancel;
+					break;
 
 					case MessageBoxDefaultButton.Button3:
-						result = DialogResult.Retry;
-						break;
-				}
+					result = DialogResult.Retry;
 					break;
+				}
+				break;
 
 				case MessageBoxButtons.YesNo:
 				switch (defaultButton)
 				{
 					case MessageBoxDefaultButton.Button1:
-						result = DialogResult.Yes;
-						break;
+					result = DialogResult.Yes;
+					break;
 
 					case MessageBoxDefaultButton.Button2:
-						result = DialogResult.No;
-						break;
+					result = DialogResult.No;
+					break;
 
 					case MessageBoxDefaultButton.Button3:
-						result = DialogResult.Yes;
-						break;
-				}
+					result = DialogResult.Yes;
 					break;
+				}
+				break;
 
 				case MessageBoxButtons.YesNoCancel:
 				switch (defaultButton)
 				{
 					case MessageBoxDefaultButton.Button1:
-						result = DialogResult.Yes;
-						break;
+					result = DialogResult.Yes;
+					break;
 
 					case MessageBoxDefaultButton.Button2:
-						result = DialogResult.No;
-						break;
+					result = DialogResult.No;
+					break;
 
 					case MessageBoxDefaultButton.Button3:
-						result = DialogResult.Cancel;
-						break;
-				}
+					result = DialogResult.Cancel;
 					break;
+				}
+				break;
 			} // End switch on buttons shown.
 
 			return result;
@@ -484,7 +483,7 @@ namespace DigitalProduction.Forms
 		private const int WS_TABSTOP        = 0x00010000;
 		private const int WM_SETFONT		= 0x00000030;
 		private const int WM_GETFONT		= 0x00000031;
-		private const int BS_AUTOCHECKBOX	= 0x00000003; 
+		private const int BS_AUTOCHECKBOX	= 0x00000003;
 		private const int BM_GETCHECK       = 0x00F0;
 		private const int BST_CHECKED       = 0x0001;
 
@@ -500,7 +499,6 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		/// <param name="hwnd">Windows handle of window.</param>
 		/// <param name="id">ID of dialog item.</param>
-		/// <returns>Pointer to item.</returns>
 		[DllImport("user32.dll")]
 		protected static extern IntPtr GetDlgItem(IntPtr hwnd, int id);
 
@@ -509,7 +507,6 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		/// <param name="hwnd">Windows handle of window.</param>
 		/// <param name="rc">Rectangle to store info in.</param>
-		/// <returns></returns>
 		[DllImport("user32.dll")]
 		protected static extern int GetWindowRect(IntPtr hwnd, RECT rc);
 
@@ -518,7 +515,6 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		/// <param name="hwnd">Windows handle of window.</param>
 		/// <param name="rc">Rectangle to store info in.</param>
-		/// <returns>Int.</returns>
 		[DllImport("user32.dll")]
 		protected static extern int GetClientRect(IntPtr hwnd, RECT rc);
 
@@ -539,7 +535,6 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		/// <param name="hwnd">Windows handle of window.</param>
 		/// <param name="pt">Point to convert.</param>
-		/// <returns>Int.</returns>
 		[DllImport("user32.dll")]
 		protected static extern int ScreenToClient(IntPtr hwnd, POINT pt);
 
@@ -550,7 +545,6 @@ namespace DigitalProduction.Forms
 		/// <param name="text">Text.</param>
 		/// <param name="caption">Caption.</param>
 		/// <param name="options">Options.</param>
-		/// <returns>int</returns>
 		[DllImport("user32.dll", EntryPoint="MessageBox")]
 		protected static extern int _MessageBox(IntPtr hwnd, string text, string caption, int options);
 
@@ -561,12 +555,11 @@ namespace DigitalProduction.Forms
 		/// <param name="msg">Message to send.</param>
 		/// <param name="wParam"></param>
 		/// <param name="lParam"></param>
-		/// <returns>Pointer to window.</returns>
 		[DllImport("user32.dll")]
 		protected static extern IntPtr SendMessage(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam);
 
 		/// <summary>
-		/// Create a window.  Imported from user32.dll.
+		/// Create a window.  Imported from user32.dll.  Returns a Windows handle to created window.
 		/// </summary>
 		/// <param name="dwExStyle">Extended window style.</param>
 		/// <param name="lpClassName">Registered class name.</param>
@@ -580,10 +573,9 @@ namespace DigitalProduction.Forms
 		/// <param name="hMenu">Menu handle or child identifier.</param>
 		/// <param name="hInstance">Handle to application instance.</param>
 		/// <param name="lpParam">Window-creation data.</param>
-		/// <returns>Windows handle to created window.</returns>
 		[DllImport("user32.dll")]
 		protected static extern IntPtr CreateWindowEx(int dwExStyle, string lpClassName, string lpWindowName,
-			int dwStyle, int x, int y, int nWidth, int nHeight,	IntPtr hWndParent, IntPtr hMenu, 
+			int dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu,
 			IntPtr hInstance, IntPtr lpParam
 		);
 
@@ -610,13 +602,13 @@ namespace DigitalProduction.Forms
 			public int left;
 
 			/// <summary>Top position of window.</summary>
-			public int top; 
+			public int top;
 
 			/// <summary>Right position of window.</summary>
 			public int right;
 
 			/// <summary>Bottom position of window.</summary>
-			public int bottom; 
+			public int bottom;
 		}
 
 		#endregion

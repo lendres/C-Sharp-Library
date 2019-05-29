@@ -14,24 +14,24 @@ namespace DigitalProduction.DataBase
 	public class DataBaseAccess
 	{
 
-		#region Members / Variables.
+		#region Members
 
 		/// <summary>Data adapter.</summary>
 		public OleDbDataAdapter					_dataadapter;
 
 		/// <summary>Data set.</summary>
 		public DataSet							DataSet;
-		
+
 		private OleDbConnection					_connection;
-		private static string					_providerstring			= @"Provider=Microsoft.Jet.OLEDB.4.0";	
+		private static string					_providerstring			= @"Provider=Microsoft.Jet.OLEDB.4.0";
 		private string							_databaselocation;
 		private static string					_datasource				= ";Data Source=";
 		private string							_connectionstring;
 		private string							_table;
 
 		#endregion
-		
-		#region Construction / Disposing.
+
+		#region Construction
 
 		/// <summary>
 		/// Constructor
@@ -45,6 +45,10 @@ namespace DigitalProduction.DataBase
 			_connectionstring = _providerstring + _datasource + _databaselocation;
 		}
 
+		#endregion
+
+		#region Disposing
+
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
@@ -57,24 +61,23 @@ namespace DigitalProduction.DataBase
 
 		#endregion
 
-		#region Connection.
+		#region Connection
 
 		/// <summary>
 		/// Creates a connection to a table and fills the dataset.
 		/// </summary>
-		/// <returns>True if connection succeeded, false otherwise.</returns>
 		public bool GetDataConnection()
-		{	
-			try 
-			{	 
-				_connection = new OleDbConnection(_connectionstring);  		  
+		{
+			try
+			{
+				_connection = new OleDbConnection(_connectionstring);
 				_dataadapter = new OleDbDataAdapter("select * from " + _table, _connection);
-				DataSet = new DataSet(); 
+				DataSet = new DataSet();
 				//refreshes rows in the DataSet 			
 				_dataadapter.Fill(DataSet, _table);
 				_connection.Close();
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				MessageBox.Show("Database Could Not Connect.\nError: " + ex.Message, "Database Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
@@ -86,13 +89,12 @@ namespace DigitalProduction.DataBase
 
 		#endregion
 
-		#region Static class functions.
+		#region Static Class Functions
 
 		/// <summary>
 		/// Get the names of the tables in the database.
 		/// </summary>
 		/// <param name="databasepath">Path to database.</param>
-		/// <returns>An array of strings with the names of the tables.</returns>
 		public static string[] GetTableNames(string databasepath)
 		{
 			try
@@ -100,12 +102,12 @@ namespace DigitalProduction.DataBase
 				OleDbConnection connection = new OleDbConnection(_providerstring + _datasource + databasepath);
 				connection.Open();
 
-				DataTable schematable = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new Object[] {null, null, null, "TABLE"});
+				DataTable schematable = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new Object[] { null, null, null, "TABLE" });
 
 				string[] tablenames = new string[schematable.Rows.Count];
 
 				//List the table name from each row in the schema table.
-				for (int i = 0; i < schematable.Rows.Count; i++) 
+				for (int i = 0; i < schematable.Rows.Count; i++)
 				{
 					tablenames[i] = schematable.Rows[i].ItemArray[2].ToString();
 				}
@@ -115,7 +117,7 @@ namespace DigitalProduction.DataBase
 
 				return tablenames;
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				MessageBox.Show("Database Could Not Connect.\nError: " + ex.Message, "Database Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return null;

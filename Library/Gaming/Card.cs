@@ -89,7 +89,7 @@ namespace DigitalProduction.Gaming
 		/// are not the values for what ever type of game you are using this for then over write these
 		/// in the derived class.  Must also override Value property.
 		/// </summary>
-		protected static int[] _cardvalues = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
+		protected static int[] _cardvalues = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
 
 		#endregion
 
@@ -140,7 +140,7 @@ namespace DigitalProduction.Gaming
 				return _suit;
 			}
 		}
-		
+
 		/// <value>
 		/// Return the card's value based on the default card values (based on Blackjack rules).
 		/// </value>
@@ -182,10 +182,9 @@ namespace DigitalProduction.Gaming
 		#region Static Methods
 
 		/// <summary>
-		/// Convert a string to a CardSuit.
+		/// Convert a string to a CardSuit.  CardSuit associated with CardSuit if found, otherwise CardSuit.Clubs.
 		/// </summary>
 		/// <param name="cardsuit">String which represents the CardSuit.</param>
-		/// <returns>CardSuit associated with cardsuit if found, otherwise CardSuit.Clubs.</returns>
 		public static CardSuit GetCardSuit(string cardsuit)
 		{
 			for (CardSuit i = DigitalProduction.Gaming.CardSuit.Clubs; i <= DigitalProduction.Gaming.CardSuit.Spades; i++)
@@ -200,10 +199,9 @@ namespace DigitalProduction.Gaming
 		}
 
 		/// <summary>
-		/// Convert a string to a CardRank.
+		/// Convert a string to a CardRank.  CardRank associated with CardRank if found, otherwise CardRank.Ace.
 		/// </summary>
 		/// <param name="cardrank">String which represents the CardRank.</param>
-		/// <returns>CardRank associated with cardrank if found, otherwise CardRank.Ace.</returns>
 		public static CardRank GetCardRank(string cardrank)
 		{
 			for (CardRank i = DigitalProduction.Gaming.CardRank.Ace; i <= DigitalProduction.Gaming.CardRank.Ten; i++)
@@ -216,7 +214,7 @@ namespace DigitalProduction.Gaming
 
 			return CardRank.End;
 		}
-		
+
 		/// <summary>
 		/// Convert a card rank to a integer value.
 		/// </summary>
@@ -228,10 +226,9 @@ namespace DigitalProduction.Gaming
 		}
 
 		/// <summary>
-		/// Get the CardRank of a card based on the value of the card.
+		/// Get the CardRank of a card based on the value of the card.  CardRank of CardValue if found, CardRank.End if not found.
 		/// </summary>
 		/// <param name="cardvalue">Value of card.</param>
-		/// <returns>CardRank of cardvalue if found, CardRank.End if not found.</returns>
 		public static CardRank GetCardRank(int cardvalue)
 		{
 			for (int i = 0; i < _cardvalues.Length; i++)
@@ -297,7 +294,6 @@ namespace DigitalProduction.Gaming
 		/// <summary>
 		/// Hash code.
 		/// </summary>
-		/// <returns>Hash code.</returns>
 		public override int GetHashCode()
 		{
 			return _rank.GetHashCode() ^ _suit.GetHashCode();

@@ -78,7 +78,7 @@ namespace DigitalProduction.Forms
 			/// <summary>Error icon.</summary>
 			Error,
 
-			/// <summary>Exlamation icon.</summary>
+			/// <summary>Exclamation icon.</summary>
 			Exclamation,
 
 			/// <summary>Hand icon.</summary>
@@ -128,12 +128,12 @@ namespace DigitalProduction.Forms
 		/// <param name="result">Result of showing the dialog box.</param>
 		/// <param name="setvalue">If true, the result must be saved.  If fase, the result must be retrieved and stored in the "result" parameter.</param>
 		public delegate void StoreResultDelegate(ref MessageBoxYesNoToAll.Result result, bool setvalue);
-		
+
 		/// <summary>
 		/// Delegate function used to store the result of the dialog display and to access the result for the previous display.
 		/// </summary>
 		protected MessageBoxYesNoToAll.StoreResultDelegate		_storeresultfunction;
-		
+
 		private bool											_returnonlyyesno;
 
 		#endregion
@@ -169,7 +169,6 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		/// <param name="owner">Owner to show in front of.</param>
 		/// <param name="text">Message to display.</param>
-		/// <returns>Result of dialog (which button was pushed).</returns>
 		public MessageBoxYesNoToAll.Result Show(IWin32Window owner, string text)
 		{
 			return Show(owner, text, "", MessageBoxYesNoToAll.Buttons.YesToAllNoCancel, MessageBoxYesNoToAll.Icon.Exclamation, MessageBoxYesNoToAll.DefaultButton.Button1);
@@ -181,7 +180,6 @@ namespace DigitalProduction.Forms
 		/// <param name="owner">Owner to show in front of.</param>
 		/// <param name="text">Message to display.</param>
 		/// <param name="caption">Title of message box.</param>
-		/// <returns>Result of dialog (which button was pushed).</returns>
 		public MessageBoxYesNoToAll.Result Show(IWin32Window owner, string text, string caption)
 		{
 			return Show(owner, text, caption, MessageBoxYesNoToAll.Buttons.YesToAllNoCancel, MessageBoxYesNoToAll.Icon.Exclamation, MessageBoxYesNoToAll.DefaultButton.Button1);
@@ -194,7 +192,6 @@ namespace DigitalProduction.Forms
 		/// <param name="text">Message to display.</param>
 		/// <param name="caption">Title of message box.</param>
 		/// <param name="buttons">Which buttons to show.</param>
-		/// <returns>Result of dialog (which button was pushed).</returns>
 		public MessageBoxYesNoToAll.Result Show(IWin32Window owner, string text, string caption, MessageBoxYesNoToAll.Buttons buttons)
 		{
 			return Show(owner, text, caption, buttons, MessageBoxYesNoToAll.Icon.Exclamation, MessageBoxYesNoToAll.DefaultButton.Button1);
@@ -208,7 +205,6 @@ namespace DigitalProduction.Forms
 		/// <param name="caption">Title of message box.</param>
 		/// <param name="buttons">Which buttons to show.</param>
 		/// <param name="icon">Icon to show.</param>
-		/// <returns>Result of dialog (which button was pushed).</returns>
 		public MessageBoxYesNoToAll.Result Show(IWin32Window owner, string text, string caption, MessageBoxYesNoToAll.Buttons buttons, MessageBoxYesNoToAll.Icon icon)
 		{
 			return Show(owner, text, caption, buttons, icon, MessageBoxYesNoToAll.DefaultButton.Button1);
@@ -223,7 +219,6 @@ namespace DigitalProduction.Forms
 		/// <param name="buttons">Which buttons to show.</param>
 		/// <param name="icon">Icon to show.</param>
 		/// <param name="defaultbutton">Which button is default.</param>
-		/// <returns>Result of dialog (which button was pushed).</returns>
 		public MessageBoxYesNoToAll.Result Show(IWin32Window owner, string text, string caption, MessageBoxYesNoToAll.Buttons buttons, MessageBoxYesNoToAll.Icon icon, MessageBoxYesNoToAll.DefaultButton defaultbutton)
 		{
 			MessageBoxYesNoToAll.Result result1 = MessageBoxYesNoToAll.Result.Cancel;

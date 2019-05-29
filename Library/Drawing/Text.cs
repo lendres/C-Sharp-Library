@@ -8,11 +8,11 @@ namespace DigitalProduction.Drawing
 	/// </summary>
 	public class DPMText
 	{
-		#region Members / Variables.
+		#region Members
 
 		#endregion
 
-		#region Construction / Destruction.
+		#region Construction
 
 		/// <summary>
 		/// Constructor.
@@ -23,7 +23,7 @@ namespace DigitalProduction.Drawing
 
 		#endregion
 
-		#region Justification.
+		#region Justification
 
 		/// <summary>
 		/// Calculate the new x position needed to horizontally in the space between xstart and xstart+width.
@@ -33,7 +33,6 @@ namespace DigitalProduction.Drawing
 		/// <param name="text">Text to center.</param>
 		/// <param name="xstart">X position text starts at.</param>
 		/// <param name="width">Width of area to center text in.</param>
-		/// <returns></returns>
 		public static float CenterTextHorizontally(Graphics graphics, Font font, string text, float xstart, float width)
 		{
 			SizeF size = graphics.MeasureString(text, font);

@@ -17,15 +17,9 @@
  *	the form).
  * +Changed the catches in the try-catch block so that it didn't write to the console.
  * +A few other minor changes.
- * +Some code stylization changes.  This is not intended to anyway disquise the fact that this code was written by
+ * +Some code stylization changes.  This is not intended to anyway disguise the fact that this code was written by
  *	above author.  For credit is given where it is deserved.  However, it does not appear that this code was written
  *	as a finished product so much as an example, so some changes where made (like renaming controls) for clarification.
- * 
- * I did change some capitalization and added periods at end of sentances in to comments provided by Chris Warner 
- * to make it look better (in my opinion anyway), however none of the content has been altered to adhere to the
- * intent of the copyright requirement above.
- * 
- * Thanks to Chris Warner for this code!!
  * */
 using System;
 using System.Drawing;
@@ -41,7 +35,7 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public class FolderSelectForm : System.Windows.Forms.Form
 	{
-		#region Members / Variables.
+		#region Members
 
 		private static string						driveLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		private DirectoryInfo						_folder;
@@ -55,10 +49,10 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Construction / Disposing.
+		#region Construction
 
 		/// <summary>
-		/// Construction.
+		/// Default constructor.
 		/// </summary>
 		public FolderSelectForm()
 		{
@@ -70,6 +64,10 @@ namespace DigitalProduction.Forms
 			// Initial position of select and cancel buttons.
 			PositionButtons();
 		}
+
+		#endregion
+
+		#region Disposing
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -88,11 +86,10 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Directory searching functions.
+		#region Directory Searching Functions
 
-		/// <summary> Method FillTree
-		/// <para>This method is used to initially fill the treeView control with a list
-		/// of available drives from which you can search for the desired folder.</para>
+		/// <summary>This method is used to initially fill the treeView control with a list
+		/// of available drives from which you can search for the desired folder.
 		/// </summary>
 		private void FillTree()
 		{
@@ -106,9 +103,9 @@ namespace DigitalProduction.Forms
 			foreach (char c in driveLetters)
 			{
 				sCurPath = c + ":\\";
-				try 
+				try
 				{
-					// Get the directory informaiton for this path.
+					// Get the directory information for this path.
 					directory = new DirectoryInfo(sCurPath);
 
 					// If the retrieved directory information points to a valid
@@ -122,7 +119,7 @@ namespace DigitalProduction.Forms
 						tvwDirectories.Nodes.Add(newNode);
 
 						// Scan for any sub folders on this drive.
-						getSubDirs(newNode);
+						GetSubDirectories(newNode);
 					}
 				}
 				catch (Exception ex)
@@ -132,13 +129,12 @@ namespace DigitalProduction.Forms
 			}
 		}
 
-		/// <summary> Method getSubDirs
-		/// <para>This function will scan the specified parent for any subfolders 
+		/// <summary>This function will scan the specified parent for any subfolders 
 		/// if they exist.  To minimize the memory usage, we only scan a single 
-		/// folder level down from the existing, and only if it is needed.</para>
-		/// <param name="parent">The parent folder in which to search for sub-folders.</param>
+		/// folder level down from the existing, and only if it is needed.
 		/// </summary>
-		private void getSubDirs(TreeNode parent)
+		/// <param name="parent">The parent folder in which to search for sub-folders.</param>
+		private void GetSubDirectories(TreeNode parent)
 		{
 			DirectoryInfo directory;
 			try
@@ -183,21 +179,21 @@ namespace DigitalProduction.Forms
 			}
 		}
 
-		/// <summary> Method fixPath
-		/// <para>For some reason, the treeView will only work with paths constructed like the following example.
+		/// <summary> Fixes the path for display.
+		/// 
+		/// For some reason, the treeView will only work with paths constructed like the following example.
 		/// "c:\\Program Files\Microsoft\...".  What this method does is strip the leading "\\" next to the drive
-		/// letter.</para>
-		/// <param name="node">The folder that needs it's path fixed for display.</param>
-		/// <returns>The correctly formatted full path to the selected folder.</returns>
+		/// letter.
 		/// </summary>
-		private string fixPath(TreeNode node)
+		/// <param name="node">The folder that needs it's path fixed for display.</param>
+		private string FixPath(TreeNode node)
 		{
 			string sRet = "";
 			try
 			{
 				sRet = node.FullPath;
 				int index = sRet.IndexOf("\\\\");
-				if (index > 1 )
+				if (index > 1)
 				{
 					sRet = node.FullPath.Remove(index, 1);
 				}
@@ -216,13 +212,13 @@ namespace DigitalProduction.Forms
 		private void DisplayError(Exception ex)
 		{
 			// Cannot show a message box because if the plus button is clicked to extend the tree the error
-			// keeps occuring and continues to display the message box over and over.
+			// keeps occurring and continues to display the message box over and over.
 			//MessageBox.Show(this, ex.Message, this.Text + " Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
 		#endregion
 
-		#region Windows Form Designer generated code
+		#region Windows Form Designer Generated Code
 
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -336,43 +332,43 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Treeview event handlers.
+		#region Treeview Event Handlers
 
-		/// <summary> Method treeView1_BeforeSelect
+		/// <summary>
 		/// <para>Before we select a tree node we want to make sure that we scan the soon to be selected
 		/// tree node for any sub-folders.  this insures proper tree construction on the fly.</para>
+		/// </summary>
 		/// <param name="sender">The object that invoked this event</param>
 		/// <param name="e">The TreeViewCancelEventArgs event arguments.</param>
 		/// <see cref="System.Windows.Forms.TreeViewCancelEventArgs"/>
 		/// <see cref="System.Windows.Forms.TreeView"/>
-		/// </summary>
 		private void treeView1_BeforeSelect(object sender, System.Windows.Forms.TreeViewCancelEventArgs e)
 		{
 			// Get the sub-folders for the selected node.
-			getSubDirs(e.Node);
+			GetSubDirectories(e.Node);
 
 			// Update the user selection text box.
-			txtbxPath.Text = fixPath(e.Node);
+			txtbxPath.Text = FixPath(e.Node);
 
 			// Get it's Directory info.
 			_folder = new DirectoryInfo(e.Node.FullPath);
 		}
 
-		/// <summary> Method treeView1_BeforeExpand
+		/// <summary>
 		/// <para>Before we expand a tree node we want to make sure that we scan the soon to be expanded
 		/// tree node for any sub-folders.  This insures proper tree construction on the fly.</para>
+		/// </summary>
 		/// <param name="sender">The object that invoked this event.</param>
 		/// <param name="e">The TreeViewCancelEventArgs event arguments.</param>
 		/// <see cref="System.Windows.Forms.TreeViewCancelEventArgs"/>
 		/// <see cref="System.Windows.Forms.TreeView"/>
-		/// </summary>
 		private void treeView1_BeforeExpand(object sender, System.Windows.Forms.TreeViewCancelEventArgs e)
 		{
 			// Get the sub-folders for the selected node.
-			getSubDirs(e.Node);
+			GetSubDirectories(e.Node);
 
 			// Update the user selection text box.
-			txtbxPath.Text = fixPath(e.Node);
+			txtbxPath.Text = FixPath(e.Node);
 
 			// Get it's Directory info.
 			_folder = new DirectoryInfo(e.Node.FullPath);
@@ -407,9 +403,9 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Button click handlers.
+		#region Button Click Handlers
 
-		/// <summary> Method cancelBtn_Click
+		/// <summary>
 		/// <para>This method cancels the folder browsing.</para>
 		/// </summary>
 		private void cancelBtn_Click(object sender, System.EventArgs e)
@@ -418,12 +414,11 @@ namespace DigitalProduction.Forms
 			this.Close();
 		}
 
-		/// <summary> Method selectBtn_Click
-		/// <para>This method accepts which ever folder is selected and closes this application 
+		/// <summary>
+		/// This method accepts which ever folder is selected and closes this application 
 		/// with a DialogResult.OK result if you invoke this form though Form.ShowDialog().  
 		/// In this example this method simply looks up the selected folder, and presents the 
 		/// user with a message box displaying the name and path of the selected folder.
-		/// </para>
 		/// </summary>
 		private void selectBtn_Click(object sender, System.EventArgs e)
 		{
@@ -433,11 +428,10 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Access functions.
+		#region Access Functions
 
-		/// <summary> Method FolderName
-		/// <para>A method to retrieve the short name for the selected folder.</para>
-		/// <returns>The folder name for the selected folder.</returns>
+		/// <summary>
+		/// A method to retrieve the short name for the selected folder.
 		/// </summary>
 		public string FolderName
 		{
@@ -447,30 +441,28 @@ namespace DigitalProduction.Forms
 			}
 		}
 
-		/// <summary> Method FullPath
-		/// <para>Retrieve the full path for the selected folder.</para>
-		/// <returns>The correctly formatted full path to the selected folder.</returns>
-		/// <seealso cref="FolderSelectForm.fixPath"/>
+		/// <summary>
+		/// Retrieve the full path for the selected folder.
+		/// <seealso cref="FolderSelectForm.FixPath"/>
 		/// </summary>
 		public string FullPath
 		{
 			get
-			{ 
-				return ((_folder != null && _folder.Exists && tvwDirectories.SelectedNode != null))? fixPath(tvwDirectories.SelectedNode) : null;
+			{
+				return ((_folder != null && _folder.Exists && tvwDirectories.SelectedNode != null))? FixPath(tvwDirectories.SelectedNode) : null;
 			}
 		}
 
-		/// <summary> Method Info
-		/// <para>Retrieve the full DirectoryInfo object associated with the selected folder.  Note
-		/// that this will not have the corrected full path string.</para>
-		/// <returns>The full DirectoryInfo object associated with the selected folder.</returns>
+		/// <summary>
+		/// Retrieve the full DirectoryInfo object associated with the selected folder.  Note
+		/// that this will not have the corrected full path string.
 		/// <see cref="System.IO.DirectoryInfo"/>
 		/// </summary>
 		public DirectoryInfo Info
 		{
 			get
-			{ 
-				return ((_folder != null && _folder.Exists))? _folder : null; 
+			{
+				return ((_folder != null && _folder.Exists))? _folder : null;
 			}
 		}
 

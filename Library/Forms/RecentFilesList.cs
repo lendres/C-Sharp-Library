@@ -39,7 +39,7 @@ namespace DigitalProduction.Forms
 
 		// Current number of items shown.
 		uint									_size											= _maxsize;
-		
+
 		// Files.
 		private ToolStripMenuItem[]				mnuRecentFiles									= new ToolStripMenuItem[_maxsize];
 		private string[]						_paths											= new string[_maxsize];
@@ -246,7 +246,6 @@ namespace DigitalProduction.Forms
 		/// up to fill that slot.
 		/// </summary>
 		/// <param name="path">Path to insert at top of the list.</param>
-		/// <returns>An array of strings with the path insert at the top (entry"0").</returns>
 		private void PushTop(string path)
 		{
 			// Copy the existing names from the menu items while at the same time moving all
@@ -271,7 +270,6 @@ namespace DigitalProduction.Forms
 		/// Finds the zeroth based index of the path in the list of existing paths.  If the path is not found, the last index is returned.
 		/// </summary>
 		/// <param name="path">Path to search for.</param>
-		/// <returns>Position of the path, or last index.</returns>
 		private uint FindIndexOf(string path)
 		{
 			uint position = _maxsize-1;
@@ -292,7 +290,6 @@ namespace DigitalProduction.Forms
 		/// Finds the zeroth based index of the ToolStripMenuItem in the list of menu items.  If the control is not found, the last index is returned.
 		/// </summary>
 		/// <param name="menuitem">ToolStripMenuItem to search for.</param>
-		/// <returns>Position of the ToolStripMenuItem, or last index.</returns>
 		private uint FindIndexOf(ToolStripMenuItem menuitem)
 		{
 			uint position = _maxsize;

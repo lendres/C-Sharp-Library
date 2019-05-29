@@ -17,9 +17,9 @@ namespace DigitalProduction.Forms
 	/// <typeparam name="TAbstract">Abstract class.</typeparam>
 	/// <typeparam name="TBase">Base class.</typeparam>
 	public class AbstractControlDescriptionProvider<TAbstract, TBase> : TypeDescriptionProvider
-    {
+	{
 		#region Construction
-		
+
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
@@ -29,7 +29,7 @@ namespace DigitalProduction.Forms
 		}
 
 		#endregion
-		
+
 		#region Methods
 
 		/// <summary>
@@ -38,7 +38,6 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		/// <param name="objectType">Object type.</param>
 		/// <param name="instance">Instance.</param>
-		/// <returns>Type.</returns>
 		public override Type GetReflectionType(Type objectType, object instance)
 		{
 			if (objectType == typeof(TAbstract))
@@ -56,7 +55,6 @@ namespace DigitalProduction.Forms
 		/// <param name="objectType">Object type.</param>
 		/// <param name="argTypes">Argument Types.</param>
 		/// <param name="args">Arguments.</param>
-		/// <returns>New instance.</returns>
 		public override object CreateInstance(IServiceProvider provider, Type objectType, Type[] argTypes, object[] args)
 		{
 			if (objectType == typeof(TAbstract))

@@ -100,14 +100,14 @@ namespace System.Windows.Forms
 		#region Members/Delegates.
 
 		private delegate IntPtr HookProc(int ncode, IntPtr wparam, IntPtr lparam);
-        private delegate bool EnumChildProc(IntPtr hwnd, IntPtr lparam);
+		private delegate bool EnumChildProc(IntPtr hwnd, IntPtr lparam);
 
-        private const int		WH_CALLWNDPROCRET			= 12;
-        private const int		WM_DESTROY					= 0x0002;
-        private const int		WM_INITDIALOG				= 0x0110;
-        private const int		WM_TIMER					= 0x0113;
-        private const int		WM_USER						= 0x400;
-        private const int		DM_GETDEFID					= WM_USER + 0;
+		private const int		WH_CALLWNDPROCRET			= 12;
+		private const int		WM_DESTROY					= 0x0002;
+		private const int		WM_INITDIALOG				= 0x0110;
+		private const int		WM_TIMER					= 0x0113;
+		private const int		WM_USER						= 0x400;
+		private const int		DM_GETDEFID					= WM_USER + 0;
 
 		private static HookProc			_hookproc;
 		private static EnumChildProc	_enumproc;
@@ -128,7 +128,7 @@ namespace System.Windows.Forms
 		static MessageBoxManager()
 		{
 			_hookproc = new HookProc(MessageBoxHookProc);
-            _enumproc = new EnumChildProc(MessageBoxEnumProc);
+			_enumproc = new EnumChildProc(MessageBoxEnumProc);
 			_hhook = IntPtr.Zero;
 		}
 
@@ -246,12 +246,12 @@ namespace System.Windows.Forms
 		#region Register/Deregister.
 
 		/// <summary>
-        /// Enables MessageBoxManager functionality
-        /// </summary>
-        /// <remarks>
-        /// MessageBoxManager functionality is enabled on current thread only.
-        /// Each thread that needs MessageBoxManager functionality has to call this method.
-        /// </remarks>
+		/// Enables MessageBoxManager functionality
+		/// </summary>
+		/// <remarks>
+		/// MessageBoxManager functionality is enabled on current thread only.
+		/// Each thread that needs MessageBoxManager functionality has to call this method.
+		/// </remarks>
 		public static void Register()
 		{
 			if (_hhook != IntPtr.Zero)
@@ -261,20 +261,20 @@ namespace System.Windows.Forms
 			_hhook = SetWindowsHookEx(WH_CALLWNDPROCRET, _hookproc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
 		}
 
-        /// <summary>
-        /// Disables MessageBoxManager functionality
-        /// </summary>
-        /// <remarks>
-        /// Disables MessageBoxManager functionality on current thread only.
-        /// </remarks>
-        public static void Unregister()
-        {
-            if (_hhook != IntPtr.Zero)
-            {
-                UnhookWindowsHookEx(_hhook);
-                _hhook = IntPtr.Zero;
-            }
-        }
+		/// <summary>
+		/// Disables MessageBoxManager functionality
+		/// </summary>
+		/// <remarks>
+		/// Disables MessageBoxManager functionality on current thread only.
+		/// </remarks>
+		public static void Unregister()
+		{
+			if (_hhook != IntPtr.Zero)
+			{
+				UnhookWindowsHookEx(_hhook);
+				_hhook = IntPtr.Zero;
+			}
+		}
 
 		#endregion
 
@@ -290,40 +290,40 @@ namespace System.Windows.Forms
 			CWPRETSTRUCT msg	= (CWPRETSTRUCT)Marshal.PtrToStructure(lparam, typeof(CWPRETSTRUCT));
 			IntPtr hook			= _hhook;
 
-            if (msg.message == WM_INITDIALOG)
-            {
-                int windowtextlength	= GetWindowTextLength(msg.hwnd);
-                StringBuilder classname	= new StringBuilder(10);
+			if (msg.message == WM_INITDIALOG)
+			{
+				int windowtextlength	= GetWindowTextLength(msg.hwnd);
+				StringBuilder classname	= new StringBuilder(10);
 
-                GetClassName(msg.hwnd, classname, classname.Capacity);
-                if (classname.ToString() == "#32770")
-                {
-                    _buttonnumber = 0;
-                    EnumChildWindows(msg.hwnd, _enumproc, IntPtr.Zero);
-                    if (_buttonnumber == 1)
-                    {
-                        IntPtr hbutton = GetDlgItem(msg.hwnd, (int)Button.Cancel);
+				GetClassName(msg.hwnd, classname, classname.Capacity);
+				if (classname.ToString() == "#32770")
+				{
+					_buttonnumber = 0;
+					EnumChildWindows(msg.hwnd, _enumproc, IntPtr.Zero);
+					if (_buttonnumber == 1)
+					{
+						IntPtr hbutton = GetDlgItem(msg.hwnd, (int)Button.Cancel);
 						if (hbutton != IntPtr.Zero)
 						{
 							SetWindowText(hbutton, OK);
 						}
-                    }
-                }
-            }
+					}
+				}
+			}
 
 			return CallNextHookEx(hook, ncode, wparam, lparam);
 		}
 
-        private static bool MessageBoxEnumProc(IntPtr hwnd, IntPtr lparam)
-        {
-            StringBuilder classname = new StringBuilder(10);
-            GetClassName(hwnd, classname, classname.Capacity);
+		private static bool MessageBoxEnumProc(IntPtr hwnd, IntPtr lparam)
+		{
+			StringBuilder classname = new StringBuilder(10);
+			GetClassName(hwnd, classname, classname.Capacity);
 
-            if (classname.ToString() == "Button")
-            {
+			if (classname.ToString() == "Button")
+			{
 				Button controlid = (Button)GetDlgCtrlID(hwnd);
-                switch (controlid)
-                {
+				switch (controlid)
+				{
 					case Button.OK:
 					{
 						SetWindowText(hwnd, OK);
@@ -360,11 +360,11 @@ namespace System.Windows.Forms
 						break;
 					}
 
-                }
-                _buttonnumber++;
-            }
+				}
+				_buttonnumber++;
+			}
 
-            return true;
+			return true;
 		}
 
 		#endregion
