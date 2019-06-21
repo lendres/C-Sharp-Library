@@ -153,6 +153,7 @@
     <Compile Include="Forms\MultipleFileSelectControl.Designer.cs">
       <DependentUpon>MultipleFileSelectControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mathmatics\Constants.cs" />
     <Compile Include="Mathmatics\Conversion.cs" />
     <Compile Include="Mathmatics\Geometry.cs" />
     <Compile Include="Mathmatics\NormalizationType.cs" />

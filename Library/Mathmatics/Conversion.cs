@@ -203,6 +203,42 @@ namespace DigitalProduction.Mathmatics
 			return 1.0 / period;
 		}
 
+		/// <summary>
+		/// Convert angular frequency (radians) to frequency (Hertz).
+		/// </summary>
+		/// <param name="angularFrequency">Angular frequency in radians.</param>
+		public static double AngularFrequencyToFrequency(double angularFrequency)
+		{
+			return angularFrequency / 2 / System.Math.PI;
+		}
+
+		/// <summary>
+		/// Convert frequency (Hertz) to angular frequency (radians).
+		/// </summary>
+		/// <param name="frequency">Angular frequency in radians.</param>
+		public static double FrequencyToAngularFrequency(double frequency)
+		{
+			return frequency * 2.0 * System.Math.PI;
+		}
+
+		/// <summary>
+		/// Convert angular frequency (radians) to frequency (Hertz).
+		/// </summary>
+		/// <param name="angularFrequency">Angular frequency in radians.</param>
+		public static double AngularFrequencyToPeriod(double angularFrequency)
+		{
+			return 2.0 * System.Math.PI / angularFrequency;
+		}
+
+		/// <summary>
+		/// Convert angular frequency (radians) to frequency (Hertz).
+		/// </summary>
+		/// <param name="period">Angular frequency in radians.</param>
+		public static double PeriodToAngularFrequency(double period)
+		{
+			return 2.0 * System.Math.PI / period;
+		}
+
 		#endregion
 
 		#region Rounding
