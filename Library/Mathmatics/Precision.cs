@@ -74,9 +74,9 @@ namespace DigitalProduction.Mathmatics
 		/// <param name="val1">The first value.</param>
 		/// <param name="val2">The second value.</param>
 		/// <returns>True if val1 equals val2 within the allowed precision, false otherwise.</returns>
-		public static bool Equals(double val1, double val2)
+		public static bool Equal(double val1, double val2)
 		{
-			return Equals(val1, val2, _epsilon);
+			return Equal(val1, val2, _epsilon);
 		}
 
 		/// <summary>
@@ -86,10 +86,33 @@ namespace DigitalProduction.Mathmatics
 		/// <param name="val2">The second value.</param>
 		/// <param name="epsilon">Precision required to consider the two value equal.</param>
 		/// <returns>True if val1 equals val2 within the allowed precision, false otherwise.</returns>
-		public static bool Equals(double val1, double val2, double epsilon)
+		public static bool Equal(double val1, double val2, double epsilon)
 		{
 			double diff = System.Math.Abs(val1 - val2);
 			return diff <= epsilon;
+		}
+
+		/// <summary>
+		/// Determines two numbers are equal within the default precision.
+		/// </summary>
+		/// <param name="val1">The first value.</param>
+		/// <param name="val2">The second value.</param>
+		/// <returns>True if val1 equals val2 within the allowed precision, false otherwise.</returns>
+		public static bool NotEqual(double val1, double val2)
+		{
+			return NotEqual(val1, val2, _epsilon);
+		}
+
+		/// <summary>
+		/// Determines two numbers are equal within the specified precision.
+		/// </summary>
+		/// <param name="val1">The first value.</param>
+		/// <param name="val2">The second value.</param>
+		/// <param name="epsilon">Precision required to consider the two value equal.</param>
+		/// <returns>True if val1 equals val2 within the allowed precision, false otherwise.</returns>
+		public static bool NotEqual(double val1, double val2, double epsilon)
+		{
+			return !Equal(val1, val2, epsilon);
 		}
 
 		public static double CeilingWithPrecision(double val, int roundTo)
