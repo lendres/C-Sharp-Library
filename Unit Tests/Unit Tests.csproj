@@ -55,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="MathTests.cs" />
     <Compile Include="Test Classes\AirlineCompany.cs" />
     <Compile Include="Test Classes\Asset.cs" />
     <Compile Include="Test Classes\Family.cs" />

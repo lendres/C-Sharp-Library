@@ -159,6 +159,7 @@
     <Compile Include="Mathmatics\NormalizationType.cs" />
     <Compile Include="Mathmatics\Precision.cs" />
     <Compile Include="Mathmatics\SignalProcessing.cs" />
+    <Compile Include="Mathmatics\Statistics.cs" />
     <Compile Include="Numerics\Precision.cs" />
     <Compile Include="Numerics\PrecisionSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

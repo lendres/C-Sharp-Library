@@ -105,8 +105,8 @@ namespace DigitalProduction.UnitTests
 
 			Family family = CreateFamily();
 			List<string> aliases = DigitalProduction.Reflection.Attributes.GetAliases(family);
-			Assert.AreEqual(aliases[0], "Relatives");
-			Assert.AreEqual(aliases[1], "Family Members");
+			Assert.AreEqual(aliases[0], "Family Members");
+			Assert.AreEqual(aliases[1], "Relatives");
 		}
 
 		#endregion
