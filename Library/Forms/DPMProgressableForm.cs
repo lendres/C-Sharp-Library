@@ -9,17 +9,6 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public class DPMProgressableForm : DPMForm
 	{
-		#region Delegates
-
-		/// <summary>
-		/// Delegate for displaying a message.
-		/// </summary>
-		/// <param name="message">Message to display</param>
-		/// <param name="icon">Icon to display with the message.</param>
-		public delegate void DisplayMessageCallBack(string message, MessageBoxIcon icon);
-
-		#endregion
-
 		#region Members
 
 		private DisplayMessageCallBack						_displayMessageCallback;
@@ -27,7 +16,7 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Progress callback function.
 		/// </summary>
-		protected ProgressDialog.UpdateProgressCallBack		_progressCallback;
+		protected UpdateProgressCallBack					_progressCallback;
 		
 		private Thread										_processThread;
 		private ProgressDialog								_progressDialog;
@@ -40,13 +29,16 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public DPMProgressableForm() {}
+		public DPMProgressableForm()
+		{
+		}
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
 		/// <param name="applicationname">Name of application.</param>
-		public DPMProgressableForm(string applicationname) : base(applicationname)
+		public DPMProgressableForm(string applicationname) :
+			base(applicationname)
 		{
 			Initialize();
 		}
@@ -56,17 +48,21 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		/// <param name="companyname">Company name.</param>
 		/// <param name="applicationname">Name of application.</param>
-		public DPMProgressableForm(string companyname, string applicationname): base(companyname, applicationname)
+		public DPMProgressableForm(string companyname, string applicationname) :
+			base(companyname, applicationname)
 		{
 			Initialize();
 		}
 
+		/// <summary>
+		/// Initialization.
+		/// </summary>
 		private void Initialize()
 		{
-			_progressDialog = new ProgressDialog();
-			_progressDialog.Maximum = 100;
-			_progressCallback = new ProgressDialog.UpdateProgressCallBack(_progressDialog.UpdateProgress);
-			_displayMessageCallback = new DPMProgressableForm.DisplayMessageCallBack(InvokeMessage);
+			_progressDialog						= new ProgressDialog();
+			_progressDialog.ProgressBar.Maximum	= 100;
+			_progressCallback					= new UpdateProgressCallBack(_progressDialog.UpdateProgress);
+			_displayMessageCallback				= new DisplayMessageCallBack(InvokeMessage);
 		}
 
 		#endregion
@@ -126,26 +122,36 @@ namespace DigitalProduction.Forms
 		{
 			_progressDialog.ResetProgress();
 			_progressDialog.StartTimer();
-			_processThread = new Thread(new ThreadStart(this.RunProcessingThread));
-			_processThread.IsBackground = true;
+
+			_processThread				= new Thread(new ThreadStart(this.RunProcessingThread));
+			_processThread.IsBackground	= true;
+
 			_processThread.Start();
+
 			if (_progressDialog.ShowDialog((IWin32Window)this) != DialogResult.Cancel)
 			{
 				return;
 			}
+
 			_processThread.Abort();
 			HandleCancel();
 		}
 
+		/// <summary>
+		/// Does the work of running the thread.
+		/// </summary>
 		private void RunProcessingThread()
 		{
+			// We have to pause until the dialog has appeared, otherwise we run the risk of trying to close it
+			// before it opens.
 			while (!_progressDialog.Visible)
 			{
 				Thread.Sleep(100);
 			}
+
 			try
 			{
-				this.DoProcessing();
+				DoProcessing();
 			}
 			catch (ThreadAbortException ex)
 			{
@@ -166,6 +172,8 @@ namespace DigitalProduction.Forms
 					return;
 				}
 			}
+
+			// Tell the dialog box to close in a happy way.
 			_progressDialog.CloseOK();
 		}
 

@@ -48,7 +48,8 @@ namespace DigitalProduction.Mathmatics
 		/// <summary>
 		/// List extension to calculate the average of two arrays of values.
 		/// </summary>
-		/// <param name="xValues">Values to the average of.</param>
+		/// <param name="xValues">X values to the average of.</param>
+		/// <param name="yValues">Y values to the average of.</param>
 		public static double[] Average(double[] xValues, double[] yValues)
 		{
 			System.Diagnostics.Debug.Assert(xValues.Length == yValues.Length, "Array lengths do not match in covariance calculation.");
@@ -71,7 +72,8 @@ namespace DigitalProduction.Mathmatics
 		/// <summary>
 		/// List extension to calculate the covariance of a List of Vector2D.
 		/// </summary>
-		/// <param name="values">Values to the covariance of.</param>
+		/// <param name="xValues">X values to find the covariance of.</param>
+		/// <param name="yValues">Y values to find the covariance of.</param>
 		public static double Covariance(double[] xValues, double[] yValues)
 		{
 			System.Diagnostics.Debug.Assert(xValues.Length == yValues.Length, "Array lengths do not match in covariance calculation.");

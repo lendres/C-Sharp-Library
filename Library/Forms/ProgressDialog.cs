@@ -11,27 +11,6 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public partial class ProgressDialog : System.Windows.Forms.Form
 	{
-		#region Delegates
-
-		/// <summary>
-		/// Update the progress bar via a call back function from another thread.
-		/// </summary>
-		/// <param name="value">Value of the progress bar as an integer from 0-100.</param>
-		public delegate			void UpdateProgressCallBack(int value);
-
-		/// <summary>
-		/// Update the text (caption) on the form.
-		/// </summary>
-		/// <param name="caption">Text to display.</param>
-		public delegate			void UpdateCaptionCallBack(string caption);
-
-		/// <summary>
-		/// General call back delegate.  Can be used to update the progress bar, close the form, et cetera via a call back function from another thread.
-		/// </summary>
-		public delegate			void CallBack();
-
-		#endregion
-
 		#region Members
 
 		private DateTime								_starttime;
@@ -157,6 +136,7 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// The maximum value to use for the progress bar.
 		/// </summary>
+		[Obsolete("Use ProgressDialog.ProgressBar.Maximum instead", true)]
 		public int Maximum
 		{
 			set
@@ -168,6 +148,7 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// The value of the progress bar.
 		/// </summary>
+		[Obsolete("Use ProgressDialog.ProgressBar.Value instead", true)]
 		public int Value
 		{
 			get
@@ -303,16 +284,83 @@ namespace DigitalProduction.Forms
 		/// </remarks>
 		public void UpdateProgress(int value)
 		{
+
+			if (this.InvokeRequired)
+			{
+				// We need to use a callback.
+				Action<int> setDelegate = this.SetProgressValue;
+				this.Invoke(setDelegate, new object[] { value });
+			}
+			else
+			{
+				SetProgressValue(value);
+			}
+		}
+
+		/// <summary>
+		/// Update the progress bar.
+		/// </summary>
+		/// <param name="value">Value of the progress bar as an integer from 0-100.</param>
+		public void SetProgressValue(int value)
+		{
 			this.pbarProgress.Value = value;
 		}
 
 		/// <summary>
-		/// Sets the text (caption) shown on the form.
+		/// Sets the caption (title bar text) shown on the form.
 		/// </summary>
 		/// <param name="caption">Text to display.</param>
+		[Obsolete("SetCaption has become SetMessage, SetCaption now sets the title bar caption instead of the label.")]
 		public void SetCaption(string caption)
 		{
-			this.lblText.Text = caption;
+			if (this.InvokeRequired)
+			{
+				// We need to use a callback.
+				Action<string> setDelegate = this.SetCaptionText;
+				this.Invoke(setDelegate, new object[] { caption });
+			}
+			else
+			{
+				SetCaptionText(caption);
+			}
+		}
+
+		/// <summary>
+		/// The actual work of setting the message.  We make a separate function so that it can be invoked from a delegate when
+		/// an invoke is required.
+		/// </summary>
+		/// <param name="caption">Text to display.</param>
+		private void SetCaptionText(string caption)
+		{
+			this.Text = caption;
+		}
+
+		/// <summary>
+		/// Sets the message shown on the form (sets the label).
+		/// </summary>
+		/// <param name="message">Text to display.</param>
+		public void SetMessage(string message)
+		{
+			if (this.InvokeRequired)
+			{
+				// We need to use a callback.
+				Action<string> setDelegate = this.SetMessageText;
+				this.Invoke(setDelegate, new object[] { message });
+			}
+			else
+			{
+				SetMessageText(message);
+			}
+		}
+
+		/// <summary>
+		/// The actual work of setting the message.  We make a separate function so that it can be invoked from a delegate when
+		/// an invoke is required.
+		/// </summary>
+		/// <param name="message">Text to display.</param>
+		private void SetMessageText(string message)
+		{
+			this.lblText.Text = message;
 		}
 
 		#endregion

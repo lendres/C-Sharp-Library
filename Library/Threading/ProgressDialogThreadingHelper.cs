@@ -18,38 +18,52 @@ namespace DigitalProduction.Threading
 	{
 		#region Members
 
-		private ProgressDialog								_progressDialog;
+		private ProgressDialog								_progressDialog					= new ProgressDialog();
 		private Form										_parentForm;
 
 		private DisplayMessageDelegate						_displayMessageDelegate;
 		private ProgressWorkerDelegate						_workerDelegate;
-		private ProgressCleanUpDelegate						_progressCleanUpDelegate;
-
-		private ProgressBarStyle							_progressBarStyle				= ProgressBarStyle.Marquee;
+		private ProgressCleanUpDelegate						_cancelCleanUpDelegate;
 
 		#endregion
 
 		#region Construction
 
 		/// <summary>
-		/// Constructor.
+		/// Constructor used when passing a ProgressDialogThreadingHelper from a form to a class that is going to do the main work.
 		/// </summary>
-		public ProgressDialogThreadingHelper(Form parentForm, ProgressWorkerDelegate workerDelegate, DisplayMessageDelegate displayMessageDelegate)
+		/// <param name="parentForm">The parent form that this dialog box will show in front of.</param>
+		/// <param name="displayMessageDelegate">A delegate used to display messages in the main form.</param>
+		public ProgressDialogThreadingHelper(Form parentForm, DisplayMessageDelegate displayMessageDelegate)
 		{
-			_parentForm					= parentForm;
-			_workerDelegate				= workerDelegate;
-			_displayMessageDelegate		= displayMessageDelegate;
+			_parentForm							= parentForm;
+			_displayMessageDelegate				= displayMessageDelegate;
+			_progressDialog.ProgressBar.Style	= ProgressBarStyle.Marquee;
 		}
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public ProgressDialogThreadingHelper(Form parentForm, ProgressWorkerDelegate workerDelegate, DisplayMessageDelegate displayMessageDelegate, ProgressCleanUpDelegate progressCleanUpDelegate)
+		/// <param name="parentForm">The parent form that this dialog box will show in front of.</param>
+		/// <param name="workerDelegate">A delegate which is a function that does the main work.</param>
+		/// <param name="displayMessageDelegate">A delegate used to display messages in the main form.</param>
+		public ProgressDialogThreadingHelper(Form parentForm, ProgressWorkerDelegate workerDelegate, DisplayMessageDelegate displayMessageDelegate) :
+			this(parentForm, displayMessageDelegate)
 		{
-			_parentForm					= parentForm;
 			_workerDelegate				= workerDelegate;
-			_displayMessageDelegate		= displayMessageDelegate;
-			_progressCleanUpDelegate	= progressCleanUpDelegate;
+		}
+
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="parentForm">The parent form that this dialog box will show in front of.</param>
+		/// <param name="workerDelegate">A delegate which is a function that does the main work.</param>
+		/// <param name="displayMessageDelegate">A delegate used to display messages in the main form.</param>
+		/// <param name="cancelCleanUpDelegate">A delegate that is used to clean up resources if the "Cancel" button is pressed while the worker thread is running.</param>
+		public ProgressDialogThreadingHelper(Form parentForm, ProgressWorkerDelegate workerDelegate, DisplayMessageDelegate displayMessageDelegate, ProgressCleanUpDelegate cancelCleanUpDelegate) :
+			this(parentForm, workerDelegate, displayMessageDelegate)
+		{
+			_cancelCleanUpDelegate		= cancelCleanUpDelegate;
 		}
 
 		#endregion
@@ -57,18 +71,57 @@ namespace DigitalProduction.Threading
 		#region Properties
 
 		/// <summary>
-		/// Sets or gets the ProgressBarStyle to use in the ProgressDialog.
+		/// Sets or gets the worker delegate.
+		/// 
+		/// Example uses:
+		///		No argument required:
+		///			progressDialogThreadingHelper.WorkerDelegate = this.SerializeWorker;
+		///			
+		///		Argument required:
+		///			progressDialogThreadingHelper.WorkerDelegate = new ProgressWorkerDelegate(() => base.ReadFileAndSetControls(path));
 		/// </summary>
-		public ProgressBarStyle ProgressBarStyle
+		public ProgressWorkerDelegate WorkerDelegate
 		{
 			get
 			{
-				return _progressBarStyle;
+				return _workerDelegate;
 			}
 
 			set
 			{
-				_progressBarStyle = value;
+				_workerDelegate	= value;
+			}
+		}
+
+		/// <summary>
+		/// Sets or gets the cancel clean up delegate.
+		/// </summary>
+		public ProgressCleanUpDelegate CancelCleanUpDelegate
+		{
+			get
+			{
+				return _cancelCleanUpDelegate;
+			}
+
+			set
+			{
+				_cancelCleanUpDelegate = value;
+			}
+		}
+
+		/// <summary>
+		/// Sets or gets the ProgressBarStyle to use in the ProgressDialog.
+		/// </summary>
+		public ProgressDialog ProgressDialog
+		{
+			get
+			{
+				return _progressDialog;
+			}
+
+			set
+			{
+				_progressDialog = value;
 			}
 		}
 
@@ -101,7 +154,6 @@ namespace DigitalProduction.Threading
 		/// </summary>
 		private void CreateAndStartWorkerThread()
 		{
-			_progressDialog = new ProgressDialog(_progressBarStyle);
 			_progressDialog.ResetProgress();
 			_progressDialog.StartTimer();
 
@@ -114,14 +166,14 @@ namespace DigitalProduction.Threading
 				processThread.Abort();
 				try
 				{
-					if (_progressCleanUpDelegate != null)
+					if (_cancelCleanUpDelegate != null)
 					{
-						_progressCleanUpDelegate();
+						_cancelCleanUpDelegate();
 					}
 				}
-				catch (Exception exception)
+				catch
 				{
-					// Quiet exit.
+					// Catch all and quietly exit.
 				}
 			}
 		}
@@ -136,23 +188,14 @@ namespace DigitalProduction.Threading
 				System.Threading.Thread.Sleep(100);
 			}
 
-			//try
-			//{
-				_workerDelegate();
+			_workerDelegate();
 
-				// Close the dialog and allow the other thread to continue.
-				_progressDialog.Invoke(new ProgressDialog.CallBack(_progressDialog.CloseOK));
-			//}
-			//catch (Exception exception)
-			//{
-			//	// Close the dialog and allow the other thread to continue.
-			//	//_progressDialog.Invoke(new ProgressDialog.CallBack(_progressDialog.Close));
-			//	DisplayMessage(exception.Message, "Error", MessageBoxIcon.Error);
-			//}
+			// Close the dialog and allow the other thread to continue.
+			_progressDialog.Invoke(new CallBack(_progressDialog.CloseOK));
 		}
 
 		/// <summary>
-		/// Invoke a message on the calling form.
+		/// 
 		/// </summary>
 		/// <param name="message">Message/text.</param>
 		/// <param name="caption">Caption.</param>

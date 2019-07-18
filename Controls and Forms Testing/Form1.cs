@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DigitalProduction.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ControlsAndFormsTesting
@@ -64,6 +65,41 @@ namespace ControlsAndFormsTesting
 			{
 				DisplayError(this.numericTextBox3);
 				e.Cancel = true;
+			}
+		}
+
+		private void buttonBrowseText_Click(object sender, EventArgs e)
+		{
+			string initialDirectory = @"C:\Temp";
+
+			// We use restore directory set to false so that the current directory is left as the initial directory above.
+			string path = FileSelect.BrowseForAFile(this, "Text files (*.txt)|*.txt|All files (*.*)|*.*", "Select File", initialDirectory, false);
+
+			if (path != "")
+			{
+				this.textBoxTextFile.Text = path;
+			}
+		}
+
+		private void buttonBrowse_Click(object sender, EventArgs e)
+		{
+			string initialDirectory = @"C:\Projects\WellDrill\60513-welldrill\source\WellDrill\ProgramData Files";
+
+			string path = FileSelect.BrowseForAFile(this, "XSLT files (*.xslt)|*.xslt|All files (*.*)|*.*", "Select Transformation File", initialDirectory, true);
+
+			if (path != "")
+			{
+				this.textBoxXsltFile.Text = path;
+			}
+		}
+
+		private void buttonBrowseNoInitialDirectory_Click(object sender, EventArgs e)
+		{
+			string path = FileSelect.BrowseForAFile(this, "Text files (*.txt)|*.txt|All files (*.*)|*.*", "Select File", false);
+
+			if (path != "")
+			{
+				this.textBoxTextNoInitialDirectory.Text = path;
 			}
 		}
 
