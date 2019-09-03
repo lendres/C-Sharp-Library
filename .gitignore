@@ -49,3 +49,5 @@ obj/
 *.pdb
 TestResults/
 *.user
+.vs/DPM/v15/Server/sqlite3/storage.ide
+.vs/DPM/v15/Server/sqlite3/db.lock
