@@ -138,6 +138,12 @@
     <Compile Include="Forms\AbstractControlDescriptionProvider.cs" />
     <Compile Include="Forms\Delegates.cs" />
     <Compile Include="Forms\DirectorySelect.cs" />
+    <Compile Include="Forms\RotatedLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\RotatedLabel.Designer.cs">
+      <DependentUpon>RotatedLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ValidatingNumericUpDown.cs">
       <SubType>Component</SubType>
     </Compile>

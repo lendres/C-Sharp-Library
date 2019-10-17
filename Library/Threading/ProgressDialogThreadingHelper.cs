@@ -138,13 +138,22 @@ namespace DigitalProduction.Threading
 
 			CreateAndStartWorkerThread();
 
-			if (_progressDialog.DialogResult == DialogResult.OK)
+			try
 			{
-				return true;
+				if (_progressDialog.DialogResult == DialogResult.OK)
+				{
+					return true;
+				}
+				else
+				{
+					// Process thread did not finish correctly (cancelled).
+					return false;
+				}
 			}
-			else
+			catch (Exception exception)
 			{
-				// Process thread did not finish correctly.
+				_progressDialog.Close();
+				MessageBox.Show("An error occurred while calculating the solution.\n\n" + exception.Message, "Solution Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return false;
 			}
 		}

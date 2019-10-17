@@ -11,7 +11,7 @@ namespace DigitalProduction.Forms
 	{
 		#region Members
 
-		private DisplayMessageCallBack						_displayMessageCallback;
+		private DisplayMessageDelegate						_displayMessageCallback;
 
 		/// <summary>
 		/// Progress callback function.
@@ -62,7 +62,7 @@ namespace DigitalProduction.Forms
 			_progressDialog						= new ProgressDialog();
 			_progressDialog.ProgressBar.Maximum	= 100;
 			_progressCallback					= new UpdateProgressCallBack(_progressDialog.UpdateProgress);
-			_displayMessageCallback				= new DisplayMessageCallBack(InvokeMessage);
+			_displayMessageCallback				= new DisplayMessageDelegate(DisplayMessage);
 		}
 
 		#endregion
@@ -71,16 +71,17 @@ namespace DigitalProduction.Forms
 		/// Display a message.
 		/// </summary>
 		/// <param name="message">Message to display</param>
+		/// <param name="caption">Caption to display on the title bar.</param>
 		/// <param name="icon">Icon to display with the message.</param>
-		protected void DisplayMessage(string message, MessageBoxIcon icon)
+		protected void InvokeDisplayMessage(string message, string caption, MessageBoxIcon icon)
 		{
 			if (this.InvokeRequired)
 			{
-				this.Invoke((Delegate)this._displayMessageCallback, (object)message, (object)icon);
+				this.Invoke((Delegate)_displayMessageCallback, (object)message, (object)icon);
 			}
 			else
 			{
-				this.InvokeMessage(message, icon);
+				this.DisplayMessage(message, caption, icon);
 			}
 		}
 
@@ -88,10 +89,11 @@ namespace DigitalProduction.Forms
 		/// For displaying a message when an invoke is required.
 		/// </summary>
 		/// <param name="message">Message to display</param>
+		/// <param name="caption">Caption to display on the title bar.</param>
 		/// <param name="icon">Icon to display with the message.</param>
-		protected void InvokeMessage(string message, MessageBoxIcon icon)
+		protected void DisplayMessage(string message, string caption, MessageBoxIcon icon)
 		{
-			MessageBox.Show((IWin32Window)this, message, this.Text, MessageBoxButtons.OK, icon);
+			MessageBox.Show(this, message, caption, MessageBoxButtons.OK, icon);
 		}
 
 		/// <summary>
@@ -156,11 +158,11 @@ namespace DigitalProduction.Forms
 			catch (ThreadAbortException ex)
 			{
 				string message = ex.Message;
-				DisplayMessage("Processing aborted.\n\n", MessageBoxIcon.Asterisk);
+				InvokeDisplayMessage("Processing aborted.\n\n", "Exception", MessageBoxIcon.Asterisk);
 			}
 			catch (Exception ex)
 			{
-				DisplayMessage("Error processing the input file.\n\n" + ex.Message, MessageBoxIcon.Hand);
+				InvokeDisplayMessage("Error processing the input file.\n\n" + ex.Message, "Exception", MessageBoxIcon.Hand);
 				try
 				{
 					_progressDialog.CloseOK();
@@ -180,22 +182,30 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Cancel handling.
 		/// </summary>
-		protected virtual void HandleCancel() {}
+		protected virtual void HandleCancel()
+		{
+		}
 
 		/// <summary>
 		/// Run the processing.
 		/// </summary>
-		protected virtual void DoProcessing() {}
+		protected virtual void DoProcessing()
+		{
+		}
 
 		/// <summary>
 		/// Processing clean up.
 		/// </summary>
-		protected virtual void ProcessingCleanUp() {}
+		protected virtual void ProcessingCleanUp()
+		{
+		}
 
 		/// <summary>
 		/// Exception clean up.
 		/// </summary>
-		protected virtual void ExceptionCleanUp() {}
+		protected virtual void ExceptionCleanUp()
+		{
+		}
 
 	} // End class.
 } // End namespace.

@@ -115,6 +115,11 @@ namespace DigitalProduction.Mathmatics
 			return !Equal(val1, val2, epsilon);
 		}
 
+		/// <summary>
+		/// Round up to the specified decimal place.
+		/// </summary>
+		/// <param name="val">Value to round.</param>
+		/// <param name="roundTo">Precision to round to, e.g. 10, 100, 1000, et cetera.</param>
 		public static double CeilingWithPrecision(double val, int roundTo)
 		{
 			if (val % roundTo != 0)
@@ -127,6 +132,11 @@ namespace DigitalProduction.Mathmatics
 			}
 		}
 
+		/// <summary>
+		/// Round down to the specified decimal place.
+		/// </summary>
+		/// <param name="val">Value to round.</param>
+		/// <param name="roundTo">Precision to round to, e.g. 10, 100, 1000, et cetera.</param>
 		public static double FloorWithPrecision(double val, int roundTo)
 		{
 			if (val % roundTo != 0)

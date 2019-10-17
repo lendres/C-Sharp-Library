@@ -31,10 +31,11 @@ namespace DigitalProduction.Forms
 	public delegate void CallBack();
 
 	/// <summary>
-	/// Delegate for displaying a message.
+	/// Delegate for a message callback function.
 	/// </summary>
-	/// <param name="message">Message to display</param>
-	/// <param name="icon">Icon to display with the message.</param>
-	public delegate void DisplayMessageCallBack(string message, MessageBoxIcon icon);
+	/// <param name="message">Text to display in the message box.</param>
+	/// <param name="caption">Text to display in the title bar of the message box.</param>
+	/// <param name="icon">One of the System.Windows.Forms.MessagBoxIcon that specifies which icon to display in the message box.</param>
+	public delegate void DisplayMessageDelegate(string message, string caption, MessageBoxIcon icon);
 
 } // End namespace.

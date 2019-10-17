@@ -301,6 +301,7 @@ namespace DigitalProduction.Forms
 			{
 				return base.Text;
 			}
+
 			set
 			{
 				base.Text = value;
