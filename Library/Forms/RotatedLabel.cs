@@ -75,7 +75,7 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		[Category("Appearance")]
 		[Browsable(true)]
-		public new string Text
+		public string RotatedText
 		{
 			get
 			{
