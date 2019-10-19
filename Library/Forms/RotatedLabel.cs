@@ -22,7 +22,6 @@ namespace DigitalProduction.Forms
 		private int						_angle			= 0;
 		private double					_radians;
 
-		private string					_text			= "rotatedLabel";
 		private ContentAlignment		_alignment		= ContentAlignment.TopLeft;
 
 		private int						_quadrant		= 1;
@@ -36,6 +35,7 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		public RotatedLabel()
 		{
+			this.Text = "rotatedLabel";
 			InitializeComponent();
 		}
 
@@ -80,13 +80,12 @@ namespace DigitalProduction.Forms
 		{
 			get
 			{
-				return _text;
+				return base.Text;
 			}
 
 			set
 			{
-				_text		= value;
-				base.Text	= value;
+				base.Text = value;
 				Refresh();
 			}
 		}
@@ -160,12 +159,17 @@ namespace DigitalProduction.Forms
 		protected override void OnPaint(System.Windows.Forms.PaintEventArgs paintEventArgs)
 		{
 			// Get the text size.
-			SizeF textSize			= paintEventArgs.Graphics.MeasureString(_text, this.Font, this.Parent.Width);
+			SizeF textSize			= paintEventArgs.Graphics.MeasureString(this.Text, this.Font, this.Parent.Width);
 
 			// When you rotate the text, the width and height will now have an X and a Y component because they no longer fall along the X or Y axis.  These are the components of
 			// the width and height after rotation.
-			Point rotatedHeight		= new Point(Math.Abs((int)Math.Ceiling(textSize.Height * Math.Sin(_radians))), Math.Abs((int)Math.Ceiling(textSize.Height * Math.Cos(_radians))));
-			Point rotatedWidth		= new Point(Math.Abs((int)Math.Ceiling(textSize.Width * Math.Cos(_radians))), Math.Abs((int)Math.Ceiling(textSize.Width * Math.Sin(_radians))));
+			int x					= Math.Abs((int)Math.Ceiling(textSize.Height * Math.Sin(_radians)));
+			int y					= Math.Abs((int)Math.Ceiling(textSize.Height * Math.Cos(_radians)));
+			Point rotatedHeight		= new Point(x, y);
+
+			x						= Math.Abs((int)Math.Ceiling(textSize.Width * Math.Cos(_radians)));
+			y						= Math.Abs((int)Math.Ceiling(textSize.Width * Math.Sin(_radians)));
+			Point rotatedWidth = new Point(x, y);
 
 			// Size of the rotated text.  This is the size of the bounding box around the text.  SetControlSize will update the control size or leave it alone
 			// based on how auto sizing is set.
@@ -183,7 +187,7 @@ namespace DigitalProduction.Forms
 			paintEventArgs.Graphics.RotateTransform(_angle);
 
 			// Draw the text and let the base class do its painting.
-			paintEventArgs.Graphics.DrawString(_text, this.Font, new SolidBrush(this.ForeColor), 0f, 0f);
+			paintEventArgs.Graphics.DrawString(this.Text, this.Font, new SolidBrush(this.ForeColor), 0f, 0f);
 			base.OnPaint(paintEventArgs);
 		}
 
@@ -211,6 +215,7 @@ namespace DigitalProduction.Forms
 		{
 			Point offset = new Point(0, 0);
 
+			// The point of rotation of the text is the lower, left hand corner.
 			switch (_quadrant)
 			{
 				case 1:
