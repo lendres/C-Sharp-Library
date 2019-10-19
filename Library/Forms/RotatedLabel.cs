@@ -169,7 +169,7 @@ namespace DigitalProduction.Forms
 
 			x						= Math.Abs((int)Math.Ceiling(textSize.Width * Math.Cos(_radians)));
 			y						= Math.Abs((int)Math.Ceiling(textSize.Width * Math.Sin(_radians)));
-			Point rotatedWidth = new Point(x, y);
+			Point rotatedWidth		= new Point(x, y);
 
 			// Size of the rotated text.  This is the size of the bounding box around the text.  SetControlSize will update the control size or leave it alone
 			// based on how auto sizing is set.
