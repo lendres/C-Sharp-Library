@@ -12,7 +12,7 @@ namespace DigitalProduction.Forms
 	/// <summary>
 	/// A label that can rotate text.
 	/// 
-	/// Based on:
+	/// This class is partially based on the concepts posted by users Javed Akram and Buddy at:
 	/// https://stackoverflow.com/questions/1371943/c-sharp-vertical-label-in-a-windows-forms
 	/// </summary>
 	public partial class RotatedLabel : UserControl
@@ -75,7 +75,8 @@ namespace DigitalProduction.Forms
 		/// </summary>
 		[Category("Appearance")]
 		[Browsable(true)]
-		public string RotatedText
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+		public override string Text
 		{
 			get
 			{
@@ -84,7 +85,8 @@ namespace DigitalProduction.Forms
 
 			set
 			{
-				_text = value;
+				_text		= value;
+				base.Text	= value;
 				Refresh();
 			}
 		}
@@ -149,32 +151,55 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
+		#region Events
+
 		/// <summary>
 		/// Painting event that does the work.
 		/// </summary>
 		/// <param name="paintEventArgs">Event arguments.</param>
 		protected override void OnPaint(System.Windows.Forms.PaintEventArgs paintEventArgs)
 		{
-			// Calculate text size and the components of the height and width in the rotated position.
+			// Get the text size.
 			SizeF textSize			= paintEventArgs.Graphics.MeasureString(_text, this.Font, this.Parent.Width);
 
+			// When you rotate the text, the width and height will now have an X and a Y component because they no longer fall along the X or Y axis.  These are the components of
+			// the width and height after rotation.
 			Point rotatedHeight		= new Point(Math.Abs((int)Math.Ceiling(textSize.Height * Math.Sin(_radians))), Math.Abs((int)Math.Ceiling(textSize.Height * Math.Cos(_radians))));
 			Point rotatedWidth		= new Point(Math.Abs((int)Math.Ceiling(textSize.Width * Math.Cos(_radians))), Math.Abs((int)Math.Ceiling(textSize.Width * Math.Sin(_radians))));
 
-			// Size of the control required for the rotated text.  SetControlSize will update the control size or leave alone
+			// Size of the rotated text.  This is the size of the bounding box around the text.  SetControlSize will update the control size or leave it alone
 			// based on how auto sizing is set.
 			Size textBoundingBox	= new Size(rotatedWidth.X + rotatedHeight.X, rotatedWidth.Y + rotatedHeight.Y);
 			SetControlSize(textBoundingBox);
 
+			// Two offsets (translations) are used.  The first is to accounts for the effects of the rotation.  The second accounts
+			// for the effects of the alignment.  It's a lot easier to calculate them separately and add together than to try to account
+			// for them both at the same time.
 			Point rotationOffset	= CalculateOffsetForRotation(ref rotatedHeight, ref rotatedWidth, ref textBoundingBox);
-			Point alignmentOffset	= CalculateOffsetForAlignment(ref rotatedHeight, ref rotatedWidth, ref textBoundingBox);
+			Point alignmentOffset	= CalculateOffsetForAlignment(ref textBoundingBox);
 
+			// Apply the transformation and rotation to the graphics.
 			paintEventArgs.Graphics.TranslateTransform(rotationOffset.X + alignmentOffset.X, rotationOffset.Y + alignmentOffset.Y);
 			paintEventArgs.Graphics.RotateTransform(_angle);
 
+			// Draw the text and let the base class do its painting.
 			paintEventArgs.Graphics.DrawString(_text, this.Font, new SolidBrush(this.ForeColor), 0f, 0f);
 			base.OnPaint(paintEventArgs);
 		}
+
+		/// <summary>
+		/// When we resize, we need to update the text.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="eventArgs">Event arguments.</param>
+		private void RotatedLabel_Resize(object sender, EventArgs eventArgs)
+		{
+			Refresh();
+		}
+
+		#endregion
+
+		#region Helper Methods
 
 		/// <summary>
 		/// Finds the starting offset based on the rotated text position.
@@ -211,12 +236,10 @@ namespace DigitalProduction.Forms
 		}
 
 		/// <summary>
-		/// Finds the starting offset based on the rotated text position.
+		/// Finds the offset required to create the text alignment.
 		/// </summary>
-		/// <param name="rotatedHeight">Height rotated by the text angle.</param>
-		/// <param name="rotatedWidth">Width rotated by the text angle.</param>
 		/// <param name="textBoundingBox">Size of bounding box for the rotated text (height and width of the rotated text).</param>
-		private Point CalculateOffsetForAlignment(ref Point rotatedHeight, ref Point rotatedWidth, ref Size textBoundingBox)
+		private Point CalculateOffsetForAlignment(ref Size textBoundingBox)
 		{
 			Point offset = new Point(0, 0);
 
@@ -290,6 +313,8 @@ namespace DigitalProduction.Forms
 
 			System.Diagnostics.Debug.Assert(_quadrant != 0, "Invalid angle in rotated label.");
 		}
+
+		#endregion
 
 	} // End class.
 } // End name space.

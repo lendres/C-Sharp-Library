@@ -44,11 +44,9 @@
 			this.rotatedLabel1 = new DigitalProduction.Forms.RotatedLabel();
 			this.numericTextBox3 = new DigitalProduction.Forms.NumericTextBox();
 			this.numericTextBox2 = new DigitalProduction.Forms.NumericTextBox();
-			this.panel1 = new System.Windows.Forms.Panel();
 			this.groupBoxXslt.SuspendLayout();
 			this.groupBoxTextWithInitialDirectory.SuspendLayout();
 			this.groupBoxTextNoInitialDirectory.SuspendLayout();
-			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// btnNumericTextBox
@@ -63,8 +61,7 @@
 			// 
 			// textBox1
 			// 
-			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBox1.Location = new System.Drawing.Point(299, 13);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(318, 20);
@@ -180,8 +177,7 @@
 			// 
 			// label1
 			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.Location = new System.Drawing.Point(299, 36);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(318, 16);
@@ -191,21 +187,23 @@
 			// 
 			// rotatedLabel1
 			// 
-			this.rotatedLabel1.Angle = 315;
-			this.rotatedLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.rotatedLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.rotatedLabel1.Angle = 300;
+			this.rotatedLabel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.rotatedLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rotatedLabel1.Location = new System.Drawing.Point(0, 0);
+			this.rotatedLabel1.Location = new System.Drawing.Point(6, 9);
 			this.rotatedLabel1.Name = "rotatedLabel1";
-			this.rotatedLabel1.RotatedText = "test";
 			this.rotatedLabel1.Size = new System.Drawing.Size(287, 171);
 			this.rotatedLabel1.TabIndex = 16;
+			this.rotatedLabel1.Text = "test";
 			this.rotatedLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// numericTextBox3
 			// 
 			this.numericTextBox3.AllowSeparator = false;
-			this.numericTextBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.numericTextBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.numericTextBox3.BeepOnInvalidKey = true;
 			this.numericTextBox3.DecimalValue = 0D;
 			this.numericTextBox3.DisplayAllDecimalPlaces = true;
@@ -247,23 +245,12 @@
 			this.numericTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.numericTextBox2.Validating += new System.ComponentModel.CancelEventHandler(this.numericTextBox3_Validating);
 			// 
-			// panel1
-			// 
-			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panel1.Controls.Add(this.rotatedLabel1);
-			this.panel1.Location = new System.Drawing.Point(2, 2);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(291, 175);
-			this.panel1.TabIndex = 18;
-			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(812, 388);
-			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.rotatedLabel1);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.groupBoxTextNoInitialDirectory);
 			this.Controls.Add(this.groupBoxTextWithInitialDirectory);
@@ -281,7 +268,6 @@
 			this.groupBoxTextWithInitialDirectory.PerformLayout();
 			this.groupBoxTextNoInitialDirectory.ResumeLayout(false);
 			this.groupBoxTextNoInitialDirectory.PerformLayout();
-			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -305,7 +291,6 @@
 		private System.Windows.Forms.Button buttonBrowseNoInitialDirectory;
 		private DigitalProduction.Forms.RotatedLabel rotatedLabel1;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Panel panel1;
 
 	}
 }
