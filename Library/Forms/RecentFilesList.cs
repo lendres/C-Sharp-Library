@@ -26,31 +26,31 @@ namespace DigitalProduction.Forms
 		public delegate void RecentFileNotFoundDelegate(string path);
 
 		// Hold the callback delegate.
-		private RecentFileClickedDelegate		_fileclickeddelegate;
+		private RecentFileClickedDelegate		_fileClickedDelegate;
 
-		private RecentFileNotFoundDelegate		_filenotfounddelegate;
+		private RecentFileNotFoundDelegate		_fileNotFoundDelegate;
 
 		#endregion
 
 		#region Members
 
 		// Maximum allowed size of list.
-		const uint								_maxsize										= 10;
+		const uint								_maxSize										= 10;
 
 		// Current number of items shown.
-		uint									_size											= _maxsize;
+		uint									_size											= _maxSize;
 
 		// Files.
-		private ToolStripMenuItem[]				mnuRecentFiles									= new ToolStripMenuItem[_maxsize];
-		private string[]						_paths											= new string[_maxsize];
+		private ToolStripMenuItem[]				mnuRecentFiles									= new ToolStripMenuItem[_maxSize];
+		private string[]						_paths											= new string[_maxSize];
 
 		// Menu item the list is attached to.
 		private ToolStripMenuItem				mnuParent;
 
 		// Registry access to allow automatic saving of settings.
-		private FormWinRegistryAccess			_registryaccess									= null;
+		private FormWinRegistryAccess			_registryAccess									= null;
 
-		private bool							_removenotfoundfiles							= true;
+		private bool							_removeNotFoundFiles							= true;
 
 		#endregion
 
@@ -59,51 +59,51 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Basic constructor.
 		/// </summary>
-		/// <param name="menuitem">Menu item the list is attached to.</param>
-		public RecentFilesList(ToolStripMenuItem menuitem)
+		/// <param name="menuItem">Menu item the list is attached to.</param>
+		public RecentFilesList(ToolStripMenuItem menuItem)
 		{
-			this.mnuParent			= menuitem;
+			this.mnuParent			= menuItem;
 			Initialize();
 		}
 
 		/// <summary>
 		/// Basic constructor.
 		/// </summary>
-		/// <param name="menuitem">Menu item the list is attached to.</param>
-		/// <param name="fileclickcallback">The call back function (delegate) to receive the path displayed on the control.</param>
-		public RecentFilesList(ToolStripMenuItem menuitem, RecentFileClickedDelegate fileclickcallback)
+		/// <param name="menuItem">Menu item the list is attached to.</param>
+		/// <param name="fileClickDelegate">The call back function (delegate) to receive the path displayed on the control.</param>
+		public RecentFilesList(ToolStripMenuItem menuItem, RecentFileClickedDelegate fileClickDelegate)
 		{
-			this.mnuParent			= menuitem;
-			_fileclickeddelegate	= fileclickcallback;
+			this.mnuParent			= menuItem;
+			_fileClickedDelegate	= fileClickDelegate;
 			Initialize();
 		}
 
 		/// <summary>
 		/// Basic constructor.
 		/// </summary>
-		/// <param name="menuitem">Menu item the list is attached to.</param>
-		/// <param name="fileclickcallback">The call back function (delegate) to receive the path displayed on the control.</param>
-		/// <param name="filenotfoundcallback">The call back function (delegate) to receive the path displayed on the control when the corresponding file does not exist.</param>
-		public RecentFilesList(ToolStripMenuItem menuitem, RecentFileClickedDelegate fileclickcallback, RecentFileNotFoundDelegate filenotfoundcallback)
+		/// <param name="menuItem">Menu item the list is attached to.</param>
+		/// <param name="fileClickDelegate">The call back function (delegate) to receive the path displayed on the control.</param>
+		/// <param name="fileNotFoundDelegate">The call back function (delegate) to receive the path displayed on the control when the corresponding file does not exist.</param>
+		public RecentFilesList(ToolStripMenuItem menuItem, RecentFileClickedDelegate fileClickDelegate, RecentFileNotFoundDelegate fileNotFoundDelegate)
 		{
-			this.mnuParent			= menuitem;
-			_fileclickeddelegate	= fileclickcallback;
-			_filenotfounddelegate	= filenotfoundcallback;
+			this.mnuParent			= menuItem;
+			_fileClickedDelegate	= fileClickDelegate;
+			_fileNotFoundDelegate	= fileNotFoundDelegate;
 		}
 
 		/// <summary>
 		/// Constructor to use the option to automatically save the list and size of the list to the registry.
 		/// </summary>
-		/// <param name="menuitem">Menu item the list is attached to.</param>
-		/// <param name="fileclickcallback">The call back function (delegate) to receive the path displayed on the control.</param>
-		/// <param name="filenotfoundcallback">The call back function (delegate) to receive the path displayed on the control when the corresponding file does not exist.</param>
-		/// <param name="registryaccess">Registry access of parent form.</param>
-		public RecentFilesList(ToolStripMenuItem menuitem, RecentFileClickedDelegate fileclickcallback, RecentFileNotFoundDelegate filenotfoundcallback, FormWinRegistryAccess registryaccess)
+		/// <param name="menuItem">Menu item the list is attached to.</param>
+		/// <param name="fileClickDelegate">The call back function (delegate) to receive the path displayed on the control.</param>
+		/// <param name="fileNotFoundDelegate">The call back function (delegate) to receive the path displayed on the control when the corresponding file does not exist.</param>
+		/// <param name="registryAccess">Registry access of parent form.</param>
+		public RecentFilesList(ToolStripMenuItem menuItem, RecentFileClickedDelegate fileClickDelegate, RecentFileNotFoundDelegate fileNotFoundDelegate, FormWinRegistryAccess registryAccess)
 		{
-			this.mnuParent			= menuitem;
-			_fileclickeddelegate	= fileclickcallback;
-			_filenotfounddelegate	= filenotfoundcallback;
-			_registryaccess			= registryaccess;
+			this.mnuParent			= menuItem;
+			_fileClickedDelegate	= fileClickDelegate;
+			_fileNotFoundDelegate	= fileNotFoundDelegate;
+			_registryAccess			= registryAccess;
 			Initialize();
 		}
 
@@ -118,11 +118,11 @@ namespace DigitalProduction.Forms
 		{
 			get
 			{
-				return _fileclickeddelegate;
+				return _fileClickedDelegate;
 			}
 			set
 			{
-				_fileclickeddelegate = value;
+				_fileClickedDelegate = value;
 			}
 		}
 
@@ -133,11 +133,11 @@ namespace DigitalProduction.Forms
 		{
 			get
 			{
-				return _filenotfounddelegate;
+				return _fileNotFoundDelegate;
 			}
 			set
 			{
-				_filenotfounddelegate = value;
+				_fileNotFoundDelegate = value;
 			}
 		}
 
@@ -148,13 +148,13 @@ namespace DigitalProduction.Forms
 		{
 			get
 			{
-				return _registryaccess;
+				return _registryAccess;
 			}
 
 			set
 			{
-				_registryaccess	= value;
-				_paths			= _registryaccess.GetRecentlyUsedFiles(_maxsize);
+				_registryAccess	= value;
+				_paths			= _registryAccess.GetRecentlyUsedFiles(_maxSize);
 				SetFileNames();
 			}
 		}
@@ -168,9 +168,9 @@ namespace DigitalProduction.Forms
 			get
 			{
 				// If we have a place to store the value we will attempt to retrieve it from there.
-				if (_registryaccess != null)
+				if (_registryAccess != null)
 				{
-					uint storedsize = _registryaccess.NumberOfRecentlyUsedFiles;
+					uint storedsize = _registryAccess.NumberOfRecentlyUsedFiles;
 
 					// Compare the two.
 					if (storedsize <= _size)
@@ -188,15 +188,15 @@ namespace DigitalProduction.Forms
 			{
 				uint validsize = value;
 
-				if (value > _maxsize)
+				if (value > _maxSize)
 				{
-					validsize = _maxsize;
+					validsize = _maxSize;
 				}
 
 				// If we have a place to store the value we will attempt to retrieve it from there.
-				if (_registryaccess != null)
+				if (_registryAccess != null)
 				{
-					_registryaccess.NumberOfRecentlyUsedFiles = validsize;
+					_registryAccess.NumberOfRecentlyUsedFiles = validsize;
 				}
 
 				_size = validsize;
@@ -212,12 +212,12 @@ namespace DigitalProduction.Forms
 		{
 			get
 			{
-				return _removenotfoundfiles;
+				return _removeNotFoundFiles;
 			}
 
 			set
 			{
-				_removenotfoundfiles = value;
+				_removeNotFoundFiles = value;
 			}
 		}
 
@@ -238,6 +238,88 @@ namespace DigitalProduction.Forms
 			}
 
 			PushTop(path);
+		}
+
+		/// <summary>
+		/// Open the file on the numbered menu.  Parameter is zero based.
+		/// </summary>
+		/// <param name="number">Zero based index of menu to open.</param>
+		public void OpenFile(int number)
+		{
+			if (number < _maxSize)
+			{
+				OpenFile(mnuRecentFiles[number]);
+			}
+		}
+
+		#endregion
+
+		#region Private Controls Manipulation Functions
+
+		/// <summary>
+		/// Setup the control.
+		/// </summary>
+		private void Initialize()
+		{
+			// Initialize the paths.  Either from the registry, or create blank ones.
+			if (_registryAccess != null)
+			{
+				// Get values from the registry.
+				_paths = _registryAccess.GetRecentlyUsedFiles(_maxSize);
+			}
+			else
+			{
+				// Initialize new string.
+				for (int i = 0; i < _maxSize; i++)
+				{
+					_paths[i] = "";
+				}
+			}
+
+			uint numberofitemsshown = this.MaxNumberOfItemsShown;
+
+			// Generate all the menu item instances.
+			for (int i = 0; i < _maxSize; i++)
+			{
+				string filenumber = (i+1).ToString();
+
+				this.mnuRecentFiles[i]          = new ToolStripMenuItem();
+				this.mnuRecentFiles[i].Name     = "mnuRecent" + filenumber;
+				this.mnuRecentFiles[i].Size     = new System.Drawing.Size(152, 22);
+				this.mnuRecentFiles[i].Click    += new System.EventHandler(this.mnuRecentFile_Clicked);
+
+				this.mnuParent.DropDownItems.Add(this.mnuRecentFiles[i]);
+			}
+
+			// Establish the initial controls.
+			SetFileNames();
+
+			// Latch onto the openning event of the parent.  Then we can check to see if the number of items shown
+			// has changed before the dropdown opens.  If it has we can update it to show the correct number.
+			this.mnuParent.DropDownOpening += mnuParent_DropDownOpening;
+		}
+
+		/// <summary>
+		/// Open the file on the specified menu.
+		/// </summary>
+		/// <param name="menu">Menu to get the file from.</param>
+		private void OpenFile(ToolStripMenuItem menu)
+		{
+			string path = menu.ToolTipText;
+
+			if (System.IO.File.Exists(path))
+			{
+				PushTop(path);
+				_fileClickedDelegate(path);
+			}
+			else
+			{
+				if (_removeNotFoundFiles)
+				{
+					RemovePath(menu);
+				}
+				_fileNotFoundDelegate(path);
+			}
 		}
 
 		/// <summary>
@@ -272,9 +354,9 @@ namespace DigitalProduction.Forms
 		/// <param name="path">Path to search for.</param>
 		private uint FindIndexOf(string path)
 		{
-			uint position = _maxsize-1;
+			uint position = _maxSize-1;
 
-			for (uint i = 0; i < _maxsize; i++)
+			for (uint i = 0; i < _maxSize; i++)
 			{
 				if (path == _paths[i])
 				{
@@ -292,9 +374,9 @@ namespace DigitalProduction.Forms
 		/// <param name="menuitem">ToolStripMenuItem to search for.</param>
 		private uint FindIndexOf(ToolStripMenuItem menuitem)
 		{
-			uint position = _maxsize;
+			uint position = _maxSize;
 
-			for (uint i = 0; i < _maxsize; i++)
+			for (uint i = 0; i < _maxSize; i++)
 			{
 				if (this.mnuRecentFiles[i] == menuitem)
 				{
@@ -313,7 +395,7 @@ namespace DigitalProduction.Forms
 			uint position = FindIndexOf(menuitem);
 
 			// Move the paths up one position.
-			for (uint i = position; i < _maxsize-1; i++)
+			for (uint i = position; i < _maxSize-1; i++)
 			{
 				_paths[i] = _paths[i+1];
 			}
@@ -322,51 +404,16 @@ namespace DigitalProduction.Forms
 			SetFileNames();
 		}
 
-		#endregion
-
-		#region Private Controls Manipulation Functions
-
 		/// <summary>
-		/// Setup the control.
+		/// Sets the Text and ToolTipText of a ToolStripMenuitem.
 		/// </summary>
-		private void Initialize()
+		/// <param name="menuitem">ToolStripMenuItem to edit.</param>
+		/// <param name="displayednumber">Number to display in front of path.  It's the position on the parent form.</param>
+		/// <param name="path">Path to be displayed.</param>
+		private void AddPathToMenuItem(ToolStripMenuItem menuitem, int displayednumber, string path)
 		{
-			// Initialize the paths.  Either from the registry, or create blank ones.
-			if (_registryaccess != null)
-			{
-				// Get values from the registry.
-				_paths = _registryaccess.GetRecentlyUsedFiles(_maxsize);
-			}
-			else
-			{
-				// Initialize new string.
-				for (int i = 0; i < _maxsize; i++)
-				{
-					_paths[i] = "";
-				}
-			}
-
-			uint numberofitemsshown = this.MaxNumberOfItemsShown;
-
-			// Generate all the menu item instances.
-			for (int i = 0; i < _maxsize; i++)
-			{
-				string filenumber = (i+1).ToString();
-
-				this.mnuRecentFiles[i]			= new ToolStripMenuItem();
-				this.mnuRecentFiles[i].Name		= "mnuRecent" + filenumber;
-				this.mnuRecentFiles[i].Size		= new System.Drawing.Size(152, 22);
-				this.mnuRecentFiles[i].Click	+= new System.EventHandler(this.mnuRecentFile_Clicked);
-
-				this.mnuParent.DropDownItems.Add(this.mnuRecentFiles[i]);
-			}
-
-			// Establish the initial controls.
-			SetFileNames();
-
-			// Latch onto the openning event of the parent.  Then we can check to see if the number of items shown
-			// has changed before the dropdown opens.  If it has we can update it to show the correct number.
-			this.mnuParent.DropDownOpening += mnuParent_DropDownOpening;
+			menuitem.Text           = displayednumber.ToString() + " " + System.IO.Path.GetFileName(path);
+			menuitem.ToolTipText    = path;
 		}
 
 		/// <summary>
@@ -377,16 +424,16 @@ namespace DigitalProduction.Forms
 		private void SetFileNames()
 		{
 			// Update the registry, if it exists.
-			if (_registryaccess != null)
+			if (_registryAccess != null)
 			{
-				_registryaccess.SetRecentlyUsedFiles(_paths);
+				_registryAccess.SetRecentlyUsedFiles(_paths);
 			}
 
 			int pathsfound = 0;
 
 			// Update the names of the menu items in our array of menu items, then add a reference
 			// of that menu item to the new array.
-			for (int i = 0; i < _maxsize; i++)
+			for (int i = 0; i < _maxSize; i++)
 			{
 				// Assume the control is not visiable.  It must pass all the tests before making it visable.
 				this.mnuRecentFiles[i].Visible = false;
@@ -421,18 +468,6 @@ namespace DigitalProduction.Forms
 			}
 		}
 
-		/// <summary>
-		/// Sets the Text and ToolTipText of a ToolStripMenuitem.
-		/// </summary>
-		/// <param name="menuitem">ToolStripMenuItem to edit.</param>
-		/// <param name="displayednumber">Number to display in front of path.  It's the position on the parent form.</param>
-		/// <param name="path">Path to be displayed.</param>
-		private void AddPathToMenuItem(ToolStripMenuItem menuitem, int displayednumber, string path)
-		{
-			menuitem.Text			= displayednumber.ToString() + " " + System.IO.Path.GetFileName(path);
-			menuitem.ToolTipText	= path;
-		}
-
 		#endregion
 
 		#region Event Handlers
@@ -443,40 +478,26 @@ namespace DigitalProduction.Forms
 		/// RecentFileNotFoundDelegate is called.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void mnuRecentFile_Clicked(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void mnuRecentFile_Clicked(object sender, EventArgs eventArgs)
 		{
-			ToolStripMenuItem clickedmenu	= (ToolStripMenuItem)sender;
-			string path						= clickedmenu.ToolTipText;
-
-			if (System.IO.File.Exists(path))
-			{
-				PushTop(path);
-				_fileclickeddelegate(path);
-			}
-			else
-			{
-				if (_removenotfoundfiles)
-				{
-					RemovePath(clickedmenu);
-				}
-				_filenotfounddelegate(path);
-			}
+			ToolStripMenuItem clickedMenu = (ToolStripMenuItem)sender;
+			OpenFile(clickedMenu);
 		}
 
 		/// <summary>
 		/// Event handler for the parent's drop down opening.  Used to update the number of items shown if it has changed.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		void mnuParent_DropDownOpening(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		void mnuParent_DropDownOpening(object sender, EventArgs eventArgs)
 		{
-			if (_registryaccess != null)
+			if (_registryAccess != null)
 			{
-				uint newnumberofitems = _registryaccess.NumberOfRecentlyUsedFiles;
-				if (newnumberofitems != _size)
+				uint newNumberOfItems = _registryAccess.NumberOfRecentlyUsedFiles;
+				if (newNumberOfItems != _size)
 				{
-					this.MaxNumberOfItemsShown = newnumberofitems;
+					this.MaxNumberOfItemsShown = newNumberOfItems;
 				}
 			}
 		}
