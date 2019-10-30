@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-
-namespace DigitalProduction.Mathmatics
+﻿namespace DigitalProduction.Mathmatics
 {
 	/// <summary>
 	/// Math utilities.
@@ -44,7 +38,6 @@ namespace DigitalProduction.Mathmatics
 		/// Determines if the input is zero within the allotted precision.
 		/// </summary>
 		/// <param name="val">The value to check.</param>
-		/// <returns>True if the input is less than the default precision.</returns>
 		public static bool IsZero(double val)
 		{
 			return IsZero(val, _epsilon);
@@ -55,10 +48,61 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="val">The value to check.</param>
 		/// <param name="epsilon">The specified precision.</param>
-		/// <returns>True if the input is less than the default precision.</returns>
 		public static bool IsZero(double val, double epsilon)
 		{
 			if (System.Math.Abs(val) < epsilon)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Determines if the input is less than zero within the allotted precision.
+		/// </summary>
+		/// <param name="val">The value to check.</param>
+		public static bool LessThanZero(double val)
+		{
+			return LessThanZero(val, _epsilon);
+		}
+
+		/// <summary>
+		/// Determines if the input is less than zero within the allotted precision.
+		/// </summary>
+		/// <param name="val">The value to check.</param>
+		/// <param name="epsilon">The specified precision.</param>
+		public static bool LessThanZero(double val, double epsilon)
+		{
+			if (val < epsilon)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Determines if the input is greater than zero within the allotted precision.
+		/// </summary>
+		/// <param name="val">The value to check.</param>
+		public static bool GreaterThanZero(double val)
+		{
+			return GreaterThanZero(val, _epsilon);
+		}
+
+		/// <summary>
+		/// Determines if the input is greater than zero within the allotted precision.
+		/// </summary>
+		/// <param name="val">The value to check.</param>
+		/// <param name="epsilon">The specified precision.</param>
+		public static bool GreaterThanZero(double val, double epsilon)
+		{
+			if (val > -epsilon)
 			{
 				return true;
 			}
@@ -73,7 +117,6 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="val1">The first value.</param>
 		/// <param name="val2">The second value.</param>
-		/// <returns>True if val1 equals val2 within the allowed precision, false otherwise.</returns>
 		public static bool Equal(double val1, double val2)
 		{
 			return Equal(val1, val2, _epsilon);
@@ -85,7 +128,6 @@ namespace DigitalProduction.Mathmatics
 		/// <param name="val1">The first value.</param>
 		/// <param name="val2">The second value.</param>
 		/// <param name="epsilon">Precision required to consider the two value equal.</param>
-		/// <returns>True if val1 equals val2 within the allowed precision, false otherwise.</returns>
 		public static bool Equal(double val1, double val2, double epsilon)
 		{
 			double diff = System.Math.Abs(val1 - val2);
@@ -97,7 +139,6 @@ namespace DigitalProduction.Mathmatics
 		/// </summary>
 		/// <param name="val1">The first value.</param>
 		/// <param name="val2">The second value.</param>
-		/// <returns>True if val1 equals val2 within the allowed precision, false otherwise.</returns>
 		public static bool NotEqual(double val1, double val2)
 		{
 			return NotEqual(val1, val2, _epsilon);
@@ -109,7 +150,6 @@ namespace DigitalProduction.Mathmatics
 		/// <param name="val1">The first value.</param>
 		/// <param name="val2">The second value.</param>
 		/// <param name="epsilon">Precision required to consider the two value equal.</param>
-		/// <returns>True if val1 equals val2 within the allowed precision, false otherwise.</returns>
 		public static bool NotEqual(double val1, double val2, double epsilon)
 		{
 			return !Equal(val1, val2, epsilon);
