@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -9,8 +8,8 @@ namespace DigitalProduction.Forms
 	/// Provides parallel behavior to the MessageBox class but adds "Yes to All" and "No to All" options.  This is the form that is diplayed.
 	/// This class should not be used directory.  It is used by the MessabeBoxYesNoToAll and, in combination, they provide the behavior which
 	/// parallels the standard MessageBox while adding the new controls.
-	/// 
-	/// 
+	///
+	///
 	/// </summary>
 	internal partial class MessageBoxYesNoToAllForm : Form
 	{
@@ -146,8 +145,8 @@ namespace DigitalProduction.Forms
 		/// Yes button pressed.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void btnYes_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void btnYes_Click(object sender, EventArgs eventArgs)
 		{
 			_dialogresult = MessageBoxYesNoToAll.Result.Yes;
 			Close();
@@ -157,8 +156,8 @@ namespace DigitalProduction.Forms
 		/// Yes to All button pressed.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void btnYesToAll_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void btnYesToAll_Click(object sender, EventArgs eventArgs)
 		{
 			_dialogresult = MessageBoxYesNoToAll.Result.YesToAll;
 			Close();
@@ -168,8 +167,8 @@ namespace DigitalProduction.Forms
 		/// No button pressed.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void btnNo_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void btnNo_Click(object sender, EventArgs eventArgs)
 		{
 			_dialogresult = MessageBoxYesNoToAll.Result.No;
 			Close();
@@ -179,8 +178,8 @@ namespace DigitalProduction.Forms
 		/// No to All button pressed.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void btnNoToAll_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void btnNoToAll_Click(object sender, EventArgs eventArgs)
 		{
 			_dialogresult = MessageBoxYesNoToAll.Result.NoToAll;
 			Close();
@@ -190,8 +189,8 @@ namespace DigitalProduction.Forms
 		/// Cancel button pressed.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void btnCancel_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void btnCancel_Click(object sender, EventArgs eventArgs)
 		{
 			_dialogresult = MessageBoxYesNoToAll.Result.Cancel;
 			Close();

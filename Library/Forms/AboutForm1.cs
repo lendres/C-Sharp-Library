@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -9,7 +8,7 @@ namespace DigitalProduction.Forms
 {
 	/// <summary>
 	/// A simple "about" dialog box.
-	/// 
+	///
 	/// Extracts information from the assembly to population the labels.
 	/// </summary>
 	public partial class AboutForm1 : Form
@@ -73,7 +72,7 @@ namespace DigitalProduction.Forms
 			Process.Start("mailto:" + this._reporterrorsto + "?subject=" + DigitalProduction.Reflection.Assembly.Product(System.Reflection.Assembly.GetCallingAssembly()) + "&body=Please describe your bugs and/or comments as accurately as possible.  For bug reporting, attach any required input files.");
 		}
 
-		private void btnOK_Click(object sender, EventArgs e)
+		private void btnOK_Click(object sender, EventArgs eventArgs)
 		{
 			this.Close();
 		}

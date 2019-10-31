@@ -2,13 +2,13 @@
  * FolderSelect.cs: A folder browser example.
  * Version 1.0
  * Copyright (C) 2001 Chris Warner
- * 
+ *
  * You are free to use this in any personal or commercial application
  * so long as none of these comments are changed or removed from this file.
- * 
+ *
  * E-mail: jabrwoky@pacbell.net
- * 
- * 
+ *
+ *
  * Modifications by Lance A. Endres May 23, 2005.
  * +Removed controls from panels (annoying behavior in design view and didn't accomplish anything).
  * +Changed the Select and Cancel buttons position to stay near the center of the form, slightly
@@ -22,15 +22,12 @@
  *	as a finished product so much as an example, so some changes where made (like renaming controls) for clarification.
  * */
 using System;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace DigitalProduction.Forms
 {
-	/// <summary> Class FolderSelect 
+	/// <summary> Class FolderSelect
 	/// <para>An example on how to build a folder browser dialog window using C# and the .Net framework.</para>
 	/// </summary>
 	public class FolderSelectForm : System.Windows.Forms.Form
@@ -339,19 +336,19 @@ namespace DigitalProduction.Forms
 		/// tree node for any sub-folders.  this insures proper tree construction on the fly.</para>
 		/// </summary>
 		/// <param name="sender">The object that invoked this event</param>
-		/// <param name="e">The TreeViewCancelEventArgs event arguments.</param>
+		/// <param name="eventArgs">The TreeViewCancelEventArgs event arguments.</param>
 		/// <see cref="System.Windows.Forms.TreeViewCancelEventArgs"/>
 		/// <see cref="System.Windows.Forms.TreeView"/>
-		private void treeView1_BeforeSelect(object sender, System.Windows.Forms.TreeViewCancelEventArgs e)
+		private void treeView1_BeforeSelect(object sender, System.Windows.Forms.TreeViewCancelEventArgs eventArgs)
 		{
 			// Get the sub-folders for the selected node.
-			GetSubDirectories(e.Node);
+			GetSubDirectories(eventArgs.Node);
 
 			// Update the user selection text box.
-			txtbxPath.Text = FixPath(e.Node);
+			txtbxPath.Text = FixPath(eventArgs.Node);
 
 			// Get it's Directory info.
-			_folder = new DirectoryInfo(e.Node.FullPath);
+			_folder = new DirectoryInfo(eventArgs.Node.FullPath);
 		}
 
 		/// <summary>
@@ -359,27 +356,27 @@ namespace DigitalProduction.Forms
 		/// tree node for any sub-folders.  This insures proper tree construction on the fly.</para>
 		/// </summary>
 		/// <param name="sender">The object that invoked this event.</param>
-		/// <param name="e">The TreeViewCancelEventArgs event arguments.</param>
+		/// <param name="eventArgs">The TreeViewCancelEventArgs event arguments.</param>
 		/// <see cref="System.Windows.Forms.TreeViewCancelEventArgs"/>
 		/// <see cref="System.Windows.Forms.TreeView"/>
-		private void treeView1_BeforeExpand(object sender, System.Windows.Forms.TreeViewCancelEventArgs e)
+		private void treeView1_BeforeExpand(object sender, System.Windows.Forms.TreeViewCancelEventArgs eventArgs)
 		{
 			// Get the sub-folders for the selected node.
-			GetSubDirectories(e.Node);
+			GetSubDirectories(eventArgs.Node);
 
 			// Update the user selection text box.
-			txtbxPath.Text = FixPath(e.Node);
+			txtbxPath.Text = FixPath(eventArgs.Node);
 
 			// Get it's Directory info.
-			_folder = new DirectoryInfo(e.Node.FullPath);
+			_folder = new DirectoryInfo(eventArgs.Node.FullPath);
 		}
 
 		/// <summary>
 		/// Handles the resizing of the form.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguements.</param>
-		private void FolderSelect_Resize(object sender, System.EventArgs e)
+		/// <param name="eventArgs">Event arguements.</param>
+		private void FolderSelect_Resize(object sender, System.EventArgs eventArgs)
 		{
 			PositionButtons();
 		}
@@ -408,7 +405,7 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// <para>This method cancels the folder browsing.</para>
 		/// </summary>
-		private void cancelBtn_Click(object sender, System.EventArgs e)
+		private void cancelBtn_Click(object sender, System.EventArgs eventArgs)
 		{
 			_folder = null;
 			this.Close();
@@ -420,7 +417,7 @@ namespace DigitalProduction.Forms
 		/// In this example this method simply looks up the selected folder, and presents the 
 		/// user with a message box displaying the name and path of the selected folder.
 		/// </summary>
-		private void selectBtn_Click(object sender, System.EventArgs e)
+		private void selectBtn_Click(object sender, System.EventArgs eventArgs)
 		{
 			this.DialogResult = DialogResult.OK;
 			this.Close();

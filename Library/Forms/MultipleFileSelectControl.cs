@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DigitalProduction.Forms
@@ -153,8 +146,8 @@ namespace DigitalProduction.Forms
 		/// Browse for files event handler.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void selectFilesButton_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void selectFilesButton_Click(object sender, EventArgs eventArgs)
 		{
 			string[] files = FileSelect.BrowseForMultipleFiles(this, _filterString, _browseForFilesTitle, _initialDirectory);
 
@@ -176,8 +169,8 @@ namespace DigitalProduction.Forms
 		/// Remove selected items from ListBox.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void removeFilesButton_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void removeFilesButton_Click(object sender, EventArgs eventArgs)
 		{
 			ListBox.SelectedIndexCollection selectedIndices = this.filesListBox.SelectedIndices;
 			for (int i = this.filesListBox.SelectedIndices.Count-1; i >= 0; i--)
@@ -188,7 +181,7 @@ namespace DigitalProduction.Forms
 			SetControls();
 		}
 
-		private void clearAllButton_Click(object sender, EventArgs e)
+		private void clearAllButton_Click(object sender, EventArgs eventArgs)
 		{
 			this.filesListBox.Items.Clear();
 			SetControls();
@@ -198,8 +191,8 @@ namespace DigitalProduction.Forms
 		/// Selected items in ListBox changed.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void filesListBox_SelectedIndexChanged(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void filesListBox_SelectedIndexChanged(object sender, EventArgs eventArgs)
 		{
 			SetControls();
 		}
@@ -218,8 +211,6 @@ namespace DigitalProduction.Forms
 		}
 
 		#endregion
-
-
 
 	} // End class.
 } // End namespace.

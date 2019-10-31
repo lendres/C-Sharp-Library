@@ -1,7 +1,5 @@
 using System;
 using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace DigitalProduction.Forms
@@ -170,8 +168,8 @@ namespace DigitalProduction.Forms
 		/// Updates the clock on the status bar.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void tmrClock_Tick(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void tmrClock_Tick(object sender, EventArgs eventArgs)
 		{
 			if (_timing | _timingended)
 			{

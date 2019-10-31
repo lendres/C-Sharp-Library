@@ -10,7 +10,7 @@ namespace DigitalProduction.Forms
 	/// </summary>
 	public class WindowFollower
 	{
-		#region Members / Variables.
+		#region Members
 
 		private Form						_master						= null;
 		private Form						_slave						= null;
@@ -22,7 +22,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region DLL Import functions.
+		#region DLL Import Functions
 
 		const uint SWP_NOSIZE			= 0x0001;
 		const uint SWP_NOMOVE			= 0x0002;
@@ -51,7 +51,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Constrution
+		#region Construction
 
 		/// <summary>
 		/// Constructor.
@@ -105,8 +105,8 @@ namespace DigitalProduction.Forms
 		/// Called when the master is resized.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void MasterResize(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void MasterResize(object sender, EventArgs eventArgs)
 		{
 			// Make sure both the master and slave are still open.
 			if (_slave == null || _master == null)
@@ -133,8 +133,8 @@ namespace DigitalProduction.Forms
 		/// Called when the slave is resized.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void SlaveResize(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void SlaveResize(object sender, EventArgs eventArgs)
 		{
 			// Make sure both the master and slave are still open.
 			if (_slave == null || _master == null)
@@ -164,8 +164,8 @@ namespace DigitalProduction.Forms
 		/// Called when the master is closing.  Closes slave is the CloseSlaveWithMaster is true.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void MasterClosing(object sender, System.ComponentModel.CancelEventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void MasterClosing(object sender, System.ComponentModel.CancelEventArgs eventArgs)
 		{
 			if (_closeslave)
 			{
@@ -180,8 +180,8 @@ namespace DigitalProduction.Forms
 		/// Called when the slave is closing.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void SlaveClosing(object sender, System.ComponentModel.CancelEventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void SlaveClosing(object sender, System.ComponentModel.CancelEventArgs eventArgs)
 		{
 			_slave = null;
 		}
@@ -194,8 +194,8 @@ namespace DigitalProduction.Forms
 		/// Called when the master is activated.  Sets the slave window as the second highest window.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void MasterActivated(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void MasterActivated(object sender, EventArgs eventArgs)
 		{
 			if (_slave != null && _master != null)
 			{
@@ -207,8 +207,8 @@ namespace DigitalProduction.Forms
 		/// Called when the slave is activated.  Sets the master window as the second highest window.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguements.</param>
-		private void SlaveActivated(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguements.</param>
+		private void SlaveActivated(object sender, EventArgs eventArgs)
 		{
 			if (_slave != null && _master != null)
 			{

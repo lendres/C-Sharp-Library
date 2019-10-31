@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace DigitalProduction.Forms
 {
 	/// <summary>
 	/// Text box that only allows numeric values.
-	/// 
+	///
 	/// From: http://msdn.microsoft.com/en-us/library/dd183783%28v=vs.90%29.aspx
 	/// </summary>
 	public partial class ValidatingNumericUpDown : NumericUpDown
@@ -52,10 +49,10 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// When validating, pad any remaining decimal places with zeros.
 		/// </summary>
-		/// <param name="e">Event arguments</param>
-		protected override void OnValidating(CancelEventArgs e)
+		/// <param name="eventArgs">Event arguments</param>
+		protected override void OnValidating(CancelEventArgs eventArgs)
 		{
-			base.OnValidating(e);
+			base.OnValidating(eventArgs);
 		}
 
 		#endregion

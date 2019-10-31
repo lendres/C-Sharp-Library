@@ -1,8 +1,6 @@
-using System;
-using System.Windows.Forms;
-using System.Drawing;
-using Microsoft.Win32;
 using DigitalProduction.Registry;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace DigitalProduction.Forms
 {
@@ -22,7 +20,7 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Construction / Destruction / Install.
+		#region Construction
 
 		/// <summary>
 		/// Constructor.
@@ -75,15 +73,15 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Event capture functions for tracking window.
+		#region Event Capture Functions for Tracking Window
 
 		/// <summary>
 		/// Handles a window resize in case the window is going to be maximized or minimized.  Stores what
 		/// the "normal" values are.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void OnResize(object sender, System.EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void OnResize(object sender, System.EventArgs eventArgs)
 		{
 			if(_registryaccess.Owner.WindowState == FormWindowState.Normal)
 			{
@@ -99,8 +97,8 @@ namespace DigitalProduction.Forms
 		/// Handles a window movement so that the new position is saved.
 		/// </summary>
 		/// <param name="sender">Object that sent the message.</param>
-		/// <param name="e">Parameters</param>
-		private void OnMove(object sender, System.EventArgs e)
+		/// <param name="eventArgs">Parameters</param>
+		private void OnMove(object sender, System.EventArgs eventArgs)
 		{
 			if(_registryaccess.Owner.WindowState == FormWindowState.Normal)
 			{
@@ -113,8 +111,8 @@ namespace DigitalProduction.Forms
 		/// Handles saving all required information to the registry on the closing of the window.
 		/// </summary>
 		/// <param name="sender">Object that sent the message.</param>
-		/// <param name="e">Cancel event arguments.</param>
-		private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+		/// <param name="eventArgs">Cancel event arguments.</param>
+		private void OnClosing(object sender, System.ComponentModel.CancelEventArgs eventArgs)
 		{
 			// Save the Window State.
 			_registryaccess.WindowPosition = _formposition;
@@ -136,8 +134,8 @@ namespace DigitalProduction.Forms
 		/// Restores values from the registry when the form loads.
 		/// </summary>
 		/// <param name="sender">Object that sent the message.</param>
-		/// <param name="e">Parameters</param>
-		private void OnLoad(object sender, System.EventArgs e)
+		/// <param name="eventArgs">Parameters</param>
+		private void OnLoad(object sender, System.EventArgs eventArgs)
 		{
 			int[] pos;
 			pos = _registryaccess.WindowPosition;

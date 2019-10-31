@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Windows.Forms;
 
 namespace DigitalProduction.Forms
 {
@@ -173,8 +170,8 @@ namespace DigitalProduction.Forms
 		/// Context menu opening.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event handlers.</param>
-		void ContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+		/// <param name="eventArgs">Event handlers.</param>
+		void ContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs eventArgs)
 		{
 			SetContextMenuState();
 		}
@@ -183,13 +180,13 @@ namespace DigitalProduction.Forms
 		/// Mouse click in a cell handlers.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event handlers.</param>
-		private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+		/// <param name="eventArgs">Event handlers.</param>
+		private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs eventArgs)
 		{
-			if (e.Button == MouseButtons.Right)
+			if (eventArgs.Button == MouseButtons.Right)
 			{
-				_row	= e.RowIndex;
-				_column	= e.ColumnIndex;
+				_row	= eventArgs.RowIndex;
+				_column	= eventArgs.ColumnIndex;
 			}
 		}
 
@@ -197,8 +194,8 @@ namespace DigitalProduction.Forms
 		/// Handle data entry error.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event handlers.</param>
-		void ExtendedDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+		/// <param name="eventArgs">Event handlers.</param>
+		void ExtendedDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs eventArgs)
 		{
 			MessageBox.Show("The data entered is invalid.  Ensure that the data entered into the cells is valid and formatted correctly.", "Data Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -206,15 +203,15 @@ namespace DigitalProduction.Forms
 			// when we are pasting data into the DataGridView, if the data is in an invalid format, then a DataError is triggered and this functioned is entered.  After
 			// leaving this function, by setting ThrowException to true, the error is thrown.  This is then caught in the Paste function and the Paste function can
 			// exit.  We don't want the Paste function to continue trying to paste bad data and throwing error after error.
-			e.ThrowException = true;
+			eventArgs.ThrowException = true;
 		}
 
 		/// <summary>
 		/// Cut event handler.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event handlers.</param>
-		private void mnuCut_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event handlers.</param>
+		private void mnuCut_Click(object sender, EventArgs eventArgs)
 		{
 			Cut();
 		}
@@ -223,8 +220,8 @@ namespace DigitalProduction.Forms
 		/// Copy event handler.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event handlers.</param>
-		private void mnuCopy_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event handlers.</param>
+		private void mnuCopy_Click(object sender, EventArgs eventArgs)
 		{
 			Copy();
 		}
@@ -233,8 +230,8 @@ namespace DigitalProduction.Forms
 		/// Paste event handler.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void mnuPaste_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void mnuPaste_Click(object sender, EventArgs eventArgs)
 		{
 			// Perform paste Operation.
 			Paste();
@@ -244,8 +241,8 @@ namespace DigitalProduction.Forms
 		/// Delete event handler.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void mnuDelete_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void mnuDelete_Click(object sender, EventArgs eventArgs)
 		{
 			Delete();
 		}
@@ -254,8 +251,8 @@ namespace DigitalProduction.Forms
 		/// Insert event handler.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void mnuInsert_Click(object sender, EventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void mnuInsert_Click(object sender, EventArgs eventArgs)
 		{
 			Insert();
 		}
@@ -264,15 +261,15 @@ namespace DigitalProduction.Forms
 		/// Keyboard events.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void DataGridViewWithCopyPaste_KeyDown(object sender, KeyEventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void DataGridViewWithCopyPaste_KeyDown(object sender, KeyEventArgs eventArgs)
 		{
 			try
 			{
 				// Control + KEY combinations.
-				if (e.Modifiers == Keys.Control)
+				if (eventArgs.Modifiers == Keys.Control)
 				{
-					switch (e.KeyCode)
+					switch (eventArgs.KeyCode)
 					{
 						case Keys.X:
 						{
@@ -295,12 +292,12 @@ namespace DigitalProduction.Forms
 				}
 
 				// Single key events.
-				switch (e.KeyCode)
+				switch (eventArgs.KeyCode)
 				{
 					case Keys.Delete:
 					{
 						Delete();
-						e.Handled = true;
+						eventArgs.Handled = true;
 						break;
 					}
 				}

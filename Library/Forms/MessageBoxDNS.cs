@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using System.Drawing;
 
 using Microsoft.Win32;
-using DigitalProduction.Registry;
 
 namespace DigitalProduction.Forms
 {
@@ -260,13 +259,13 @@ namespace DigitalProduction.Forms
 		/// Window created.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void WndCreated(object sender, CbtEventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void WndCreated(object sender, CbtEventArgs eventArgs)
 		{
-			if (e.IsDialogWindow)
+			if (eventArgs.IsDialogWindow)
 			{
 				_bInit = false;
-				_hwnd = e.Handle;
+				_hwnd = eventArgs.Handle;
 			}
 		}
 
@@ -274,10 +273,10 @@ namespace DigitalProduction.Forms
 		/// Window destroyed.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void WndDestroyed(object sender, CbtEventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void WndDestroyed(object sender, CbtEventArgs eventArgs)
 		{
-			if (e.Handle == _hwnd)
+			if (eventArgs.Handle == _hwnd)
 			{
 				_bInit = false;
 				_hwnd = IntPtr.Zero;
@@ -298,10 +297,10 @@ namespace DigitalProduction.Forms
 		/// Window activated.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="e">Event arguments.</param>
-		private void WndActivated(object sender, CbtEventArgs e)
+		/// <param name="eventArgs">Event arguments.</param>
+		private void WndActivated(object sender, CbtEventArgs eventArgs)
 		{
-			if (_hwnd != e.Handle)
+			if (_hwnd != eventArgs.Handle)
 			{
 				return;
 			}

@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
 
 namespace DigitalProduction.Forms
 {
 	/// <summary>
 	/// Text box that only allows numeric values.
-	/// 
+	///
 	/// From: http://msdn.microsoft.com/en-us/library/dd183783%28v=vs.90%29.aspx
 	/// </summary>
 	public partial class NumericTextBox : TextBox
@@ -77,7 +75,7 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Restricts the entry of characters to digits (including hexadecimal), the negative sign, the decimal point,
-		/// and editing keystrokes (backspace).  
+		/// and editing keystrokes (backspace).
 		/// </summary>
 		/// <param name="eventargs">Event arguments.</param>
 		protected override void OnKeyPress(KeyPressEventArgs eventargs)
@@ -136,7 +134,7 @@ namespace DigitalProduction.Forms
 				return false;
 			}
 
-			// Allows one decimal separator as input. 
+			// Allows one decimal separator as input.
 			if (keyinput.Equals(_decimalseparator))
 			{
 				if (_allowdecimal)
@@ -272,20 +270,19 @@ namespace DigitalProduction.Forms
 				_skipevent = false;
 				return;
 			}
-			// Restores text box to Numeric mode if it was 
-			// changed for decimal entry.
+			// Restores text box to Numeric mode if it was changed for decimal entry.
 			//InputModeEditor.SetInputMode(this, InputMode.Numeric);
 		}
 
 		/// <summary>
 		/// When validating, pad any remaining decimal places with zeros.
 		/// </summary>
-		/// <param name="e">Event arguments</param>
-		protected override void OnValidating(CancelEventArgs e)
+		/// <param name="eventArgs">Event arguments</param>
+		protected override void OnValidating(CancelEventArgs eventArgs)
 		{
 			EnforceAllDecimalPlaces();
 
-			base.OnValidating(e);
+			base.OnValidating(eventArgs);
 		}
 
 		#endregion
