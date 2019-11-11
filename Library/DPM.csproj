@@ -219,6 +219,8 @@
     <Compile Include="Gaming\PlayerBase.cs" />
     <Compile Include="Gaming\Shoe.cs" />
     <Compile Include="Generic\MappingMatrix.cs" />
+    <Compile Include="Reflection\AlternateNamesAttribute.cs" />
+    <Compile Include="Reflection\AlternateNameType.cs" />
     <Compile Include="Reflection\Attributes.cs" />
     <Compile Include="Reflection\Enumerations.cs">
       <SubType>Code</SubType>

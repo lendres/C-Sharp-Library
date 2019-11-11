@@ -95,7 +95,7 @@ namespace DigitalProduction.Reflection
 		{
 			// Get all Title attributes on this assembly.
 			object[] attributes = assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyTitleAttribute), false);
-			
+
 			// If there is at least one Title attribute.
 			if (attributes.Length > 0)
 			{

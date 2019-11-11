@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DigitalProduction.Reflection;
 using DigitalProduction.XML.Serialization;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace DigitalProduction.UnitTests
 {
@@ -107,6 +107,16 @@ namespace DigitalProduction.UnitTests
 			List<string> aliases = DigitalProduction.Reflection.Attributes.GetAliases(family);
 			Assert.AreEqual(aliases[0], "Family Members");
 			Assert.AreEqual(aliases[1], "Relatives");
+		}
+
+		/// <summary>
+		/// Test retrieval of alternate name attributes.
+		/// </summary>
+		[TestMethod]
+		public void AlternateNamesAttribute()
+		{
+			Assert.AreEqual(DigitalProduction.Reflection.Attributes.GetAlternateName(AirPlaneType.Boeing737, AlternateNameType.ShortName), "737");
+			Assert.AreEqual(DigitalProduction.Reflection.Attributes.GetAlternateName(AirPlaneType.Boeing747, AlternateNameType.LongName), "Boeing 747");
 		}
 
 		#endregion

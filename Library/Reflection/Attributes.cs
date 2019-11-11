@@ -8,24 +8,18 @@ namespace DigitalProduction.Reflection
 {
 	/// <summary>
 	/// Get attributes.  Provide convenient access for common attribute properties.
-	/// 
-	/// 
-	/// Get description of an enumeration:
-	///		Converts from a [Description("")] to a enum value.
-	///		Grabs the [Description("")] from a enum value.
-	/// 
-	///		Based on code written by skot:
-	///		http://www.codeproject.com/useritems/EnumDescriptionAttribute.asp
+	///
+	///	Originally based on code written by skot:
+	///	http://www.codeproject.com/useritems/EnumDescriptionAttribute.asp
 	/// </summary>
 	public static class Attributes
 	{
-		#region Methods
+		#region Display Name
 
 		/// <summary>
 		/// Gets display name of an object.
 		/// </summary>
 		/// <param name="type">Type of the object to retrieve the Attribute from.</param>
-		/// <returns>Display name string if it is found.</returns>
 		public static string GetDisplayName(Type type)
 		{
 			return GetDisplayName(type, string.Empty);
@@ -36,7 +30,6 @@ namespace DigitalProduction.Reflection
 		/// </summary>
 		/// <param name="type">Type of the object to retrieve the Attribute from.</param>
 		/// <param name="defaultValue">Default value to use if the attribute is not found.</param>
-		/// <returns>Display name string if it is found.</returns>
 		public static string GetDisplayName(Type type, string defaultValue)
 		{
 			string name = defaultValue;
@@ -53,7 +46,6 @@ namespace DigitalProduction.Reflection
 		/// Gets display name of an object.
 		/// </summary>
 		/// <param name="instance">Instance of the object type to retrieve the Attribute from.</param>
-		/// <returns>Display name string if it is found.</returns>
 		public static string GetDisplayName(object instance)
 		{
 			return GetDisplayName(instance, string.Empty);
@@ -64,7 +56,6 @@ namespace DigitalProduction.Reflection
 		/// </summary>
 		/// <param name="instance">Instance of the object type to retrieve the Attribute from.</param>
 		/// <param name="defaultValue">Default value to use if the attribute is not found.</param>
-		/// <returns>Display name string if it is found.</returns>
 		public static string GetDisplayName(object instance, string defaultValue)
 		{
 			string name = defaultValue;
@@ -77,11 +68,14 @@ namespace DigitalProduction.Reflection
 			return name;
 		}
 
+		#endregion
+
+		#region Description
+
 		/// <summary>
 		/// Gets the description attribute of an enumeration.
 		/// </summary>
 		/// <param name="type">Type of the object to retrieve the Attribute from.</param>
-		/// <returns>Description string for the enumeration if found, default value if not.</returns>
 		public static string GetDescription(Type type)
 		{
 			return GetDescription(type, string.Empty);
@@ -92,9 +86,8 @@ namespace DigitalProduction.Reflection
 		/// </summary>
 		/// <param name="type">Type of the object to retrieve the Attribute from.</param>
 		/// <param name="defaultValue">Default value to return if description is not found.</param>
-		/// <returns>Description string for the enumeration if found, default value if not.</returns>
 		public static string GetDescription(Type type, string defaultValue)
-		{    
+		{
 			string description = defaultValue;
 
 			DescriptionAttribute attribute = GetAttribute<DescriptionAttribute>(type);
@@ -109,7 +102,6 @@ namespace DigitalProduction.Reflection
 		/// Gets the description attribute of an enumeration.
 		/// </summary>
 		/// <param name="instance">Value of the enumeration.</param>
-		/// <returns>Description string for the enumeration if found, default value if not.</returns>
 		public static string GetDescription(object instance)
 		{
 			return GetDescription(instance, string.Empty);
@@ -120,9 +112,8 @@ namespace DigitalProduction.Reflection
 		/// </summary>
 		/// <param name="instance">Value of the enumeration.</param>
 		/// <param name="defaultValue">Default value to return if description is not found.</param>
-		/// <returns>Description string for the enumeration if found, default value if not.</returns>
 		public static string GetDescription(object instance, string defaultValue)
-		{    
+		{
 			string description = defaultValue;
 
 			DescriptionAttribute attribute = GetAttribute<DescriptionAttribute>(instance);
@@ -133,11 +124,75 @@ namespace DigitalProduction.Reflection
 			return description;
 		}
 
+		#endregion
+
+		#region Alternate Name
+
+		/// <summary>
+		/// Gets the description attribute of an enumeration.
+		/// </summary>
+		/// <param name="type">Type of the object to retrieve the Attribute from.</param>
+		/// <param name="nameType">Which name to return.</param>
+		public static string GetAlternateName(Type type, AlternateNameType nameType)
+		{
+			return GetAlternateName(type, nameType, string.Empty);
+		}
+
+		/// <summary>
+		/// Gets the description attribute of an enumeration.
+		/// </summary>
+		/// <param name="type">Type of the object to retrieve the Attribute from.</param>
+		/// <param name="nameType">Which name to return.</param>
+		/// <param name="defaultValue">Default value to return if description is not found.</param>
+		public static string GetAlternateName(Type type, AlternateNameType nameType, string defaultValue)
+		{
+			string alternateName = defaultValue;
+
+			AlternateNamesAttribute attribute = GetAttribute<AlternateNamesAttribute>(type);
+			if (attribute != null)
+			{
+				alternateName = attribute.GetName(nameType);
+			}
+			return alternateName;
+		}
+
+		/// <summary>
+		/// Gets the description attribute of an enumeration.
+		/// </summary>
+		/// <param name="instance">Value of the enumeration.</param>
+		/// <param name="nameType">Which name to return.</param>
+		public static string GetAlternateName(object instance, AlternateNameType nameType)
+		{
+			return GetAlternateName(instance, nameType, string.Empty);
+		}
+
+		/// <summary>
+		/// Gets the description attribute of an enumeration.
+		/// </summary>
+		/// <param name="instance">Value of the enumeration.</param>
+		/// <param name="nameType">Which name to return.</param>
+		/// <param name="defaultValue">Default value to return if description is not found.</param>
+		public static string GetAlternateName(object instance, AlternateNameType nameType, string defaultValue)
+		{
+			string alternateName = defaultValue;
+
+			AlternateNamesAttribute attribute = GetAttribute<AlternateNamesAttribute>(instance);
+			if (attribute != null)
+			{
+				alternateName = attribute.GetName(nameType);
+			}
+			return alternateName;
+		}
+
+
+		#endregion
+
+		#region Aliases
+
 		/// <summary>
 		/// Gets a list of names provided by the Alias attribute.
 		/// </summary>
 		/// <param name="instance">Instance of the object to retrieve the aliases from.</param>
-		/// <returns>A List of strings containing the aliases of the class/structure.</returns>
 		public static List<string> GetAliases(object instance)
 		{
 			return GetAliases(instance.GetType());
@@ -147,7 +202,6 @@ namespace DigitalProduction.Reflection
 		/// Gets a list of names provided by the Alias attribute.
 		/// </summary>
 		/// <param name="type">Type of object to retrieve the aliases from.</param>
-		/// <returns>A List of strings containing the aliases of the class/structure.</returns>
 		public static List<string> GetAliases(Type type)
 		{
 			List<string> aliases = new List<string>();
@@ -162,12 +216,15 @@ namespace DigitalProduction.Reflection
 			return aliases;
 		}
 
+		#endregion
+
+		#region Generic
+
 		/// <summary>
 		/// Get the first Attribute of type "T" for the Type that the provided object is.
 		/// </summary>
 		/// <typeparam name="T">Type of attribute to get (not type of the object).</typeparam>
 		/// <param name="instance">Instance of the object type to retrieve the Attribute from.</param>
-		/// <returns>The first Attribute found of the type, or the default value of type T otherwise.</returns>
 		public static T GetAttribute<T>(object instance) where T : Attribute
 		{
 			Type type		= instance.GetType();
@@ -201,7 +258,6 @@ namespace DigitalProduction.Reflection
 		/// </summary>
 		/// <typeparam name="T">Type of attribute to get (not type of the object).</typeparam>
 		/// <param name="type">Type of the object to retrieve the Attribute from.</param>
-		/// <returns>The first Attribute found of the type, or the default value of type T otherwise.</returns>
 		public static T GetAttribute<T>(System.Type type) where T : Attribute
 		{
 			T attribute = default(T);
@@ -215,7 +271,7 @@ namespace DigitalProduction.Reflection
 					attribute = (T)attr;
 				}
 			}
-		
+
 			return attribute;
 		}
 
@@ -224,7 +280,6 @@ namespace DigitalProduction.Reflection
 		/// </summary>
 		/// <typeparam name="T">Type of attribute to get (not type of the object).</typeparam>
 		/// <param name="instance">Instance of the object type to retrieve the Attribute from.</param>
-		/// <returns>A List of all Attributes found of the specified type.</returns>
 		public static List<T> GetAllAttributes<T>(object instance) where T : Attribute
 		{
 			return GetAllAttributes<T>(instance.GetType());
@@ -235,7 +290,6 @@ namespace DigitalProduction.Reflection
 		/// </summary>
 		/// <typeparam name="T">Type of attribute to get (not type of the object).</typeparam>
 		/// <param name="type">Type of the object to retrieve the Attribute from.</param>
-		/// <returns>A List of all Attributes found of the specified type.</returns>
 		public static List<T> GetAllAttributes<T>(Type type) where T : Attribute
 		{
 			List<T> attribute = new List<T>();
@@ -249,7 +303,7 @@ namespace DigitalProduction.Reflection
 					attribute.Add((T)attr);
 				}
 			}
-		
+
 			return attribute;
 		}
 

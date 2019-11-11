@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="MathTests.cs" />
     <Compile Include="Test Classes\AirlineCompany.cs" />
+    <Compile Include="Test Classes\AirPlaneType.cs" />
     <Compile Include="Test Classes\Asset.cs" />
     <Compile Include="Test Classes\Family.cs" />
     <Compile Include="Test Classes\Company.cs" />
