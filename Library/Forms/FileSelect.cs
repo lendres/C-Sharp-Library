@@ -11,7 +11,7 @@ namespace DigitalProduction.Forms
 	{
 		#region Members
 
-		private static string							_lastDirectory		= "";
+		private static string                           _lastDirectory      = "";
 
 		#endregion
 
@@ -117,7 +117,7 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of a file.  Starting directory is the current
 		/// working directory and the title of the dialog box is "Open."
-		/// 
+		///
 		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
@@ -130,7 +130,7 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of a file.  Starting directory is the current
 		/// working directory.
-		/// 
+		///
 		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
@@ -143,7 +143,7 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of a file.
-		/// 
+		///
 		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
@@ -157,7 +157,7 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of a file.
-		/// 
+		///
 		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
@@ -174,7 +174,7 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of a file.
-		/// 
+		///
 		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
@@ -188,14 +188,14 @@ namespace DigitalProduction.Forms
 		public static string BrowseForAFile(IWin32Window owner, string filter, string title, string initialDirectory, bool restoreDirectory)
 		{
 			// Create the dialog box.
-			OpenFileDialog dialog	= new OpenFileDialog();
-			dialog.Title			= title;
-			dialog.CheckFileExists	= true;
-			dialog.ValidateNames	= true;
+			OpenFileDialog dialog = new OpenFileDialog();
+			dialog.Title            = title;
+			dialog.CheckFileExists  = true;
+			dialog.ValidateNames    = true;
 			//dialog.RestoreDirectory = false;
-			dialog.Multiselect		= false;
-			dialog.Filter			= filter;
-			dialog.FilterIndex		= 1;
+			dialog.Multiselect      = false;
+			dialog.Filter           = filter;
+			dialog.FilterIndex      = 1;
 
 			// Start in the same directory that the previous file was in (if the file and directory exist).
 			if (initialDirectory != "" && System.IO.Directory.Exists(initialDirectory))
@@ -274,14 +274,14 @@ namespace DigitalProduction.Forms
 		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string[] BrowseForMultipleFiles(IWin32Window owner, string filter, string title, string initialdirectory, bool restoreDirectory)
 		{
-			OpenFileDialog dialog	= new OpenFileDialog();
-			dialog.Title			= title;
-			dialog.CheckFileExists	= true;
-			dialog.ValidateNames	= true;
+			OpenFileDialog dialog = new OpenFileDialog();
+			dialog.Title            = title;
+			dialog.CheckFileExists  = true;
+			dialog.ValidateNames    = true;
 			//dialog.RestoreDirectory = false;
-			dialog.Multiselect		= true;
-			dialog.Filter			= filter;
-			dialog.FilterIndex		= 1;
+			dialog.Multiselect      = true;
+			dialog.Filter           = filter;
+			dialog.FilterIndex      = 1;
 
 			// Start in the same directory that the previous file was in (if the file and directory exist).
 			if (initialdirectory != "" && System.IO.Directory.Exists(initialdirectory))
@@ -403,6 +403,22 @@ namespace DigitalProduction.Forms
 		/// <param name="owner">Owner window.</param>
 		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Saves as file type"  box in the dialog box.</param>
 		/// <param name="title">Title of the SaveFileDialog box.</param>
+		/// <param name="restoreDirectory">
+		/// If true, the directory from the selected file will be used when the dialog is next opened.  Otherwise, it will be ignored and defaulted to what
+		/// folder was current before the dialog was opened.
+		/// </param>
+		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
+		public static string BrowseForANewFileLocation(IWin32Window owner, string filter, string title, bool restoreDirectory)
+		{
+			return BrowseForANewFileLocation(owner, filter, title, "", restoreDirectory);
+		}
+
+		/// <summary>
+		/// Use a SaveFileDialog box to get a location for a new file.
+		/// </summary>
+		/// <param name="owner">Owner window.</param>
+		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Saves as file type"  box in the dialog box.</param>
+		/// <param name="title">Title of the SaveFileDialog box.</param>
 		/// <param name="initialDirectory">Directory to start in.</param>
 		/// <param name="restoreDirectory">
 		/// If true, the directory from the selected file will be used when the dialog is next opened.  Otherwise, it will be ignored and defaulted to what
@@ -411,14 +427,14 @@ namespace DigitalProduction.Forms
 		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string BrowseForANewFileLocation(IWin32Window owner, string filter, string title, string initialDirectory, bool restoreDirectory)
 		{
-			SaveFileDialog dialog	= new SaveFileDialog();
-			dialog.Title			= title;
-			dialog.CheckFileExists	= false;
-			dialog.ValidateNames	= true;
+			SaveFileDialog dialog = new SaveFileDialog();
+			dialog.Title            = title;
+			dialog.CheckFileExists  = false;
+			dialog.ValidateNames    = true;
 			//dialog.RestoreDirectory = false;
-			dialog.Filter			= filter;
-			dialog.FilterIndex		= 1;
-			dialog.AddExtension		= true;
+			dialog.Filter           = filter;
+			dialog.FilterIndex      = 1;
+			dialog.AddExtension     = true;
 
 			// Start in the same directory that the previous file was in (if the file and directory exist).
 			if (initialDirectory != "" && System.IO.Directory.Exists(initialDirectory))

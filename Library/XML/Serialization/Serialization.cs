@@ -1,9 +1,6 @@
-using System;
-using System.Text;
+using GotDotNet.XInclude;
 using System.Xml;
 using System.Xml.Serialization;
-using System.IO;
-using GotDotNet.XInclude;
 
 namespace DigitalProduction.XML.Serialization
 {
