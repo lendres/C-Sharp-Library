@@ -43,7 +43,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -151,6 +151,7 @@
       <DependentUpon>ValidatingNumericUpDown.cs</DependentUpon>
     </Compile>
     <Compile Include="Generic\MappingList.cs" />
+    <Compile Include="Graphics\ColorMapping.cs" />
     <Compile Include="IO\DriveType.cs" />
     <Compile Include="IO\ValidFileNameResult.cs" />
     <Compile Include="Forms\MultipleFileSelectControl.cs">
@@ -176,10 +177,7 @@
     <Compile Include="DataBase\DataBaseAccess.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Drawing\DPMGraphics.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Drawing\Text.cs">
+    <Compile Include="Drawing\TextDrawing.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Forms\AboutForm1.cs">
