@@ -1,9 +1,7 @@
-using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.ComponentModel;
-using System.Collections.Generic;
 
 namespace DigitalProduction.IO
 {
@@ -12,20 +10,6 @@ namespace DigitalProduction.IO
 	/// </summary>
 	public static class Path
 	{
-
-		#region Structures
-
-		/// <summary>
-		/// Options for controlling what determines if a file name is valid or not.
-		/// </summary>
-		public struct ValidFileNameOptions
-		{
-			/// <summary>Specifies if the path is required to exist for the file name to be valid.  The default is false.</summary>
-			public bool		RequirePathToExist;
-		}
-
-		#endregion
-
 		#region DLL Imports
 
 		[DllImport("kernel32.dll")]
@@ -50,21 +34,28 @@ namespace DigitalProduction.IO
 		/// long systemflags = new long();
 		/// StringBuilder systemname = new StringBuilder(256);
 		/// long returnvalue= new long();
-		/// 
+		///
 		/// returnvalue = GetVolumeInformation(@"D:\", volumename, 256, serialnumber, maxcomponetlength,	systemflags, systemname, 256);
 		/// if (returnvalue != 0) // do something.
 		/// else // do nothing.
 		/// </example>
 		[DllImport("kernel32.dll")]
-		public static extern long GetVolumeInformation(string PathName, StringBuilder VolumeName,
-					long VolumeNameSize, long VolumeSerialNumber, long MaximumComponentLength,
-					long FileSystemFlags, StringBuilder FileSystemName, long FileSystemNameSize);
+		public static extern long GetVolumeInformation(string PathName, StringBuilder VolumeName, long VolumeNameSize, long VolumeSerialNumber, long MaximumComponentLength, long FileSystemFlags, StringBuilder FileSystemName, long FileSystemNameSize);
 
 		#endregion
 
 		#region Static functions
 
 		#region Files
+
+		/// <summary>
+		/// Gets the full path and root file name.  Strips the file extension.
+		/// </summary>
+		/// <param name="path">Path (directory and file name).</param>
+		public static string GetFullPathWithoutExtension(string path)
+		{
+			return System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path), System.IO.Path.GetFileNameWithoutExtension(path));
+		}
 
 		/// <summary>
 		/// Replace the file extension on a path with a new extension.
@@ -75,11 +66,13 @@ namespace DigitalProduction.IO
 		{
 			string newPath	= System.IO.Path.GetDirectoryName(path);
 			newPath			= System.IO.Path.Combine(newPath, System.IO.Path.GetFileNameWithoutExtension(path));
+
 			if (newExtension[0] != '.')
 			{
-				newPath			+= ".";
+				newPath	+= ".";
 			}
-			newPath			+= newExtension;
+
+			newPath	+= newExtension;
 			return newPath;
 		}
 
@@ -163,7 +156,7 @@ namespace DigitalProduction.IO
 		}
 
 		/// <summary>
-		/// Alters a directory name (given as a string) in a manner that is similar to what the DOS 
+		/// Alters a directory name (given as a string) in a manner that is similar to what the DOS
 		/// command "CD.." does to the current directory at the DOS prompt (gives the parent directory).
 		/// </summary>
 		/// <param name="directory">The starting directory as a string.</param>
@@ -174,7 +167,7 @@ namespace DigitalProduction.IO
 		}
 
 		/// <summary>
-		/// Alters a directory name (given as a string) in a manner that is similar to what the DOS 
+		/// Alters a directory name (given as a string) in a manner that is similar to what the DOS
 		/// command "CD.." does to the current directory at the DOS prompt (gives the parent directory).
 		/// </summary>
 		/// <param name="directory">The starting directory as a string.</param>
@@ -246,7 +239,7 @@ namespace DigitalProduction.IO
 		/// <param name="excludedfiles">A list of files not to copy.</param>
 		/// <remarks>
 		///		Original code taken from the MSDN library.
-		///		url: http://msdn.microsoft.com/en-us/library/bb762914.aspx
+		///		URL: http://msdn.microsoft.com/en-us/library/bb762914.aspx
 		///		Modified to provided additional functionality.
 		/// </remarks>
 		public static void DirectoryCopy(string sourcedirname, string destdirname, bool copysubdirs, bool overwrite, List<string> excludedfiles)

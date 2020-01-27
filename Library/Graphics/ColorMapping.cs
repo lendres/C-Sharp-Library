@@ -5,21 +5,12 @@ namespace DigitalProduction.Graphics
 {
 	/// <summary>
 	/// A class for generating color maps.
+	///
+	/// Notes:
+	/// https://betterfigures.org/2015/06/23/picking-a-colour-scale-for-scientific-graphics/
 	/// </summary>
 	public static class ColorMapping
 	{
-		#region Enumerations
-
-		#endregion
-
-		#region Delegates
-
-		#endregion
-
-		#region Events
-
-		#endregion
-
 		#region Members
 
 		#endregion
@@ -82,10 +73,6 @@ namespace DigitalProduction.Graphics
 
 			return color;
 		}
-
-		#endregion
-
-		#region XML
 
 		#endregion
 

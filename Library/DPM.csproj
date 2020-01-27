@@ -153,6 +153,7 @@
     <Compile Include="Generic\MappingList.cs" />
     <Compile Include="Graphics\ColorMapping.cs" />
     <Compile Include="IO\DriveType.cs" />
+    <Compile Include="IO\ValidFileNameOptions.cs" />
     <Compile Include="IO\ValidFileNameResult.cs" />
     <Compile Include="Forms\MultipleFileSelectControl.cs">
       <SubType>UserControl</SubType>

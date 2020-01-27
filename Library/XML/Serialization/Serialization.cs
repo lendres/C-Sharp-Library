@@ -42,7 +42,7 @@ namespace DigitalProduction.XML.Serialization
 		public static void SerializeObjectFullEndElement(SerializationSettings settings)
 		{
 			XmlSerializer serializer					= new XmlSerializer(settings.SerializeType);
-			
+
 			XmlTextWriterFullEndElement textwriter		= new XmlTextWriterFullEndElement(settings.OutputFile, settings.XmlSettings);
 			XmlWriter xmlwriter							= XmlTextWriterFullEndElement.Create(textwriter, settings.XmlSettings);
 
