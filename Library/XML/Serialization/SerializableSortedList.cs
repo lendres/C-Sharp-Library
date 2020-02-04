@@ -7,7 +7,7 @@ namespace DigitalProduction.XML.Serialization
 {
 	/// <summary>
 	/// Add serialization to a SortedList.
-	/// 
+	///
 	/// From:
 	/// Original dictionary version from:
 	/// http://stackoverflow.com/questions/495647/serialize-class-containing-dictionary-member
@@ -25,13 +25,14 @@ namespace DigitalProduction.XML.Serialization
 		public SerializableSortedList() {}
 
 		#endregion
-		
+
 		#region XML
 
 		/// <summary>
 		/// Get the schema.
+		///
+		/// Returns null.  This object does not have a schema.
 		/// </summary>
-		/// <returns>Null.  This object does not have a schema.</returns>
 		public System.Xml.Schema.XmlSchema GetSchema()
 		{
 			return null;
@@ -53,7 +54,7 @@ namespace DigitalProduction.XML.Serialization
 			{
 				using (XmlReader itemReader =  item.CreateReader())
 				{
-					var keyvaluepair = serializer.Deserialize(itemReader) as SerializableKeyValuePair<KeyType, ValueType>;
+					SerializableKeyValuePair<KeyType, ValueType> keyvaluepair = serializer.Deserialize(itemReader) as SerializableKeyValuePair<KeyType, ValueType>;
 					Add(keyvaluepair.Key, keyvaluepair.Value);
 				}
 			}
@@ -73,7 +74,7 @@ namespace DigitalProduction.XML.Serialization
 			foreach (KeyType key in this.Keys)
 			{
 				ValueType value		= this[key];
-				var keyvaluepair	= new SerializableKeyValuePair<KeyType, ValueType>(key, value);
+				SerializableKeyValuePair<KeyType, ValueType> keyvaluepair	= new SerializableKeyValuePair<KeyType, ValueType>(key, value);
 				serializer.Serialize(writer, keyvaluepair, namespaces);
 			}
 		}

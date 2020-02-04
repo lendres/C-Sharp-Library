@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DigitalProduction;
-using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace DigitalProduction.Generic
@@ -235,7 +231,6 @@ namespace DigitalProduction.Generic
 		/// Brackets operator used to access data by it's key type.
 		/// </summary>
 		/// <param name="key">Which set of data to get.</param>
-		/// <returns>The set of data associated with the key in a List.</returns>
 		[XmlIgnore()]
 		public List<TData> this[TKey key]
 		{
@@ -269,7 +264,6 @@ namespace DigitalProduction.Generic
 		/// the data without concern for exactly what data is in what position.
 		/// </summary>
 		/// <param name="index">Index of data to get.</param>
-		/// <returns>The set of data associated with the key in a List.</returns>
 		[XmlIgnore()]
 		public List<TData> this[int index]
 		{
@@ -314,7 +308,6 @@ namespace DigitalProduction.Generic
 		/// Specifies if the TKey is active (has data associated with it).
 		/// </summary>
 		/// <param name="key">TKey to check.</param>
-		/// <returns>True is data exists for the key time, false otherwise.</returns>
 		public bool IsActiveKey(TKey key)
 		{
 			if (_map[System.Convert.ToInt32(key)] < 0)

@@ -1,8 +1,7 @@
-using System;
-using System.Windows.Forms;
+using DigitalProduction.Forms;
 using Microsoft.Win32;
 using System.Collections;
-using DigitalProduction.Forms;
+using System.Windows.Forms;
 
 namespace DigitalProduction.Registry
 {
@@ -94,8 +93,9 @@ namespace DigitalProduction.Registry
 
 		/// <summary>
 		/// Return the key that holds the options.
+		///
+		/// Returns the registry key if it could be accessed, null if an error occurs.
 		/// </summary>
-		/// <returns>Returns the registry key if it could be accessed, null if an error occurs.</returns>
 		protected RegistryKey OptionsKey()
 		{
 			RegistryKey regkey;
@@ -126,8 +126,9 @@ namespace DigitalProduction.Registry
 
 		/// <summary>
 		/// Return the key that holds window state information.
+		///
+		/// Returns the registry key if it could be accessed, null if an error occurs.
 		/// </summary>
-		/// <returns>Returns the registry key if it could be accessed, null if an error occurs.</returns>
 		protected RegistryKey WindowStateKey()
 		{
 			RegistryKey regkey;
@@ -237,8 +238,9 @@ namespace DigitalProduction.Registry
 
 		/// <summary>
 		/// Return the key that holds recently used files.
+		///
+		/// Returns the registry key if it could be accessed, null if an error occurs.
 		/// </summary>
-		/// <returns>Returns the registry key if it could be accessed, null if an error occurs.</returns>
 		protected RegistryKey RecentFilesKey()
 		{
 			RegistryKey regkey;
@@ -283,9 +285,10 @@ namespace DigitalProduction.Registry
 
 		/// <summary>
 		/// Gets the recently used files from the registry.
+		///
+		/// Returns an array of strings the size of "numberoffiles".  Blank strings are returned for any entries that do not exist.
 		/// </summary>
 		/// <param name="numberoffiles">The number of strings to return.  If an entry is not found for a file, a blank string is returned.</param>
-		/// <returns>An array of strings the size of "numberoffiles".  Blank strings are returned for any entries that do not exist.</returns>
 		public string[] GetRecentlyUsedFiles(uint numberoffiles)
 		{
 			RegistryKey regkey = RecentFilesKey();

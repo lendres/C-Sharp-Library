@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Xml.Serialization;
+﻿using DigitalProduction.Forms;
 using Microsoft.Win32;
-using DigitalProduction.Forms;
 
 namespace DigitalProduction.Registry
 {
@@ -55,8 +48,9 @@ namespace DigitalProduction.Registry
 
 		/// <summary>
 		/// Get the registry key associated with the application name.
+		///
+		/// Returns the registry key if it could be accessed, null if an error occurs.
 		/// </summary>
-		/// <returns>Returns the registry key if it could be accessed, null if an error occurs.</returns>
 		protected override RegistryKey AppKey()
 		{
 			RegistryKey key;

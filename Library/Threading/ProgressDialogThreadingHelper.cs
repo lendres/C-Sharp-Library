@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Xml.Serialization;
-using System.Windows.Forms;
+﻿using DigitalProduction.Forms;
+using System;
 using System.Threading;
-using DigitalProduction.Forms;
+using System.Windows.Forms;
 
 namespace DigitalProduction.Threading
 {
 	/// <summary>
-	/// 
+	/// A helper class for displaying the progress dialog form.
 	/// </summary>
 	public class ProgressDialogThreadingHelper
 	{
@@ -131,8 +125,9 @@ namespace DigitalProduction.Threading
 
 		/// <summary>
 		/// Runs the ProgressDialog and worker thread.
+		///
+		/// Returns true if successful, false otherwise.
 		/// </summary>
-		/// <returns>True if successful, false otherwise.</returns>
 		public bool Run()
 		{
 
@@ -146,7 +141,7 @@ namespace DigitalProduction.Threading
 				}
 				else
 				{
-					// Process thread did not finish correctly (cancelled).
+					// Process thread did not finish correctly (canceled).
 					return false;
 				}
 			}

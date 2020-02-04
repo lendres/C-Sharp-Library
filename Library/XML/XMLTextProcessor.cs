@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Xml;
-using System.Collections.Generic;
 
 namespace DigitalProduction.XML
 {
@@ -10,23 +9,23 @@ namespace DigitalProduction.XML
 	/// </summary>
 	public class XMLTextProcessor
 	{
-		#region Members / Variables.
+		#region Members
 
 		/// <summary>Base stream that reads the file.</summary>
-		private FileStream					_inputstream;
+		private FileStream					_inputStream;
 
 		/// <summary>XML reader that reads the file.</summary>
-		private XmlTextReader				_xmlreader;
+		private XmlTextReader				_xmlReader;
 
 		/// <summary>The name of the top element.</summary>
-		private string						_topelement;
+		private string						_topElement;
 
 		/// <summary>Flag to indicate the first call to process.</summary>
-		private bool						_firstcall;
+		private bool						_firstCall;
 
 		#endregion
 
-		#region Construction / Destruction.
+		#region Construction
 
 		/// <summary>
 		/// Constructor.
@@ -41,15 +40,15 @@ namespace DigitalProduction.XML
 		/// Constructor.
 		/// </summary>
 		/// <param name="file">XML file to process.</param>
-		/// <param name="topelement">Name of the top element in the file.</param>
-		public XMLTextProcessor(string file, string topelement)
+		/// <param name="topElement">Name of the top element in the file.</param>
+		public XMLTextProcessor(string file, string topElement)
 		{
-			Open(file, topelement);
+			Open(file, topElement);
 		}
 
 		#endregion
 
-		#region Open and closing the input.
+		#region Open and Closing the Input
 
 		/// <summary>
 		/// Open the input and read up to the first element.
@@ -64,29 +63,29 @@ namespace DigitalProduction.XML
 		/// Open the input and read up to the first element.
 		/// </summary>
 		/// <param name="file">XML file to process.</param>
-		/// <param name="topelement">Name of the top element in the file.</param>
-		private void Open(string file, string topelement)
+		/// <param name="topElement">Name of the top element in the file.</param>
+		private void Open(string file, string topElement)
 		{
 			try
 			{
 				// File input stream.
-				_inputstream = new FileStream(file, FileMode.Open, FileAccess.Read);
+				_inputStream = new FileStream(file, FileMode.Open, FileAccess.Read);
 
 				// If the file is empty, we are done with this.
-				if (_inputstream.Length == 0)
+				if (_inputStream.Length == 0)
 				{
-					_xmlreader = null;
+					_xmlReader = null;
 					return;
 				}
 
-				// Create the xml reader.
-				_xmlreader = new XmlTextReader(_inputstream);
-				_xmlreader.WhitespaceHandling = WhitespaceHandling.None;
+				// Create the XML reader.
+				_xmlReader = new XmlTextReader(_inputStream);
+				_xmlReader.WhitespaceHandling = WhitespaceHandling.None;
 
 				// Read the header stuff and get to the first element.
-				while (_xmlreader.NodeType != XmlNodeType.Element)
+				while (_xmlReader.NodeType != XmlNodeType.Element)
 				{
-					_xmlreader.Read();
+					_xmlReader.Read();
 				}
 			}
 			catch
@@ -96,8 +95,8 @@ namespace DigitalProduction.XML
 			}
 
 			// Store the top level node name and reset parameters.
-			_topelement	= _xmlreader.LocalName;
-			_firstcall	= true;
+			_topElement	= _xmlReader.LocalName;
+			_firstCall	= true;
 
 			// If a top level element was specified we will perform a check to ensure we found what we are looking
 			// for, otherwise we will assume we found it or don't care what it is.
@@ -106,15 +105,15 @@ namespace DigitalProduction.XML
 			// that required the top level element name, a requirement which has since been dropped.  But as long as
 			// we have the top element for the old style constructor calls, we might as well perform a check to make
 			// sure we are getting what we expect.
-			if (topelement != "")
+			if (topElement != "")
 			{
 				// Do the check.
-				if (_topelement != topelement)
+				if (_topElement != topElement)
 				{
 					// Did we open the right file?
 					string message	=  "Top level element found in XML file did not match the expected element name.";
-					message			+= "\n\nExpected: "	+ topelement;
-					message			+= "\nFound: "		+ _topelement;
+					message			+= "\n\nExpected: "	+ topElement;
+					message			+= "\nFound: "		+ _topElement;
 					throw new Exception(message);
 				}
 			}
@@ -125,35 +124,35 @@ namespace DigitalProduction.XML
 		/// </summary>
 		public void Close()
 		{
-			if (_inputstream != null)
+			if (_inputStream != null)
 			{
 				try
 				{
-					_inputstream.Close();
-					_inputstream.Dispose();
+					_inputStream.Close();
+					_inputStream.Dispose();
 				}
 				catch
 				{
 				}
-				_inputstream = null;
+				_inputStream = null;
 			}
 
-			if (_xmlreader != null)
+			if (_xmlReader != null)
 			{
 				try
 				{
-					_xmlreader.Close();
+					_xmlReader.Close();
 				}
 				catch
 				{
 				}
-				_xmlreader = null;
+				_xmlReader = null;
 			}
 		}
 
 		#endregion
 
-		#region Properties.
+		#region Properties
 
 		/// <summary>
 		/// The base input stream used.  Read only.
@@ -162,7 +161,7 @@ namespace DigitalProduction.XML
 		{
 			get
 			{
-				return _inputstream;
+				return _inputStream;
 			}
 		}
 
@@ -173,7 +172,7 @@ namespace DigitalProduction.XML
 		{
 			get
 			{
-				return _xmlreader;
+				return _xmlReader;
 			}
 		}
 
@@ -184,7 +183,7 @@ namespace DigitalProduction.XML
 		{
 			get
 			{
-				return _xmlreader != null;
+				return _xmlReader != null;
 			}
 		}
 
@@ -196,18 +195,18 @@ namespace DigitalProduction.XML
 		{
 			get
 			{
-				string message = "\n\nFile: " + _inputstream.Name;
-                message += "\n\nLine: " + _xmlreader.LineNumber;
-                message += "\n\nPosition: " + _xmlreader.LinePosition;
+				string message = "\n\nFile: " + _inputStream.Name;
+				message += "\n\nLine: " + _xmlReader.LineNumber;
+				message += "\n\nPosition: " + _xmlReader.LinePosition;
 				return message;
 			}
 		}
 
 		#endregion
 
-		#region Process.
+		#region Process
 
-		#region Public access and cleaning up.
+		#region Public Access and Cleaning Up
 
 		/// <summary>
 		/// Process the body of the current element.
@@ -237,17 +236,17 @@ namespace DigitalProduction.XML
 			{
 				RunProcess(handlers, data);
 			}
-			catch (Exception e)
+			catch (Exception exception)
 			{
 				// Try to clean up.
 				Close();
-				throw e;
+				throw exception;
 			}
 		}
 
 		#endregion
 
-		#region Run process.
+		#region Run Process
 
 		/// <summary>
 		/// Process the body of the current element.
@@ -258,35 +257,35 @@ namespace DigitalProduction.XML
 		/// <param name="data">Optional data passed to the handler.</param>
 		private void RunProcess(XMLHandlerList handlers, object data)
 		{
-			if (_xmlreader == null)
+			if (_xmlReader == null)
 			{
 				return;
 			}
 
 			// Don't want to read threw empty elements and into the next element.
-			if (_xmlreader.IsEmptyElement)
+			if (_xmlReader.IsEmptyElement)
 			{
 				return;
 			}
 
-			string topelement = _xmlreader.LocalName;
+			string topElement = _xmlReader.LocalName;
 
-			if (_firstcall)
+			if (_firstCall)
 			{
-				topelement = _topelement;
-				_firstcall = false;
+				topElement = _topElement;
+				_firstCall = false;
 			}
-			
-			_xmlreader.Read();
 
-			while (_xmlreader.LocalName != topelement && !_xmlreader.EOF)
+			_xmlReader.Read();
+
+			while (_xmlReader.LocalName != topElement && !_xmlReader.EOF)
 			{
-				switch (_xmlreader.NodeType)
+				switch (_xmlReader.NodeType)
 				{
 					case XmlNodeType.Element:
 					{
 						// Ensure that there is something to read here.
-						handlers.ProcessElement(_xmlreader.LocalName, this, data);
+						handlers.ProcessElement(_xmlReader.LocalName, this, data);
 						break;
 					}
 
@@ -297,7 +296,7 @@ namespace DigitalProduction.XML
 
 						// If the handler processed the next we have read into something else (like an element)
 						// and we don't want to call read again or we will read over it.
-						if (_xmlreader.NodeType != XmlNodeType.Text)
+						if (_xmlReader.NodeType != XmlNodeType.Text)
 						{
 							continue;
 						}
@@ -307,9 +306,9 @@ namespace DigitalProduction.XML
 
 					case XmlNodeType.EndElement:
 					{
-						while (_xmlreader.NodeType == XmlNodeType.EndElement)
+						while (_xmlReader.NodeType == XmlNodeType.EndElement)
 						{
-							_xmlreader.Read();							
+							_xmlReader.Read();
 						}
 						continue;
 					}
@@ -336,7 +335,7 @@ namespace DigitalProduction.XML
 
 				} // End switch.
 
-				_xmlreader.Read();
+				_xmlReader.Read();
 
 			} // End while.
 		}
@@ -345,46 +344,21 @@ namespace DigitalProduction.XML
 
 		#endregion
 
-		#region Attribute reading.
+		#region Attribute Reading
 
 		/// <summary>
-		/// Read an attribute from the file and convert it to the indicated data type.
+		/// Read an attribute from the file and convert it to the indicated data type.  Returns the attribute
+		/// converted to the indicated data type if possible, otherwise the default value.
 		/// </summary>
 		/// <param name="name">Name of the attribute to read.</param>
-		/// <param name="defaultvalue">Value to return if nothing is found or an error occurs.</param>
-		/// <returns>
-		/// Attribute converted to the indicated data type if possible, otherwise the default value.
-		/// </returns>
-		public int GetAttribute(string name, int defaultvalue)
+		/// <param name="defaultValue">Value to return if nothing is found or an error occurs.</param>
+		public int GetAttribute(string name, int defaultValue)
 		{
-			string val = _xmlreader.GetAttribute(name);
-			int convval = defaultvalue;
+			string val	= _xmlReader.GetAttribute(name);
+			int convval	= defaultValue;
 			try
 			{
-				convval = System.Convert.ToInt32(val);
-			}
-			catch
-			{
-            }
-
-			return convval;
-		}
-
-		/// <summary>
-		/// Read an attribute from the file and convert it to the indicated data type.
-		/// </summary>
-		/// <param name="name">Name of the attribute to read.</param>
-		/// <param name="defaultvalue">Value to return if nothing is found or an error occurs.</param>
-		/// <returns>
-		/// Attribute converted to the indicated data type if possible, otherwise the default value.
-		/// </returns>
-		public double GetAttribute(string name, double defaultvalue)
-		{
-			string val = _xmlreader.GetAttribute(name);
-			double convval = defaultvalue;
-			try
-			{
-				convval = System.Convert.ToDouble(val);
+				convval = Convert.ToInt32(val);
 			}
 			catch
 			{
@@ -394,20 +368,18 @@ namespace DigitalProduction.XML
 		}
 
 		/// <summary>
-		/// Read an attribute from the file and convert it to the indicated data type.
+		/// Read an attribute from the file and convert it to the indicated data type.  Returns the attribute
+		/// converted to the indicated data type if possible, otherwise the default value.
 		/// </summary>
 		/// <param name="name">Name of the attribute to read.</param>
-		/// <param name="defaultvalue">Value to return if nothing is found or an error occurs.</param>
-		/// <returns>
-		/// Attribute converted to the indicated data type if possible, otherwise the default value.
-		/// </returns>
-		public bool GetAttribute(string name, bool defaultvalue)
+		/// <param name="defaultValue">Value to return if nothing is found or an error occurs.</param>
+		public double GetAttribute(string name, double defaultValue)
 		{
-			string val = _xmlreader.GetAttribute(name);
-			bool convval = defaultvalue;
+			string val		= _xmlReader.GetAttribute(name);
+			double convval	= defaultValue;
 			try
 			{
-				convval = System.Convert.ToBoolean(val);
+				convval = Convert.ToDouble(val);
 			}
 			catch
 			{
@@ -417,20 +389,39 @@ namespace DigitalProduction.XML
 		}
 
 		/// <summary>
-		/// Read an attribute from the file and convert it to the indicated data type.
+		/// Read an attribute from the file and convert it to the indicated data type.  Returns the attribute
+		/// converted to the indicated data type if possible, otherwise the default value.
 		/// </summary>
 		/// <param name="name">Name of the attribute to read.</param>
-		/// <param name="defaultvalue">Value to return if nothing is found or an error occurs.</param>
-		/// <returns>
-		/// Attribute converted to the indicated data type if possible, otherwise the default value.
-		/// </returns>
-		public string GetAttribute(string name, string defaultvalue)
+		/// <param name="defaultValue">Value to return if nothing is found or an error occurs.</param>
+		public bool GetAttribute(string name, bool defaultValue)
 		{
-			string val = _xmlreader.GetAttribute(name);
+			string val		= _xmlReader.GetAttribute(name);
+			bool convval	= defaultValue;
+			try
+			{
+				convval = Convert.ToBoolean(val);
+			}
+			catch
+			{
+			}
+
+			return convval;
+		}
+
+		/// <summary>
+		/// Read an attribute from the file and convert it to the indicated data type.  Returns the attribute
+		/// converted to the indicated data type if possible, otherwise the default value.
+		/// </summary>
+		/// <param name="name">Name of the attribute to read.</param>
+		/// <param name="defaultValue">Value to return if nothing is found or an error occurs.</param>
+		public string GetAttribute(string name, string defaultValue)
+		{
+			string val = _xmlReader.GetAttribute(name);
 
 			if (val == null)
 			{
-				return defaultvalue;
+				return defaultValue;
 			}
 			else
 			{
@@ -439,31 +430,28 @@ namespace DigitalProduction.XML
 		}
 
 		/// <summary>
-		/// Read an attribute from the file and convert it to the indicated data type.
+		/// Read an attribute from the file and convert it to the indicated data type.  Returns the attribute
+		/// converted to the indicated data type if possible, otherwise the default value.
 		/// </summary>
 		/// <param name="name">Name of the attribute to read.</param>
-		/// <param name="defaultvalue">Value to return if nothing is found or an error occurs.</param>
-		/// <returns>
-		/// Attribute converted to the indicated data type if possible, otherwise the default value.
-		/// </returns>
-		public object GetAttribute(string name, object defaultvalue)
+		/// <param name="defaultValue">Value to return if nothing is found or an error occurs.</param>
+		public object GetAttribute(string name, object defaultValue)
 		{
-			object val = _xmlreader.GetAttribute(name);
+			object val = _xmlReader.GetAttribute(name);
 
 			if (val == null)
 			{
-				return defaultvalue;
+				return defaultValue;
 			}
 			else
 			{
 				return val;
-			}		
+			}
 		}
 
 		/// <summary>
 		/// Extracts all the attributes as a name, value pair and moves to the next element.
 		/// </summary>
-		/// <returns>The attributes as a name, value pair.  The values are returned as strings.</returns>
 		/// <remarks>
 		/// This function moves to the next elements so if you want to do additional work with the attributes, do it first.
 		/// </remarks>
@@ -471,40 +459,39 @@ namespace DigitalProduction.XML
 		{
 			AttributeList attributes = new AttributeList();
 
-			if (_xmlreader.HasAttributes)
+			if (_xmlReader.HasAttributes)
 			{
-				_xmlreader.MoveToFirstAttribute();
-				attributes.Add(new Attribute(_xmlreader.Name, _xmlreader.Value));
+				_xmlReader.MoveToFirstAttribute();
+				attributes.Add(new Attribute(_xmlReader.Name, _xmlReader.Value));
 
-				while (_xmlreader.MoveToNextAttribute())
+				while (_xmlReader.MoveToNextAttribute())
 				{
-					attributes.Add(new Attribute(_xmlreader.Name, _xmlreader.Value));
+					attributes.Add(new Attribute(_xmlReader.Name, _xmlReader.Value));
 				} // End while attribute.
 
 				// Move the reader back to the beginning of the element so it is back were we started
-				// and the main processing loop doesn't have a hissy.
-				_xmlreader.MoveToElement();
+				// and the main processing loop doesn't have a hissy fit.
+				_xmlReader.MoveToElement();
 
-			} // End if attrbutes.
+			} // End if attributes.
 
 			return attributes;
 		}
 
 		#endregion
 
-		#region Get element data.
+		#region Get Element Data
 
 		/// <summary>
 		/// Read the element data as a string.
 		/// </summary>
-		/// <returns>The element data.</returns>
-		public string GetElementString(string defaultvalue)
+		public string GetElementString(string defaultValue)
 		{
-			string val = _xmlreader.ReadString();
+			string val = _xmlReader.ReadString();
 
 			if (val == null)
 			{
-				return defaultvalue;
+				return defaultValue;
 			}
 			else
 			{
@@ -515,33 +502,13 @@ namespace DigitalProduction.XML
 		/// <summary>
 		/// Read the element data as the indicated type.
 		/// </summary>
-		/// <returns>The element data converted to the indicated type.</returns>
-		public int GetElementString(int defaultvalue)
+		public int GetElementString(int defaultValue)
 		{
-			string val = _xmlreader.ReadString();
-			int convval = defaultvalue;
+			string val	= _xmlReader.ReadString();
+			int convval	= defaultValue;
 			try
 			{
-				convval = System.Convert.ToInt32(val);
-			}
-			catch
-			{
-			}
-
-			return convval;
-		}
-		
-		/// <summary>
-		/// Read the element data as the indicated type.
-		/// </summary>
-		/// <returns>The element data converted to the indicated type.</returns>
-		public double GetElementString(double defaultvalue)
-		{
-			string val = _xmlreader.ReadString();
-			double convval = defaultvalue;
-			try
-			{
-				convval = System.Convert.ToDouble(val);
+				convval = Convert.ToInt32(val);
 			}
 			catch
 			{
@@ -553,14 +520,31 @@ namespace DigitalProduction.XML
 		/// <summary>
 		/// Read the element data as the indicated type.
 		/// </summary>
-		/// <returns>The element data converted to the indicated type.</returns>
-		public bool GetElementString(bool defaultvalue)
+		public double GetElementString(double defaultValue)
 		{
-			string val = _xmlreader.ReadString();
-			bool convval = defaultvalue;
+			string val		= _xmlReader.ReadString();
+			double convval	= defaultValue;
 			try
 			{
-				convval = System.Convert.ToBoolean(val);
+				convval = Convert.ToDouble(val);
+			}
+			catch
+			{
+			}
+
+			return convval;
+		}
+
+		/// <summary>
+		/// Read the element data as the indicated type.
+		/// </summary>
+		public bool GetElementString(bool defaultValue)
+		{
+			string val		= _xmlReader.ReadString();
+			bool convval	= defaultValue;
+			try
+			{
+				convval = Convert.ToBoolean(val);
 			}
 			catch
 			{

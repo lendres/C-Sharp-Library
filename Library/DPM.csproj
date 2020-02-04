@@ -262,6 +262,7 @@
     <Compile Include="Registry\FormWinRegistryAccess.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Strings\Format.cs" />
     <Compile Include="Threading\Delegates.cs" />
     <Compile Include="Threading\ProgressDialogThreadingHelper.cs" />
     <Compile Include="XML\Attribute.cs" />

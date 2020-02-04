@@ -54,9 +54,10 @@ namespace DigitalProduction.XML
 
 		/// <summary>
 		/// Get an attribute.
+		///
+		/// Returns the Attribute at position "number" if it exists, null otherwise.
 		/// </summary>
 		/// <param name="number">Which Attribute to get.</param>
-		/// <returns>The Attribute at position "number" if it exists, null otherwise.</returns>
 		public Attribute GetAttribute(int number)
 		{
 			if (number < _attributes.Count || number >= 0)

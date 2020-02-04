@@ -110,6 +110,8 @@ namespace DigitalProduction.Gaming
 
 		/// <summary>
 		/// Draw a card.
+		///
+		/// Returns true if successful, false if an error occurs.
 		/// </summary>
 		/// <param name="hdc">Device context to draw with.  Get the device context from Graphics.GetHdc()</param>
 		/// <param name="x">X location, in pixels, of the upper left corner of the card being drawn.</param>
@@ -119,12 +121,13 @@ namespace DigitalProduction.Gaming
 		/// <param name="color">
 		/// Color to use when drawing card.
 		/// </param>
-		/// <returns>Returns true if successful, false if an error occurs.</returns>
 		[DllImport("cards.dll")]
 		private static extern bool cdtDraw(IntPtr hdc, int x, int y, int card, int mode, int color);
 
 		/// <summary>
 		/// Draw a card the size of dx and dy in pixels.  Warning - drawing cards at the non-standard size greatly distorts them.
+		///
+		/// Returns true if successful, false if an error occurs.
 		/// </summary>
 		/// <param name="hdc">Device context to draw with.  Get the device context from Graphics.GetHdc()</param>
 		/// <param name="x">X location, in pixels, of the upper left corner of the card being drawn.</param>
@@ -134,19 +137,19 @@ namespace DigitalProduction.Gaming
 		/// <param name="card">Card to draw.  This depends on the mode.  See enumerations for more info.</param>
 		/// <param name="mode">Mode to draw in.  See enumeration for more information.</param>
 		/// <param name="color">Color to use when drawing card.</param>
-		/// <returns>Returns true if successful, false if an error occurs.</returns>
 		[DllImport("cards.dll")]
 		private static extern bool cdtDrawExt(IntPtr hdc, int x, int y, int dx, int dy, int card, int mode, int color);
 
 		/// <summary>
 		/// Animate a card back by displaying different frames.  This only works for some card backs.
+		///
+		/// Returns true if successful, false if an error occurs.
 		/// </summary>
 		/// <param name="hdc">Device context to draw with.  Get the device context from Graphics.GetHdc()</param>
 		/// <param name="cardback">Card back to animate.  See enumerations for more information.</param>
 		/// <param name="x">X location, in pixels, of the upper left corner of the card being drawn.</param>
 		/// <param name="y">Y location, in pixels, of the upper left corner of the card being drawn.</param>
 		/// <param name="frame">Frame to use in animation.  Different card backs have different number of frames.  See enumerations for more information.</param>
-		/// <returns>Returns true if successful, false if an error occurs.</returns>
 		[DllImport("cards.dll")]
 		private static extern bool cdtAnimate(IntPtr hdc, int cardback, int x, int y, int frame);
 
@@ -250,11 +253,12 @@ namespace DigitalProduction.Gaming
 
 		/// <summary>
 		/// Draw a card face down (so back is showing).
+		///
+		/// Returns true if successful, false if an error occurs.
 		/// </summary>
 		/// <param name="hdc">Device context to draw with.  Get the device context from Graphics.GetHdc()</param>
 		/// <param name="x">X position to draw card at (in pixels).</param>
 		/// <param name="y">Y position to draw card at (in pixels).</param>
-		/// <returns>True if drawing succeeded, false otherwise.</returns>
 		public bool DrawCardFaceDown(IntPtr hdc, int x, int y)
 		{
 			return cdtDraw(hdc, x, y, (int)_backstyle, (int)Mode.FaceDown, _color);
@@ -262,6 +266,8 @@ namespace DigitalProduction.Gaming
 
 		/// <summary>
 		/// Draw a card face up.
+		///
+		/// Returns true if successful, false if an error occurs.
 		/// </summary>
 		/// <remarks>
 		/// The mode (FaceUp) used causes the cards in "cards.dll" to be drawn in A,A,A,A,2,2,2,...K,K format.
@@ -270,7 +276,6 @@ namespace DigitalProduction.Gaming
 		/// <param name="card">Card to draw.</param>
 		/// <param name="x">X position to draw card at (in pixels).</param>
 		/// <param name="y">Y position to draw card at (in pixels).</param>
-		/// <returns>True if drawing succeeded, false otherwise.</returns>
 		public bool DrawCardFaceUp(IntPtr hdc, Card card, int x, int y)
 		{
 			return cdtDraw(hdc, x, y, CardDLLPosition(card), (int)Mode.FaceUp, _color);
@@ -278,12 +283,13 @@ namespace DigitalProduction.Gaming
 
 		/// <summary>
 		/// Draw a card face up.
+		///
+		/// Returns true if successful, false if an error occurs.
 		/// </summary>
 		/// <param name="hdc">Device context to draw with.  Get the device context from Graphics.GetHdc()</param>
 		/// <param name="card">Integer position in cards.dll of card to draw.</param>
 		/// <param name="x">X position to draw card at (in pixels).</param>
 		/// <param name="y">Y position to draw card at (in pixels).</param>
-		/// <returns>True if drawing succeeded, false otherwise.</returns>
 		public bool DrawCardFaceUp(IntPtr hdc, int card, int x, int y)
 		{
 			return cdtDraw(hdc, x, y, card, (int)Mode.FaceUp, _color);
@@ -291,12 +297,13 @@ namespace DigitalProduction.Gaming
 
 		/// <summary>
 		/// Draw a card face up as a negative.
+		///
+		/// Returns true if successful, false if an error occurs.
 		/// </summary>
 		/// <param name="hdc">Device context to draw with.  Get the device context from Graphics.GetHdc()</param>
 		/// <param name="card">Card to draw.</param>
 		/// <param name="x">X position to draw card at (in pixels).</param>
 		/// <param name="y">Y position to draw card at (in pixels).</param>
-		/// <returns>True if drawing succeeded, false otherwise.</returns>
 		public bool DrawNegativeCard(IntPtr hdc, Card card, int x, int y)
 		{
 			return cdtDraw(hdc, x, y, CardDLLPosition(card), (int)Mode.Negative, _color);
@@ -304,12 +311,13 @@ namespace DigitalProduction.Gaming
 
 		/// <summary>
 		/// Draw a card face up as a negative.
+		///
+		/// Returns true if successful, false if an error occurs.
 		/// </summary>
 		/// <param name="hdc">Device context to draw with.  Get the device context from Graphics.GetHdc()</param>
 		/// <param name="card">Integer position in cards.dll of card to draw.</param>
 		/// <param name="x">X position to draw card at (in pixels).</param>
 		/// <param name="y">Y position to draw card at (in pixels).</param>
-		/// <returns>True if drawing succeeded, false otherwise.</returns>
 		public bool DrawNegativeCard(IntPtr hdc, int card, int x, int y)
 		{
 			return cdtDraw(hdc, x, y, card, (int)Mode.Negative, _color);
@@ -317,11 +325,12 @@ namespace DigitalProduction.Gaming
 
 		/// <summary>
 		/// Draw a X card place holder.
+		///
+		/// Returns true if successful, false if an error occurs.
 		/// </summary>
 		/// <param name="hdc">Device context to draw with.  Get the device context from Graphics.GetHdc()</param>
 		/// <param name="x">X position to draw card at (in pixels).</param>
 		/// <param name="y">Y position to draw card at (in pixels).</param>
-		/// <returns>True if drawing succeeded, false otherwise.</returns>
 		public bool DrawX(IntPtr hdc, int x, int y)
 		{
 			return cdtDraw(hdc, x, y, (int)PlaceHolder.X, (int)Mode.FaceDown, _color);
@@ -329,11 +338,12 @@ namespace DigitalProduction.Gaming
 
 		/// <summary>
 		/// Draw a O card place holder.
+		///
+		/// Returns true if successful, false if an error occurs.
 		/// </summary>
 		/// <param name="hdc">Device context to draw with.  Get the device context from Graphics.GetHdc()</param>
 		/// <param name="x">X position to draw card at (in pixels).</param>
 		/// <param name="y">Y position to draw card at (in pixels).</param>
-		/// <returns>True if drawing succeeded, false otherwise.</returns>
 		public bool DrawO(IntPtr hdc, int x, int y)
 		{
 			return cdtDraw(hdc, x, y, (int)PlaceHolder.O, (int)Mode.FaceDown, _color);
@@ -348,7 +358,6 @@ namespace DigitalProduction.Gaming
 		/// </summary>
 		/// <param name="rank">The rank (face value) of the card who's position is desired.</param>
 		/// <param name="suit">The suit of the card who's position is desired.</param>
-		/// <returns>Integer position of card in cards.dll.</returns>
 		public static int CardDLLPosition(CardRank rank, CardSuit suit)
 		{
 			return (int)rank*4 + (int)suit;
@@ -358,7 +367,6 @@ namespace DigitalProduction.Gaming
 		/// Returns the position in cards.dll that the card is at.
 		/// </summary>
 		/// <param name="card">The card who's position is desired.</param>
-		/// <returns>Integer position of card in cards.dll.</returns>
 		public static int CardDLLPosition(Card card)
 		{
 			return CardDLLPosition(card.Rank, card.Suit);
@@ -368,7 +376,6 @@ namespace DigitalProduction.Gaming
 		/// Return a new Card which represents the card in a given position of the "cards.dll."
 		/// </summary>
 		/// <param name="position">Position in the "cards.dll" to create a card from.</param>
-		/// <returns>A new Card which is the same as the card in the position in the "cards.dll"</returns>
 		public static Card CardInDLLPosition(int position)
 		{
 			int suit = position % 4;

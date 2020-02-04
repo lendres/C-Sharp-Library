@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace DigitalProduction.Generic
 {
@@ -60,7 +58,6 @@ namespace DigitalProduction.Generic
 		/// Create a class associated with a given key.
 		/// </summary>
 		/// <param name="key">Key used to retrieve the new object from.</param>
-		/// <returns>A new object.</returns>
 		public GeneralType Create(KeyType key)
 		{
 			CreateDelegate create = _products[key];
@@ -70,7 +67,6 @@ namespace DigitalProduction.Generic
 		/// <summary>
 		/// Get an array of keys.
 		/// </summary>
-		/// <returns>The array of keys.</returns>
 		public KeyType[] GetArrayOfKeys()
 		{
 			KeyType[] keys = new KeyType[_products.Count];
@@ -83,7 +79,6 @@ namespace DigitalProduction.Generic
 		/// <summary>
 		/// Get a list of keys.
 		/// </summary>
-		/// <returns>The list of keys.</returns>
 		public List<KeyType> GetListOfKeys()
 		{
 			List<KeyType> keys = new List<KeyType>();
@@ -97,10 +92,10 @@ namespace DigitalProduction.Generic
 		}
 
 		/// <summary>
-		/// Does the actual creation of a new object.
+		/// Does the actual creation of a new object.  Returns a new object (subclassed from GeneralProduct) of
+		/// in the form of the super class (base class) type.
 		/// </summary>
 		/// <typeparam name="SpecificType">Subclass type to return.</typeparam>
-		/// <returns>A new object (subclassed from GeneralProduct) of in the form of the super class (base class) type.</returns>
 		private GeneralType Creator<SpecificType>() where SpecificType : GeneralType, new()
 		{
 			return new SpecificType();

@@ -16,7 +16,7 @@ namespace DigitalProduction.IO
 		private static extern int GetDriveType(string drive);
 
 		/// <summary>
-		/// Get information about volume.  Imported from kernel32.dll.
+		/// Get information about volume.  Imported from kernel32.dll.  Returns 0 if failed and not zero if succeeded.
 		/// </summary>
 		/// <param name="PathName">String of the drive letter to get the volume label of.</param>
 		/// <param name="VolumeName"></param>
@@ -26,7 +26,6 @@ namespace DigitalProduction.IO
 		/// <param name="FileSystemFlags"></param>
 		/// <param name="FileSystemName"></param>
 		/// <param name="FileSystemNameSize"></param>
-		/// <returns>0 if failed, not zero if succeeded.</returns>
 		/// <example>
 		/// StringBuilder volumename = new StringBuilder(256);
 		/// long serialnumber= new long();
@@ -129,10 +128,9 @@ namespace DigitalProduction.IO
 		#region Directories
 
 		/// <summary>
-		/// Get directory from the path.  Checks that the directory exists also.
+		/// Get directory from the path.  Checks that the directory exists also.  Returns the directory from the path if it exists, otherwise a blank string.
 		/// </summary>
 		/// <param name="path">Path to get the directory from.</param>
-		/// <returns>Directory from the path if it exists, otherwise a blank string.</returns>
 		public static string GetDirectory(string path)
 		{
 			path = path.Trim();
@@ -160,7 +158,6 @@ namespace DigitalProduction.IO
 		/// command "CD.." does to the current directory at the DOS prompt (gives the parent directory).
 		/// </summary>
 		/// <param name="directory">The starting directory as a string.</param>
-		/// <returns>The new directory name as a string.</returns>
 		public static string ChangeDirectoryDotDot(string directory)
 		{
 			return ChangeDirectoryDotDot(directory, 1);
@@ -172,7 +169,6 @@ namespace DigitalProduction.IO
 		/// </summary>
 		/// <param name="directory">The starting directory as a string.</param>
 		/// <param name="levels">Number of levels to move up.</param>
-		/// <returns>The new directory name as a string.</returns>
 		public static string ChangeDirectoryDotDot(string directory, int levels)
 		{
 			// Ensure that the path is in a format we expect, i.e. it should not end in "\".
@@ -353,9 +349,10 @@ namespace DigitalProduction.IO
 
 		/// <summary>
 		/// Checks to insure that a file name passes the criteria to be valid.
+		///
+		/// Returns a ValidFileNameResult result that indicates if the file name is valid, or if not, what the error was.
 		/// </summary>
 		/// <param name="file">File name to check.</param>
-		/// <returns>A ValidFileNameResult result that indicates if the file name is valid, or if not, what the error was.</returns>
 		public static ValidFileNameResult IsValidFileName(string file)
 		{
 			return IsValidFileName(file, new ValidFileNameOptions());
@@ -363,10 +360,11 @@ namespace DigitalProduction.IO
 
 		/// <summary>
 		/// Checks to insure that a file name passes the criteria to be valid.
+		///
+		/// Returns a ValidFileNameResult result that indicates if the file name is valid, or if not, what the error was.
 		/// </summary>
 		/// <param name="file">File name to check.</param>
 		/// <param name="options">Options to controlling what determines if a file name is valid or not.</param>
-		/// <returns>A ValidFileNameResult result that indicates if the file name is valid, or if not, what the error was.</returns>
 		public static ValidFileNameResult IsValidFileName(string file, ValidFileNameOptions options)
 		{
 			file = file.Trim();

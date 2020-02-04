@@ -1,6 +1,4 @@
-using System;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
 
 namespace DigitalProduction.Forms
 {
@@ -57,11 +55,10 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of an XML file.  Starting directory is the current
 		/// working directory and the title of the dialog box is "Open."
-		/// 
+		///
 		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
-		/// <returns>.</returns>
 		public static string BrowseForAnXMLFile(IWin32Window owner)
 		{
 			return BrowseForAnXMLFile(owner, "Open", "");
@@ -70,7 +67,7 @@ namespace DigitalProduction.Forms
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of an XML file.  Starting directory is the current
 		/// working directory.
-		/// 
+		///
 		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
@@ -82,7 +79,7 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of an XML file.
-		/// 
+		///
 		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
@@ -95,7 +92,7 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use an OpenFileDialog box to get the location of an XML file.
-		/// 
+		///
 		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
@@ -235,12 +232,11 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use an OpenFileDialog box to select several files.  Starting directory is the current directory.
-		/// working directory.
+		/// working directory.  Returns the files selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
 		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Files of type"  box in the dialog box.</param>
 		/// <param name="title">Title of the OpenFileDialog box.</param>
-		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string[] BrowseForMultipleFiles(IWin32Window owner, string filter, string title)
 		{
 			return BrowseForMultipleFiles(owner, filter, title, "", false);
@@ -248,20 +244,19 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use an OpenFileDialog box to select several files.  Starting directory is the current directory.
-		/// working directory.
+		/// working directory.  Returns the files selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
 		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Files of type"  box in the dialog box.</param>
 		/// <param name="title">Title of the OpenFileDialog box.</param>
 		/// <param name="initialDirectory">Directory to start in.</param>
-		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string[] BrowseForMultipleFiles(IWin32Window owner, string filter, string title, string initialDirectory)
 		{
 			return BrowseForMultipleFiles(owner, filter, title, initialDirectory, false);
 		}
 
 		/// <summary>
-		/// Use an OpenFileDialog box to select several files.
+		/// Use an OpenFileDialog box to select several files.  Returns the files selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
 		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Files of type"  box in the dialog box.</param>
@@ -271,7 +266,6 @@ namespace DigitalProduction.Forms
 		/// If true, the directory from the selected file will be used when the dialog is next opened.  Otherwise, it will be ignored and defaulted to what
 		/// folder was current before the dialog was opened.
 		/// </param>
-		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string[] BrowseForMultipleFiles(IWin32Window owner, string filter, string title, string initialdirectory, bool restoreDirectory)
 		{
 			OpenFileDialog dialog = new OpenFileDialog();
@@ -321,10 +315,12 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use a SaveFileDialog box to get a location for a new XML file.  Starting directory is the current
-		/// working directory and the title of the dialog box is "Save As."
+		/// working directory and the title of the dialog box is "Save As."  Returns the new file selected, or "" if
+		/// a valid file is not selected.
+		///
+		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
-		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string BrowseForANewXMLFileLocation(IWin32Window owner)
 		{
 			return BrowseForANewXMLFileLocation(owner, "Save As", "");
@@ -332,23 +328,25 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use a SaveFileDialog box to get a location for a new XML file.  Starting directory is the current
-		/// working directory.
+		/// working directory.  Returns the new file selected, or "" if a valid file is not selected.
+		///
+		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
 		/// <param name="title">Title of the SaveFileDialog box.</param>
-		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string BrowseForANewXMLFileLocation(IWin32Window owner, string title)
 		{
 			return BrowseForANewXMLFileLocation(owner, title, "");
 		}
 
 		/// <summary>
-		/// Use a SaveFileDialog box to get a location for a new XML file.
+		/// Use a SaveFileDialog box to get a location for a new XML file.  Returns the new file selected, or "" if a valid file is not selected.
+		///
+		/// Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
 		/// <param name="title">Title of the SaveFileDialog box.</param>
 		/// <param name="initialdirectory">Directory to start in.</param>
-		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string BrowseForANewXMLFileLocation(IWin32Window owner, string title, string initialdirectory)
 		{
 			return BrowseForANewFileLocation(owner, "XML files (*.xml)|*.xml|Text files (*.txt)|*.txt|All files (*.*)|*.*", title, initialdirectory);
@@ -360,11 +358,10 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use a SaveFileDialog box to get a location for a new file.  Starting directory is the current
-		/// working directory and the title of the dialog box is "Save As."
+		/// working directory and the title of the dialog box is "Save As."  Return the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
 		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Saves as file type"  box in the dialog box.</param>
-		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string BrowseForANewFileLocation(IWin32Window owner, string filter)
 		{
 			return BrowseForANewFileLocation(owner, filter, "Save As", "", false);
@@ -372,12 +369,11 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use a SaveFileDialog box to get a location for a new file.  Starting directory is the current
-		/// working directory.
+		/// working directory.  Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
 		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Saves as file type"  box in the dialog box.</param>
 		/// <param name="title">Title of the SaveFileDialog box.</param>
-		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string BrowseForANewFileLocation(IWin32Window owner, string filter, string title)
 		{
 			return BrowseForANewFileLocation(owner, filter, title, "", false);
@@ -385,20 +381,19 @@ namespace DigitalProduction.Forms
 
 		/// <summary>
 		/// Use a SaveFileDialog box to get a location for a new file.  Starting directory is the current
-		/// working directory.
+		/// working directory.  Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
 		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Saves as file type"  box in the dialog box.</param>
 		/// <param name="title">Title of the SaveFileDialog box.</param>
 		/// <param name="initialDirectory">Directory to start in.</param>
-		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string BrowseForANewFileLocation(IWin32Window owner, string filter, string title, string initialDirectory)
 		{
 			return BrowseForANewFileLocation(owner, filter, title, initialDirectory, false);
 		}
 
 		/// <summary>
-		/// Use a SaveFileDialog box to get a location for a new file.
+		/// Use a SaveFileDialog box to get a location for a new file.  Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
 		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Saves as file type"  box in the dialog box.</param>
@@ -407,14 +402,13 @@ namespace DigitalProduction.Forms
 		/// If true, the directory from the selected file will be used when the dialog is next opened.  Otherwise, it will be ignored and defaulted to what
 		/// folder was current before the dialog was opened.
 		/// </param>
-		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string BrowseForANewFileLocation(IWin32Window owner, string filter, string title, bool restoreDirectory)
 		{
 			return BrowseForANewFileLocation(owner, filter, title, "", restoreDirectory);
 		}
 
 		/// <summary>
-		/// Use a SaveFileDialog box to get a location for a new file.
+		/// Use a SaveFileDialog box to get a location for a new file.  Returns the new file selected, or "" if a valid file is not selected.
 		/// </summary>
 		/// <param name="owner">Owner window.</param>
 		/// <param name="filter">The file name filter string, which determines the choices that appear in the "Saves as file type"  box in the dialog box.</param>
@@ -424,7 +418,6 @@ namespace DigitalProduction.Forms
 		/// If true, the directory from the selected file will be used when the dialog is next opened.  Otherwise, it will be ignored and defaulted to what
 		/// folder was current before the dialog was opened.
 		/// </param>
-		/// <returns>The new file selected, or "" if a valid file is not selected.</returns>
 		public static string BrowseForANewFileLocation(IWin32Window owner, string filter, string title, string initialDirectory, bool restoreDirectory)
 		{
 			SaveFileDialog dialog = new SaveFileDialog();

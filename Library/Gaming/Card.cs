@@ -219,7 +219,6 @@ namespace DigitalProduction.Gaming
 		/// Convert a card rank to a integer value.
 		/// </summary>
 		/// <param name="cardrank">CardRank to find the value of.</param>
-		/// <returns>An integer which represents the value of the card.</returns>
 		public static int GetCardValue(CardRank cardrank)
 		{
 			return _cardvalues[(int)cardrank];

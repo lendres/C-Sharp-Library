@@ -5,17 +5,17 @@ namespace DigitalProduction.Forms
 {
 	/// <summary>
 	/// Provides a parallel form and Show methods to MessageBox but adds "Yes to All" and "No to All" options.
-	/// 
+	///
 	/// A delegate is provided which allows the MessageBoxYesNoToAll set and get the result of the dialog call.  This allow the
 	/// "Yes to All" and "No to All" options work by storing the value and using it for later calls.  Note, the stored value must
 	/// be reset in order to re-display the message box.
-	/// 
+	///
 	/// Allows for the option to return "Yes to All" as "Yes" and "No to All" as "No."  This means the calling function does not need
 	/// to check both "Yes/No to All" and "Yes/No" to determine if it's work should be done.
 	/// </summary>
 	public class MessageBoxYesNoToAll
 	{
-		#region Enumerations.
+		#region Enumerations
 
 		/// <summary>
 		/// Results of the dialog.
@@ -120,13 +120,13 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Members and Delegates.
+		#region Members and Delegates
 
 		/// <summary>
 		/// Delegate signature for the function used to save and retrieve the result of showing the dialog box.
 		/// </summary>
 		/// <param name="result">Result of showing the dialog box.</param>
-		/// <param name="setvalue">If true, the result must be saved.  If fase, the result must be retrieved and stored in the "result" parameter.</param>
+		/// <param name="setvalue">If true, the result must be saved.  If false, the result must be retrieved and stored in the "result" parameter.</param>
 		public delegate void StoreResultDelegate(ref MessageBoxYesNoToAll.Result result, bool setvalue);
 
 		/// <summary>
@@ -138,31 +138,31 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region Construction.
+		#region Construction
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		/// <param name="storeresultfunction"></param>
-		public MessageBoxYesNoToAll(MessageBoxYesNoToAll.StoreResultDelegate storeresultfunction)
+		/// <param name="storeResultFunction"></param>
+		public MessageBoxYesNoToAll(MessageBoxYesNoToAll.StoreResultDelegate storeResultFunction)
 		{
-			_storeresultfunction = storeresultfunction;
+			_storeresultfunction = storeResultFunction;
 		}
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		/// <param name="storeresultfunction"></param>
-		/// <param name="returnonlyyesno">If true, "Yes to All" is returned as "Yes" and "No to All" is returned as "No."</param>
-		public MessageBoxYesNoToAll(MessageBoxYesNoToAll.StoreResultDelegate storeresultfunction, bool returnonlyyesno)
+		/// <param name="storeResultFunction"></param>
+		/// <param name="returnOnlyYesNo">If true, "Yes to All" is returned as "Yes" and "No to All" is returned as "No."</param>
+		public MessageBoxYesNoToAll(MessageBoxYesNoToAll.StoreResultDelegate storeResultFunction, bool returnOnlyYesNo)
 		{
-			_storeresultfunction	= storeresultfunction;
-			_returnonlyyesno		= returnonlyyesno;
+			_storeresultfunction	= storeResultFunction;
+			_returnonlyyesno		= returnOnlyYesNo;
 		}
 
 		#endregion
 
-		#region Show functions.
+		#region Show Functions
 
 		/// <summary>
 		/// Show a MessageBoxYesNoToAll dialog box and return the result.  The result is also stored for later retrieval.
@@ -218,8 +218,8 @@ namespace DigitalProduction.Forms
 		/// <param name="caption">Title of message box.</param>
 		/// <param name="buttons">Which buttons to show.</param>
 		/// <param name="icon">Icon to show.</param>
-		/// <param name="defaultbutton">Which button is default.</param>
-		public MessageBoxYesNoToAll.Result Show(IWin32Window owner, string text, string caption, MessageBoxYesNoToAll.Buttons buttons, MessageBoxYesNoToAll.Icon icon, MessageBoxYesNoToAll.DefaultButton defaultbutton)
+		/// <param name="defaultButton">Which button is default.</param>
+		public MessageBoxYesNoToAll.Result Show(IWin32Window owner, string text, string caption, MessageBoxYesNoToAll.Buttons buttons, MessageBoxYesNoToAll.Icon icon, MessageBoxYesNoToAll.DefaultButton defaultButton)
 		{
 			MessageBoxYesNoToAll.Result result1 = MessageBoxYesNoToAll.Result.Cancel;
 			_storeresultfunction(ref result1, false);
@@ -233,7 +233,7 @@ namespace DigitalProduction.Forms
 				}
 				default:
 				{
-					MessageBoxYesNoToAllForm boxYesNoToAllForm = new MessageBoxYesNoToAllForm(text, caption, buttons, icon, defaultbutton);
+					MessageBoxYesNoToAllForm boxYesNoToAllForm = new MessageBoxYesNoToAllForm(text, caption, buttons, icon, defaultButton);
 					boxYesNoToAllForm.ShowDialog(owner);
 					MessageBoxYesNoToAll.Result result2 = boxYesNoToAllForm.Result;
 					_storeresultfunction(ref result2, true);
@@ -244,19 +244,18 @@ namespace DigitalProduction.Forms
 
 		#endregion
 
-		#region  Helper functions.
+		#region  Helper Functions
 
 		/// <summary>
 		/// Performs the duty of converting "Yes to All" to "Yes" and "No to All" to "No" if that option is selected.
 		/// </summary>
-		/// <param name="dialogresult">Input dialog result.</param>
-		/// <returns>Dialog result correct based on if the conversion option is selected.</returns>
-		private MessageBoxYesNoToAll.Result CheckResult(MessageBoxYesNoToAll.Result dialogresult)
+		/// <param name="dialogResult">Input dialog result.</param>
+		private MessageBoxYesNoToAll.Result CheckResult(MessageBoxYesNoToAll.Result dialogResult)
 		{
 			// Checks option to return "Yes" instead of "YesToAll" and "No" instead of "NoToAll".
 			if (_returnonlyyesno)
 			{
-				switch (dialogresult)
+				switch (dialogResult)
 				{
 					case MessageBoxYesNoToAll.Result.YesToAll:
 					{
@@ -268,7 +267,7 @@ namespace DigitalProduction.Forms
 					}
 				}
 			}
-			return dialogresult;
+			return dialogResult;
 		}
 
 		#endregion

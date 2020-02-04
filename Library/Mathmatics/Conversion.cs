@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Xml.Serialization;
+﻿using System.Collections.Generic;
 
 namespace DigitalProduction.Mathmatics
 {
@@ -88,7 +82,6 @@ namespace DigitalProduction.Mathmatics
 		/// Convert radians to degrees.
 		/// </summary>
 		/// <param name="angles">Angle to convert.</param>
-		/// <returns>Angle in degrees.</returns>
 		public static List<double> RadiansToDegrees(List<double> angles)
 		{
 			int				count		= angles.Count;

@@ -1,8 +1,7 @@
-using System;
-using System.Windows.Forms;
-using Microsoft.Win32;
-using System.Collections;
 using DigitalProduction.Forms;
+using Microsoft.Win32;
+using System;
+using System.Collections;
 
 namespace DigitalProduction.Registry
 {
@@ -11,12 +10,12 @@ namespace DigitalProduction.Registry
 	/// It does common tasks for all application, such as get the CompanyKey and the ApplicationKey.
 	/// A specific application should derive it's own registry writer from this to save any other
 	/// specific data.
-	/// 
+	///
 	/// Note that the functions in this class cannot be static because most of them depend on the specific
 	/// _owner of this instance.  Since this class is to be general enough to be used for all DPM applications
 	/// the type of the owner is not know before hand.  Moreover, several instances of this class could
 	/// exist at one time, each working for a different type of application.
-	/// 
+	///
 	/// This class supports multiple levels of access to the registry.  That is, this class can be used
 	/// to access a set of registry keys and values for a form that is owned by another form.  If this
 	/// WinRegistryAccess has a parent it requests the AppKey from it's parent.  If that WinRegistryAccess
@@ -114,7 +113,7 @@ namespace DigitalProduction.Registry
 
 		#endregion
 
-		#region Virtual Functions - Derived Classes Should Override These.
+		#region Virtual Functions
 
 		/// <summary>
 		/// Default creation of registry entries.  Derived classes should override this to
@@ -154,25 +153,24 @@ namespace DigitalProduction.Registry
 		}
 
 		/// <summary>
-		/// Get a registry entry from the array.
+		/// Get a registry entry from the array.  Returns the registry entry associated with index if possible, otherwise null.
 		/// </summary>
 		/// <param name="index">index of the registry entry desired.</param>
-		/// <returns>The registry entry associated with index if possible, otherwise null.</returns>
 		protected RegistryEntry GetRegEntry(int index)
 		{
 			if (index > _registryEntries.Count)
 			{
 				return null;
 			}
+
 			return (RegistryEntry)_registryEntries[index];
 		}
 
 		/// <summary>
-		/// Get a value from the registry entries stored in arraylist and return
+		/// Get a value from the registry entries stored in array list and return
 		/// as a boolean.
 		/// </summary>
-		/// <param name="index">Index in arraylist that entry is stored at.</param>
-		/// <returns>The value of the registry entry as a boolean.</returns>
+		/// <param name="index">Index in array list that entry is stored at.</param>
 		public bool GetValueAsBoolean(int index)
 		{
 			RegistryEntry regentry = GetRegEntry(index);
@@ -181,11 +179,10 @@ namespace DigitalProduction.Registry
 		}
 
 		/// <summary>
-		/// Get a value from the registry entries stored in arraylist and return
+		/// Get a value from the registry entries stored in array list and return
 		/// as an int.
 		/// </summary>
-		/// <param name="index">Index in arraylist that entry is stored at.</param>
-		/// <returns>The value of the registry entry as an int.</returns>
+		/// <param name="index">Index in array list that entry is stored at.</param>
 		public int GetValueAsInt32(int index)
 		{
 			RegistryEntry regentry = GetRegEntry(index);
@@ -194,11 +191,10 @@ namespace DigitalProduction.Registry
 		}
 
 		/// <summary>
-		/// Get a value from the registry entries stored in arraylist and return
+		/// Get a value from the registry entries stored in array list and return
 		/// as a string.
 		/// </summary>
-		/// <param name="index">Index in arraylist that entry is stored at.</param>
-		/// <returns>The value of the registry entry as a string.</returns>
+		/// <param name="index">Index in array list that entry is stored at.</param>
 		public string GetValueAsString(int index)
 		{
 			RegistryEntry regentry = GetRegEntry(index);
@@ -207,11 +203,10 @@ namespace DigitalProduction.Registry
 		}
 
 		/// <summary>
-		/// Get a value from the registry entries stored in arraylist and return
+		/// Get a value from the registry entries stored in array list and return
 		/// as a double.
 		/// </summary>
-		/// <param name="index">Index in arraylist that entry is stored at.</param>
-		/// <returns>The value of the registry entry as a double.</returns>
+		/// <param name="index">Index in array list that entry is stored at.</param>
 		public double GetValueAsDouble(int index)
 		{
 			RegistryEntry regentry = GetRegEntry(index);
@@ -220,9 +215,9 @@ namespace DigitalProduction.Registry
 		}
 
 		/// <summary>
-		/// Sets the value of a registry entry stored in the arraylist.
+		/// Sets the value of a registry entry stored in the array list.
 		/// </summary>
-		/// <param name="index">Index in arraylist that entry is stored at.</param>
+		/// <param name="index">Index in array list that entry is stored at.</param>
 		/// <param name="setvalue">Value to set.</param>
 		public void SetValue(int index, object setvalue)
 		{
@@ -259,8 +254,9 @@ namespace DigitalProduction.Registry
 
 		/// <summary>
 		/// Get the registry key associated with the company name.
+		///
+		/// Returns the registry key if it could be accessed, null if an error occurs.
 		/// </summary>
-		/// <returns>Returns the registry key if it could be accessed, null if an error occurs.</returns>
 		protected RegistryKey CompanyKey()
 		{
 			RegistryKey companykey;
@@ -268,7 +264,7 @@ namespace DigitalProduction.Registry
 			try
 			{
 				// Have to open all registry keys that are going to be written too (or a subkey is going
-				// to be written too) with CreateSubKey.  I.e. cannot do 
+				// to be written too) with CreateSubKey.  I.e. cannot do
 				// Registry.CurrentUser.OpenSubKey("Software").CreateSubKey("Digital Production Management") because "Software" will
 				// be opened read only.
 				RegistryKey userSoftwareKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software");
@@ -286,8 +282,9 @@ namespace DigitalProduction.Registry
 
 		/// <summary>
 		/// Get the registry key associated with the application name.
+		///
+		/// Returns the registry key if it could be accessed, null if an error occurs.
 		/// </summary>
-		/// <returns>Returns the registry key if it could be accessed, null if an error occurs.</returns>
 		protected virtual RegistryKey AppKey()
 		{
 			RegistryKey appkey;
@@ -317,12 +314,11 @@ namespace DigitalProduction.Registry
 		#region General Access to Values
 
 		/// <summary>
-		/// Get a registry value.
+		/// Get a registry value.  Returns the value stored in registry value if it exists, otherwise return the default value.
 		/// </summary>
 		/// <param name="key">Registry key that the value is located in.</param>
 		/// <param name="valuename">Name of the value to get.</param>
 		/// <param name="defaultvalue">Default value to use.</param>
-		/// <returns>Returns the value stored in registry value if it exists, otherwise return the default value.</returns>
 		public bool GetValue(RegistryKey key, string valuename, bool defaultvalue)
 		{
 			if (key == null)
@@ -334,12 +330,11 @@ namespace DigitalProduction.Registry
 		}
 
 		/// <summary>
-		/// Get a registry value.
+		/// Get a registry value.  Returns the value stored in registry value if it exists, otherwise return the default value.
 		/// </summary>
 		/// <param name="key">Registry key that the value is located in.</param>
 		/// <param name="valuename">Name of the value to get.</param>
 		/// <param name="defaultvalue">Default value to use.</param>
-		/// <returns>Returns the value stored in registry value if it exists, otherwise return the default value.</returns>
 		public int GetValue(RegistryKey key, string valuename, int defaultvalue)
 		{
 			if (key == null)
@@ -351,12 +346,11 @@ namespace DigitalProduction.Registry
 		}
 
 		/// <summary>
-		/// Get a registry value.
+		/// Get a registry value.  Returns the value stored in registry value if it exists, otherwise return the default value.
 		/// </summary>
 		/// <param name="key">Registry key that the value is located in.</param>
 		/// <param name="valuename">Name of the value to get.</param>
 		/// <param name="defaultvalue">Default value to use.</param>
-		/// <returns>Returns the value stored in registry value if it exists, otherwise return the default value.</returns>
 		public object GetValue(RegistryKey key, string valuename, object defaultvalue)
 		{
 			if (key == null)
@@ -368,12 +362,11 @@ namespace DigitalProduction.Registry
 		}
 
 		/// <summary>
-		/// Get a registry value.
+		/// Get a registry value.  Returns the value stored in registry value if it exists, otherwise return the default value.
 		/// </summary>
 		/// <param name="key">Registry key that the value is located in.</param>
 		/// <param name="valuename">Name of the value to get.</param>
 		/// <param name="defaultvalue">Default value to use.</param>
-		/// <returns>Returns the value stored in registry value if it exists, otherwise return the default value.</returns>
 		public double GetValue(RegistryKey key, string valuename, double defaultvalue)
 		{
 			if (key == null)
@@ -385,12 +378,11 @@ namespace DigitalProduction.Registry
 		}
 
 		/// <summary>
-		/// Get a registry value.
+		/// Get a registry value.  Returns the value stored in registry value if it exists, otherwise return the default value.
 		/// </summary>
 		/// <param name="key">Registry key that the value is located in.</param>
 		/// <param name="valuename">Name of the value to get.</param>
 		/// <param name="defaultvalue">Default value to use.</param>
-		/// <returns>Returns the value stored in registry value if it exists, otherwise return the default value.</returns>
 		public string GetValue(RegistryKey key, string valuename, string defaultvalue)
 		{
 			if (key == null)
@@ -402,12 +394,11 @@ namespace DigitalProduction.Registry
 		}
 
 		/// <summary>
-		/// Get a registry value.
+		/// Get a registry value.  Returns the value stored in registry value if it exists, otherwise return the default value.
 		/// </summary>
 		/// <param name="key">Registry key that the value is located in.</param>
 		/// <param name="valuename">Name of the value to get.</param>
 		/// <param name="defaultvalue">Default value to use.</param>
-		/// <returns>Returns the value stored in registry value if it exists, otherwise return the default value.</returns>
 		public DateTime GetValue(RegistryKey key, string valuename, DateTime defaultvalue)
 		{
 			if (key == null)

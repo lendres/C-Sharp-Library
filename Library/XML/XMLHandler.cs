@@ -97,15 +97,14 @@ namespace DigitalProduction.XML
 
 		/// <summary>
 		/// Implements the CompareTo method of the IComparable interface.
-		/// </summary>
-		/// <param name="obj">An object of type XMLHandler.</param>
-		/// <returns>
-		/// A 32-bit signed integer that indicates the relative order of the objects being compared.  The return value 
+		///
+		/// Returns a 32-bit signed integer that indicates the relative order of the objects being compared.  The return value
 		/// has these meanings:
 		/// Less than zero: This instance is less than obj.
-		/// Zero: This instance is equal to obj. 
+		/// Zero: This instance is equal to obj.
 		/// Greater than zero: This instance is greater than obj.
-		/// </returns>
+		/// </summary>
+		/// <param name="obj">An object of type XMLHandler.</param>
 		public int CompareTo(object obj)
 		{
 			// Ensure we have an object of this type.
@@ -133,7 +132,6 @@ namespace DigitalProduction.XML
 		/// Equivalent function used as a predicate to determine if this FileExtension is equivalent to a second.
 		/// </summary>
 		/// <param name="obj">XMLHandler to compare to.</param>
-		/// <returns>True if equivalent, false otherwise.</returns>
 		override public bool Equals(object obj)
 		{
 			if (obj is XMLHandler)
@@ -147,7 +145,6 @@ namespace DigitalProduction.XML
 		/// <summary>
 		/// Get a hash code.
 		/// </summary>
-		/// <returns>A hash code.</returns>
 		override public int GetHashCode()
 		{
 			return _elementname.GetHashCode();

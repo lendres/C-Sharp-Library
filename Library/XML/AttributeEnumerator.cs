@@ -71,8 +71,9 @@ namespace DigitalProduction.XML
 
 		/// <summary>
 		/// Move to the next entry.
+		///
+		/// Returns true is there is another entry, false otherwise.
 		/// </summary>
-		/// <returns>True is there is another entry, false otherwise.</returns>
 		bool IEnumerator.MoveNext()
 		{
 			_position++;

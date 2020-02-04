@@ -245,7 +245,6 @@ namespace DigitalProduction.Forms
 		/// Sets which buttons are shown on the control.  Returns an array of bools indicating which buttons are set.
 		/// </summary>
 		/// <param name="buttons">Which buttons are shown.</param>
-		/// <returns></returns>
 		private bool[] SetButtons(MessageBoxYesNoToAll.Buttons buttons)
 		{
 			bool[] visiblebuttons = ResetButtons();
