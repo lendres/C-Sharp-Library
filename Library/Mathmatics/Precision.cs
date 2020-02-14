@@ -61,6 +61,27 @@
 		}
 
 		/// <summary>
+		/// Determines if the first input is greater than the second input within the allotted precision.
+		/// </summary>
+		/// <param name="value1">The first value.</param>
+		/// <param name="value2">The second value.</param>
+		public static bool LessThan(double value1, double value2)
+		{
+			return LessThanZero(value1 - value2, _epsilon);
+		}
+
+		/// <summary>
+		/// Determines if the first input is less than the second input within the allotted precision.
+		/// </summary>
+		/// <param name="value1">The first value.</param>
+		/// <param name="value2">The second value.</param>
+		/// <param name="epsilon">The specified precision.</param>
+		public static bool LessThan(double value1, double value2, double epsilon)
+		{
+			return LessThanZero(value1 - value2, epsilon);
+		}
+
+		/// <summary>
 		/// Determines if the input is less than zero within the allotted precision.
 		/// </summary>
 		/// <param name="val">The value to check.</param>
@@ -76,7 +97,7 @@
 		/// <param name="epsilon">The specified precision.</param>
 		public static bool LessThanZero(double val, double epsilon)
 		{
-			if (val < epsilon)
+			if (val < -epsilon)
 			{
 				return true;
 			}
@@ -84,6 +105,27 @@
 			{
 				return false;
 			}
+		}
+
+		/// <summary>
+		/// Determines if the first input is greater than the second input within the allotted precision.
+		/// </summary>
+		/// <param name="value1">The first value.</param>
+		/// <param name="value2">The second value.</param>
+		public static bool GreaterThan(double value1, double value2)
+		{
+			return GreaterThanZero(value1 - value2, _epsilon);
+		}
+
+		/// <summary>
+		/// Determines if the first input is greater than the second input within the allotted precision.
+		/// </summary>
+		/// <param name="value1">The first value.</param>
+		/// <param name="value2">The second value.</param>
+		/// <param name="epsilon">The specified precision.</param>
+		public static bool GreaterThan(double value1, double value2, double epsilon)
+		{
+			return GreaterThanZero(value1 - value2, epsilon);
 		}
 
 		/// <summary>
@@ -102,7 +144,7 @@
 		/// <param name="epsilon">The specified precision.</param>
 		public static bool GreaterThanZero(double val, double epsilon)
 		{
-			if (val > -epsilon)
+			if (val > epsilon)
 			{
 				return true;
 			}
@@ -111,6 +153,8 @@
 				return false;
 			}
 		}
+
+		#region Equal and Not Equal
 
 		/// <summary>
 		/// Determines two numbers are equal within the default precision.
@@ -155,6 +199,10 @@
 			return !Equal(val1, val2, epsilon);
 		}
 
+		#endregion
+
+		#region Floor and Ceiling
+
 		/// <summary>
 		/// Round up to the specified decimal place.
 		/// </summary>
@@ -188,6 +236,8 @@
 				return val;
 			}
 		}
+
+		#endregion
 
 		#endregion
 

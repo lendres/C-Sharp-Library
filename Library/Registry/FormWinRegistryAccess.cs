@@ -274,7 +274,7 @@ namespace DigitalProduction.Registry
 		{
 			get
 			{
-				return (uint)GetValue(RecentFilesKey(), "Size", 4);
+				return (uint)GetValue(RecentFilesKey(), "Size", 10);
 			}
 
 			set

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace DigitalProduction.Graphics
@@ -31,6 +32,40 @@ namespace DigitalProduction.Graphics
 		#endregion
 
 		#region Methods
+
+		/// <summary>
+		/// Converts a list of doubles to a list of colors.  Maps values from 0 to 1 to a cool to warm space.
+		/// </summary>
+		/// <param name="values">A list of unit doubles (doubles that range from 0 =&lt; x &gt;= 1.0).</param>
+		public static Color[] MorelandCoolToWarm(double[] values)
+		{
+			int size		= values.Length;
+			Color[] colors	= new Color[size];
+
+			for (int i = 0; i < size; i++)
+			{
+				colors[i] = MorelandCoolToWarm(values[i]);
+			}
+
+			return colors;
+		}
+
+		/// <summary>
+		/// Converts a list of doubles to a list of colors.  Maps values from 0 to 1 to a cool to warm space.
+		/// </summary>
+		/// <param name="values">A list of unit doubles (doubles that range from 0 =&lt; x &gt;= 1.0).</param>
+		public static List<Color> MorelandCoolToWarm(List<double> values)
+		{
+			int size			= values.Count;
+			List<Color> colors	= new List<Color>(size);
+
+			for (int i = 0; i < size; i++)
+			{
+				colors.Add(MorelandCoolToWarm(values[i]));
+			}
+
+			return colors;
+		}
 
 		/// <summary>
 		/// A mapping of a value from 0 to 1 into a cool to warm color space.

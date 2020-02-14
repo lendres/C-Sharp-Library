@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DigitalProduction.Registry;
+using System;
 using System.Windows.Forms;
-using DigitalProduction.Registry;
 
 namespace DigitalProduction.Forms
 {
