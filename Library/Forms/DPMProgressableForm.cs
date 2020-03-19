@@ -106,14 +106,14 @@ namespace DigitalProduction.Forms
 			{
 				return;
 			}
-			
+
 			_lastProgressValue = progress;
 
 			if (_progressDialog == null)
 			{
 				return;
 			}
-			
+
 			_progressDialog.BeginInvoke((Delegate)_progressCallback, new object[1] {(object)progress});
 		}
 

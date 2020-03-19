@@ -1,25 +1,20 @@
-using System;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
-
 using DigitalProduction.Registry;
+using System.Windows.Forms;
 
 namespace DigitalProduction.Forms
 {
 	/// <summary>
 	/// DPMForm Class.  this is the base class for all Digital Production Management forms.  It contains
 	/// the common code for all applications (e.g. company name).
-	/// 
+	///
 	/// The event "Install" is provided to allow all class to chain installation call back functions to it
 	/// so that each class can define it's installation requirements.  This is primarily used for debugging
 	/// purposes, a setup routine should handle the installation of things normally so that they can be
-	/// removed with an un-installation routine.
-	/// 
+	/// removed with an uninstaller.
+	///
 	/// If this form is the child of another the name of the form is held in _appname;
 	/// </summary>
-	public class DPMForm : System.Windows.Forms.Form
+	public class DPMForm : Form
 	{
 		#region Members
 

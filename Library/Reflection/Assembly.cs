@@ -9,7 +9,7 @@ namespace DigitalProduction.Reflection
 	/// </summary>
 	public static class Assembly
 	{
-		#region Properties.
+		#region Properties
 
 		/// <summary>
 		/// Location of the library assembly (including the name of the library).
@@ -44,7 +44,7 @@ namespace DigitalProduction.Reflection
 
 		#endregion
 
-		#region Functions
+		#region Methods
 
 		/// <summary>
 		/// Location of the executing assembly (including the name of the assembly).

@@ -68,6 +68,7 @@
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -138,6 +139,12 @@
     <Compile Include="Forms\AbstractControlDescriptionProvider.cs" />
     <Compile Include="Forms\Delegates.cs" />
     <Compile Include="Forms\DirectorySelect.cs" />
+    <Compile Include="Forms\ReadOnlySettableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReadOnlySettableForm.Designer.cs">
+      <DependentUpon>ReadOnlySettableForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RotatedLabel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -302,6 +309,9 @@
     <EmbeddedResource Include="Forms\ProgressDialog.resx">
       <DependentUpon>ProgressDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReadOnlySettableForm.resx">
+      <DependentUpon>ReadOnlySettableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RotatedLabel.resx">
       <DependentUpon>RotatedLabel.cs</DependentUpon>

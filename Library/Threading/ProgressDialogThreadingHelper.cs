@@ -199,7 +199,7 @@ namespace DigitalProduction.Threading
 		}
 
 		/// <summary>
-		/// 
+		/// Display a message using invoke (if required) or normally (if not required).
 		/// </summary>
 		/// <param name="message">Message/text.</param>
 		/// <param name="caption">Caption.</param>
