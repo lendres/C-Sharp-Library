@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using DigitalProduction.Mathmatics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DigitalProduction.Mathmatics;
 
 namespace DigitalProduction.UnitTests
 {
@@ -12,10 +9,16 @@ namespace DigitalProduction.UnitTests
 	[TestClass]
 	public class MathTests
 	{
-		private static double _epsilon		= DigitalProduction.Mathmatics.Precision.Epsilon;
+		#region Members
+
+		private static double _epsilon		= Precision.Epsilon;
+
+		#endregion
+
+		#region Tests
 
 		/// <summary>
-		/// 
+		/// Covariance test.
 		/// </summary>
 		[TestMethod]
 		public void Covariance()
@@ -74,6 +77,8 @@ namespace DigitalProduction.UnitTests
 
 			Assert.AreEqual(Statistics.StandardDeviation(xValues), 4.8989794855664, _epsilon, errorMessage);
 		}
+
+		#endregion
 
 	} // End class.
 } // End namespace.

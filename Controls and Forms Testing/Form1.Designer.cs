@@ -2,10 +2,31 @@
 {
 	partial class Form1
 	{
+		#region Members
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
+		
+		public System.Windows.Forms.Button btnNumericTextBox;
+		private DigitalProduction.Forms.NumericTextBox numericTextBox2;
+		private DigitalProduction.Forms.NumericTextBox numericTextBox3;
+		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.GroupBox groupBoxXslt;
+		private System.Windows.Forms.TextBox textBoxXsltFile;
+		private System.Windows.Forms.Button buttonBrowseXslt;
+		private System.Windows.Forms.GroupBox groupBoxTextWithInitialDirectory;
+		private System.Windows.Forms.TextBox textBoxTextFile;
+		private System.Windows.Forms.Button buttonBrowseText;
+		private System.Windows.Forms.GroupBox groupBoxTextNoInitialDirectory;
+		private System.Windows.Forms.TextBox textBoxTextNoInitialDirectory;
+		private System.Windows.Forms.Button buttonBrowseNoInitialDirectory;
+		private DigitalProduction.Forms.RotatedLabel rotatedLabel1;
+		private System.Windows.Forms.Label label1;
+
+		#endregion
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -275,22 +296,5 @@
 
 		#endregion
 
-		public System.Windows.Forms.Button btnNumericTextBox;
-		private DigitalProduction.Forms.NumericTextBox numericTextBox2;
-		private DigitalProduction.Forms.NumericTextBox numericTextBox3;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.GroupBox groupBoxXslt;
-		private System.Windows.Forms.TextBox textBoxXsltFile;
-		private System.Windows.Forms.Button buttonBrowseXslt;
-		private System.Windows.Forms.GroupBox groupBoxTextWithInitialDirectory;
-		private System.Windows.Forms.TextBox textBoxTextFile;
-		private System.Windows.Forms.Button buttonBrowseText;
-		private System.Windows.Forms.GroupBox groupBoxTextNoInitialDirectory;
-		private System.Windows.Forms.TextBox textBoxTextNoInitialDirectory;
-		private System.Windows.Forms.Button buttonBrowseNoInitialDirectory;
-		private DigitalProduction.Forms.RotatedLabel rotatedLabel1;
-		private System.Windows.Forms.Label label1;
-
-	}
-}
+	} // End class.
+} // End namespace.
